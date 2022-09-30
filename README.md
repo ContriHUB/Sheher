@@ -14,14 +14,40 @@ An utility **Django WebApp** that uses Django packages.
 
 ## Getting Started
 
-##### To run this project in your system, follow these steps -
-
-1. create virtual environment
-2. pip install django
-3. pip install -r requirements
-4. python manage.py makemigrations
-5. python manage.py migrate
-6. python manage.py runserver
+## How to run locally?
+* [Install Python](https://www.wikihow.com/Install-Python)
+* Clone this repository
+    ```
+    git clone https://github.com/ContriHUB/Sheher.git
+    ```
+* Create Virtual Environment
+    ```
+    python -m venv <env_name>
+    ```
+* Activate the environment
+    * On Windows, run: `<env_name>\Scripts\activate`
+    * On Linux/Mac, run: `source <env_name>/bin/activate`    
+* Install the dependencies
+    ```
+    pip install -r requirements
+    ```
+* Change directory to *Sheher*
+    ```
+    cd Sheher
+    ```
+* To apply the migrations run,
+    ```
+    python manage.py makemigrations
+    ```
+    
+    ```
+    python manage.py migrate
+    ```
+* Now to run the server, and visit `http://127.0.0.1:8000/`.
+    ```
+    python manage.py runserver
+    ```
+* To access admin panel, you need to be superuser. Follow [this](https://www.geeksforgeeks.org/how-to-create-superuser-in-django/) link for instructions.
 
 For help getting started with Django, view [online documentation](https://docs.djangoproject.com/en/4.1/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
@@ -37,3 +63,9 @@ samples, guidance on mobile development, and a full API reference.
 ## Contributors
 
 A list of contributors can be found in [CONTRIBUTORS.md](CONTRIBUTORS.md).
+
+# Maintainers
+
+- [Cyril Mishra](https://github.com/CyrilMishra)
+
+### CAUTION: Website is currently under development.
