@@ -10,6 +10,7 @@ An utility **Django WebApp** that uses Django packages.
 + Complaint Portal
 + About Places
 + Username Generator
++ Safety Index Of Place
 
 
 ## Getting Started
@@ -34,6 +35,14 @@ An utility **Django WebApp** that uses Django packages.
 * Change directory to *Sheher*
     ```
     cd Sheher
+    ```
+* To train crime rate model change Directory to *Visitor*
+    ```
+    cd Visitor
+    ```
+* Train Crime Rate Model,
+    ```
+    python train_crimerate.py
     ```
 * To apply the migrations run,
     ```
