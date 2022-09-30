@@ -1,0 +1,113 @@
+{% load static %}
+<html>
+  <head>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <!------ Include the above in your HEAD tag ---------->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link type="text/css" rel="stylesheet" href="http://dinus.org/assets/mail/mailtip.css"/>
+    <script type="text/javascript" src="http://dinus.org/assets/mail/jquery.mailtip.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.min.css" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.css" rel="stylesheet"/>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js" ></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+    <script src = "https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src = "https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
+    <script src = "https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src = "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js"></script>
+
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.12.0/moment.js"></script>
+      <!-- Include Bootstrap DateTimePicker CDN -->
+     <style>
+          body{
+            background-color: beige;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          }
+      </style>
+
+  </head>
+  <body>
+    <a href="{% url 'home' %}"><button type="button" class="btn btn-warning">Go Home</button></a>
+
+ <div class="container">
+	<div class="row">
+		<h2>Report Complaint</h2>
+        <p class="h4">If need Police Assisstance, see Varanasi Police Details.</p>
+        <a href="https://uppolice.gov.in/frmOfficials.aspx?commvns&cd=NAA1ADIAMgA%3D" target="_blank" ><button type="button" class="btn btn-danger">Click Here</button></a>
+        <br>
+        <h3>Or </h3>
+        <br>
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="col-md-12 row" style="padding:0px;margin-bottom:10px;">
+                            <div class="col-md-2">
+                                <img src="http://dinus.org/img/fakultas/FIK/cs/cs.svg">
+                            </div>
+                            <div class="col-md-10">
+                                <hr>
+                                <p style="padding-left:55px;font-size:1.3em;">Username : <strong>ABC</strong></p>
+                            </div>
+                        </div>
+                        <form method="post" action="{% url 'report_complaint' %}">
+                        {% csrf_token %}
+                            <input type="text" placeholder="Complaint Title" id="title" name="title" size="50">
+                            <br>
+                            <br>
+                            <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" rows="4" placeholder="Select place" id="place" name="place">
+                                <option selected>Select Place</option>
+                                {% for p in places %}
+                                    <option value={{ p.id }}>{{ p.name }}, {{ p.city }}</option>
+                                {% endfor %}
+                            </select>
+                            <br>
+                            <br>
+                            <div class="row" style="padding-left: 15px">
+                                <div class="col">
+                                    <input data-date-format="yyyy-mm-dd" id="datepicker" name="date">
+                                </div>
+                            </div>
+                            <br>
+                            <textarea class="form-control" rows="4" placeholder="Description" id="desc" name="desc"></textarea>
+                            <br>
+                            <button type="submit" class="btn btn-warning">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+	</div>
+</div>
+  </body>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<style type="text/css">
+        .datepicker {
+            font-size: 0.875em;
+        }
+        /* solution 2: the original datepicker use 20px so replace with the following:*/
+
+        .datepicker td, .datepicker th {
+            width: 1.5em;
+            height: 1.5em;
+        }
+
+    </style>
+<script>
+    $('#datepicker').datepicker({
+        weekStart: 1,
+        daysOfWeekHighlighted: "6,0",
+        autoclose: true,
+        todayHighlight: true,
+    });
+    $('#datepicker').datepicker("setDate", new Date());
+
+</script>
+</html>

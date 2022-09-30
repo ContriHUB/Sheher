@@ -1,0 +1,15 @@
+<html>
+    <head>
+        <title>Edit Profile</title>
+    </head>
+    <body>
+        <table>
+            <form action="/Visitor/edit-profile" method="POST">
+                {% csrf_token %}
+                {{ form.as_table }}
+                <input type="submit" value="Save">
+                <input type="reset" value="Reset">
+            </form>
+        </table>
+    </body>
+</html>

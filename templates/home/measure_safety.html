@@ -1,0 +1,72 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <Style>
+               *{
+                    box-sizing: border-box
+                }
+                body{
+                    margin: 0px;
+                    padding: 0px;
+                    
+                }
+            .place_details{
+                display:flex;
+                height: 100%;
+                border: 1px solid #e0e0e0;
+                margin: 100px 400px;
+                border-radius: 15px;
+                box-shadow: 0px 0px 5px 3px rgba(0,0,0,0.15);
+                padding: 10px;
+                background-color: #fff;
+            }
+            .place_detail{
+                display: inline;
+            }
+            .place_image{
+                width:40%;
+                padding: 0 15px;
+            }
+            .place_image img{
+                width:100%;
+                object-fit: cover;
+                object-position: center;
+                height: 200px;
+            }
+    </Style>
+  </head>
+  <body background="{% static "assets/img/background1.jpg" %}" >
+    <center><h1>Measure Safety</h1></center>
+    
+    <div>
+        
+        <div class="place_details">
+            <div class="place_image">
+                <img src="/media/{{ place.picture }}" class="place_image" alt="">
+            </div>
+            <div class="place_detail">
+                <h2>Name: {{ place.name }}</h2>
+            
+                <h2>Safety Index: {{result}} %</h2>
+
+                <!--<div class="progress">
+                    <div class="progress-bar" role="progressbar" style = "width: "{{ result }}"%;" aria-valuenow="{{result}}" aria-valuemin="0" aria-valuemax="100">{{result}}%</div>
+                </div>-->
+            </div>
+            
+            
+
+        </div>
+     
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+  </body>
+</html>
+
+
+
