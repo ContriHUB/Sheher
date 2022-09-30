@@ -297,6 +297,7 @@ z-index: 2;
 .cont_form_sign_up {
   position: absolute;
   width: 320px;
+  height: 900px;
 float: left;
   opacity: 0;
 display: none;

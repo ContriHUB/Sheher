@@ -51,8 +51,9 @@ class User(AbstractUser):
 # extra details
 class VisitorDetails(models.Model):
     GENDER =(
-        ('MALE',1),
-        ('FEMALE',2)
+        ('MALE',0),
+        ('FEMALE',1),
+        ('TRANSGENDER',2),
     )
     user= models.ForeignKey(User,unique=True,on_delete=models.CASCADE)
     city= models.CharField(max_length=255,blank=False)

@@ -10,6 +10,11 @@ from django.conf import settings
 from twilio.rest import Client
 from django import forms
 from Visitor.forms import EditProfileForm
+from django.core.mail import send_mail
+from django.http import HttpResponse
+from Sheher import settings
+from django.core.mail import send_mail
+
 
 def user_signup(request):
     if request.method=='POST':
@@ -20,6 +25,7 @@ def user_signup(request):
         city=request.POST['city']
         address=request.POST['address']
         phone=request.POST['phone']
+        sos_contact=request.POST['sos']
         user=User.objects.create_user(email=email,first_name=firstname,last_name=lastname,password=password)
         user.save()
         myfields=VisitorDetails()
@@ -47,6 +53,7 @@ def user_login(request):
 
     else :
         if request.method=='POST':
+            print(request)
             email=request.POST['email']
             password=request.POST['password']
             user=authenticate(request,email=email,password=password)
@@ -91,6 +98,7 @@ def user_logout(request):
 
 def profile(request):
     if request.user.is_authenticated:
+        print(request.POST)
         user = request.user
         gender = VisitorDetails.objects.get(user_id=user).gender
         sos = VisitorDetails.objects.get(user_id=user).sos_contact
@@ -131,11 +139,12 @@ def measure_safety(request,place_id):
         #gender= VisitorDetails.objects.get(pk=user_id).gender
         #place=PlacesDetails.objects.get(name=place_name)
         d = request.user
-        gender='Female'
-        #gender = d.gender
-        if gender == 'Male': gender = '0'
-        elif gender =='Female': gender = '1'
-        else: gender = '2' 
+        v= VisitorDetails.objects.get(user=d)
+        gender = v.gender
+        # print(gender)
+        if gender == 'MALE': gender = 0
+        elif gender =='FEMALE': gender = 1
+        else: gender = 2
         income=place.avg_income
         density=place.population_density
         age=place.avg_age
@@ -143,7 +152,7 @@ def measure_safety(request,place_id):
         petrolingvans=place.petroling_vans
         moralitylevel=place.morality_level
 
-        #result = getPrediction('0', '18960','50','50000','10','50', '10')
+        # result = getPrediction(0, 18960,50,50000,10,50, 10)
         result = getPrediction(gender, density, age, income , policestationcount, petrolingvans, moralitylevel)
         if result < 0: result=0
         print("prediction: ",result[0])
@@ -196,22 +205,32 @@ def getPrediction(gender, density, age, income , policestationcount, petrolingva
 # SOS
 def SOS(request):
     if request.user.is_authenticated:
-            account_sid = 'AC34ee140258455678b0ce14baf8dffefb'
-            auth_token = '4e1cb93f875a151baea34cc6a950c512'
-            client = Client(account_sid, auth_token)
+        subject = "Greetings"
+        msg = "Congratulations for your success"
+        to = request.user.email
+        res = send_mail(subject, msg, settings.EMAIL_HOST_USER, [to])
+        if res == 1:
+            msg = "Mail Sent Successfuly"
+        else:
+            msg = "Mail could not sent"
+        print(msg)
+        account_sid = 'AC34ee140258455678b0ce14baf8dffefb'
+        auth_token = '4e1cb93f875a151baea34cc6a950c512'
+        client = Client(account_sid, auth_token)
 
-            message = client.messages.create(
-                                        body=f'Helslo buddy',
+        message = client.messages.create(
+                                        body=f'Hello buddy',
                                         from_='+19894673701',
                                         to='+919830936340',
                                     )
-            print(message.sid)
-            return HttpResponse('Message sent')
+            # print(message.sid)
+        return HttpResponse('Message sent')
     else:
         return HttpResponseRedirect('/Visitor/login')
 #     edit profile
 def edit_profile(request):
     if request.user.is_authenticated:
+        print(request.user)
         myfields=VisitorDetails.objects.get(user=User.objects.get(email=request.user.email))
         fields={
             'first_name':myfields.user.first_name,

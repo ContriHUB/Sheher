@@ -1,0 +1,6 @@
+git rm --cached db.sqlite3
+Visitor/model2.sav
+Visitor/model3.sav
+Visitor/model4.sav
+Visitor/model5.sav
+Visitor/predict_crimerate.py

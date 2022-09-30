@@ -103,7 +103,7 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
-                        <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
                         <li class="nav-item"><a class="nav-link" href="#places">Places</a></li>
                         <li class="nav-item"><a class="nav-link" href="#team">Team</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'report' %}">Report</a></li>
@@ -118,59 +118,16 @@
                 </div>
             </div>
         </nav>
-
-        <!-- floating button -->
-        <a href="/Visitor/SOS" class="float" style="text-decoration:none;">
-            <i class="fa fa-commenting-lg my-float"></i>
-        </a>
-        <!-- Masthead-->
-        <header class="masthead">
-            <div class="container">
-                <div class="masthead-subheading">Welcome To Sheher!</div>
-                <div class="masthead-heading text-uppercase">It's Nice To Meet You</div>
-                <a class="btn btn-primary btn-xl text-uppercase" href="#services">Explore</a>
-            </div>
-        </header>
-        <!-- Services-->
-        <section class="page-section" id="services">
-            <div class="container">
-                <div class="text-center">
-                    <h2 class="section-heading text-uppercase">Services</h2>
-                </div>
-                <div class="row text-center">
-                    <div class="col-md-4">
-                        <span class="fa-stack fa-4x">
-                            <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                            <i class="fas fa-shopping-cart fa-stack-1x fa-inverse"></i>
-                        </span>
-                        <h4 class="my-3">Complaint Portal</h4>
-                        <p class="text-muted">Want to complaint regarding any incident or about places , you can reach out to us.</p>
-                    </div>
-                    <div class="col-md-4">
-                        <span class="fa-stack fa-4x">
-                            <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                            <i class="fas fa-laptop fa-stack-1x fa-inverse"></i>
-                        </span>
-                        <h4 class="my-3">About Places</h4>
-                        <p class="text-muted">You could know about places details, just click the place you want to know details of. </p>
-                    </div>
-                    <div class="col-md-4">
-                        <span class="fa-stack fa-4x">
-                            <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                            <i class="fas fa-lock fa-stack-1x fa-inverse"></i>
-                        </span>
-                        <h4 class="my-3">Rating And Review</h4>
-                        <p class="text-muted">Your rating and review about places is valuable to us, please provide your review about place.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
         <!-- Portfolio Grid-->
         <section class="page-section bg-light" id="places">
             <div class="container">
                 <div class="text-center">
                     <h2 class="section-heading text-uppercase">Places</h2>
-                    <h3 class="section-subheading text-muted">Varanasi a city of Ghosts and Temples !</h3>
+                    {% if places.count != 0 %}
+                    <h3 class="section-subheading text-muted">Search Results Found.</h3>
+                    {% else %}
+                        <h3 class="section-subheading text-muted">Search Results not Found.</h3>
+                    {% endif %}
                 </div>
                 <div class="row">
                     {% for p in places %}
@@ -229,9 +186,9 @@
                                                         </li>
                                                     </ul>
 
-{#                                                    {% for r in rating %}#}
-{#                                                        {{ r.pk }}#}
-{#                                                        {% if r.place.pk == p.pk %}#}
+                                                    {% for r in rating %}
+                                                        {{ r.pk }}
+                                                        {% if r.place.pk == p.pk %}
                                                     <div class="card">
                                                       <div class="row">
                                                           <div class="col-2">
@@ -242,27 +199,27 @@
                                                                   <h4>Review</h4>
                                                                   <div class="row">
                                                                       <div class="col">
-                                                                          safety : 3
+                                                                          safety : {{ r.safety }}
                                                                       </div>
 
                                                                       <div class="col">
-                                                                          Security : 4
+                                                                          Security : {{ r.security }}
                                                                       </div>
 
                                                                       <div class="col">
-                                                                          Sanitization : 3
+                                                                          Sanitization : {{ r.sanitization }}
                                                                       </div>
 
                                                                   </div>
                                                                   <div class="comment-area">
-                                                                      <textarea class="form-control" placeholder="Description" rows="4" disabled>It was fun and awesome experience.</textarea>
+                                                                      <textarea class="form-control" placeholder="Description" rows="4" disabled>{{ r.review }}</textarea>
                                                                   </div>
                                                               </div>
                                                           </div>
                                                       </div>
                                                   </div>
-{#                                                        {% endif %}#}
-{#                                                    {% endfor %}#}
+                                                        {% endif %}
+                                                    {% endfor %}
                                                     <br>
                                                     <div class="row">
                                                         <div class="col">
@@ -291,7 +248,7 @@
             </div>
         </section>
 
-{#        <!-- Team-->#}
+        <!-- Team-->
         <section class="page-section bg-light" id="team">
             <div class="container">
                 <div class="text-center">
@@ -321,7 +278,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-8 mx-auto text-center"><p class="large text-muted">Hactoberfest Project</p></div>
+                    <div class="col-lg-8 mx-auto text-center"><p class="large text-muted">MCA 4 Sem Mini Project</p></div>
                 </div>
             </div>
         </section>
