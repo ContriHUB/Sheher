@@ -37,6 +37,16 @@
                 box-shadow: 2px 2px 3px #999;
             }
 
+            .contributors__contributor--image {
+                height: 64px;
+                width: 64px;
+                border-radius: 100%;
+            }
+
+            .contributors__error-message {
+                display: none;
+            }
+
             .my-float{
             	margin-top:22px;
             }
@@ -106,6 +116,7 @@
                         <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
                         <li class="nav-item"><a class="nav-link" href="#places">Places</a></li>
                         <li class="nav-item"><a class="nav-link" href="#team">Team</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#contributors">Contributors</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'report' %}">Report</a></li>
                         {% if status == '1' %}
                             <li class="nav-item"><a class="nav-link" data-toggle="modal" href="{% url 'safety_check' %}">Safety Check</a></li>
@@ -292,7 +303,7 @@
         </section>
 
 {#        <!-- Team-->#}
-        <section class="page-section bg-light" id="team">
+        <section class="page-section" id="team">
             <div class="container">
                 <div class="text-center">
                     <h2 class="section-heading text-uppercase">Our Amazing Team</h2>
@@ -325,6 +336,19 @@
                 </div>
             </div>
         </section>
+        <!-- Contributors -->
+        <section class="page-section bg-light" id="contributors">
+            <div class="container">
+                <div class="text-center">
+                    <h2 class="section-heading text-uppercase">Contributors</h2>
+                </div>
+                <div class="row flex mt-5">
+                    <div class="col-12 text-center contributors__contributor-list">
+                        <h3 class="section-subheading text-muted contributors__error-message">List of contributors in currently unavailable. Please refresh after some time to view them.</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
         <!-- Footer-->
         <footer class="footer py-4">
             <div class="container">
@@ -352,6 +376,25 @@
         <!-- Core theme JS-->
         <script src="{% static "js/scripts.js" %}"></script>
         <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+        <script>
+            // Code to populate contributors
+            document.addEventListener("DOMContentLoaded", () => {
+                fetch('https://api.github.com/repos/ContriHUB/Sheher/contributors?per_page=100')
+                    .then(res => res.json())
+                    .then(data => {
+                        if (Object.prototype.toString.call(data) === '[object Array]')
+                        {
+                            for (let i = 0; i < data.length; ++i)
+                                document.querySelector('.contributors__contributor-list').innerHTML += `<a href="${data[i].html_url}" target="_blank"><img class="contributors__contributor--image" src="${data[i].avatar_url}"></a>`;
+                        }
+                        else // Handling API Call Limit Exceeded error
+                            document.querySelector('.contributors__error-message').style.display = "block";
+                    })
+                    .catch(err => { // Handling other errors
+                        document.querySelector('.contributors__error-message').style.display = "block";
+                    });
+            });
+        </script>
     </body>
 </html>
 <script>
