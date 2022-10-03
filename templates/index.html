@@ -340,7 +340,7 @@
                 <div class="row flex mt-5">
                     <div class="col-12 text-center">
                         {% for contributor in contributors %}
-                            <a href="https://opencollective.com/webpack/backer/1/website?requireActive=false" target="_blank"><img class="contributors__contributor--image" src="{{contributor.avatar_url}}"></a>
+                            <a href="{{contributor.html_url}}" target="_blank"><img class="contributors__contributor--image" src="{{contributor.avatar_url}}"></a>
                         {% endfor %}
                     </div>
                 </div>
