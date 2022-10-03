@@ -5,7 +5,6 @@ import requests
 def homepage(request):
     gh_contrib_response = requests.get('https://api.github.com/repos/ContriHUB/Sheher/contributors?per_page=100&anon=1')
     contributors = gh_contrib_response.json()
-    print(contributors)
     if request.user.is_authenticated:
         d = request.user
         all_places = PlacesDetails.objects.all()

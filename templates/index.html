@@ -37,6 +37,12 @@
                 box-shadow: 2px 2px 3px #999;
             }
 
+            .contributors__contributor--image {
+                height: 64px;
+                width: 64px;
+                border-radius: 100%;
+            }
+
             .my-float{
             	margin-top:22px;
             }
@@ -322,6 +328,21 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-8 mx-auto text-center"><p class="large text-muted">Hactoberfest Project</p></div>
+                </div>
+            </div>
+        </section>
+        <!-- Contributors -->
+        <section class="page-section bg-light" id="contributors">
+            <div class="container">
+                <div class="text-center">
+                    <h2 class="section-heading text-uppercase">Contributors</h2>
+                </div>
+                <div class="row flex mt-5">
+                    <div class="col-12 text-center">
+                        {% for contributor in contributors %}
+                            <a href="https://opencollective.com/webpack/backer/1/website?requireActive=false" target="_blank"><img class="contributors__contributor--image" src="{{contributor.avatar_url}}"></a>
+                        {% endfor %}
+                    </div>
                 </div>
             </div>
         </section>
