@@ -1,6 +1,5 @@
 from django.shortcuts import render
 from Places.models import PlacesDetails,RatingReview
-import requests
 
 def homepage(request):
     if request.user.is_authenticated:
