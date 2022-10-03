@@ -3,13 +3,6 @@ from Places.models import PlacesDetails,RatingReview
 import requests
 
 def homepage(request):
-    try:
-        gh_contrib_response = requests.get('https://api.github.com/repos/ContriHUB/Sheher/contributors?per_page=100')        
-        contributors = gh_contrib_response.json()
-        if not isinstance(contributors, list): # Handling API rate limit exceeded error
-            contributors = []
-    except Exception:
-        contributors = []
     if request.user.is_authenticated:
         d = request.user
         all_places = PlacesDetails.objects.all()
@@ -22,14 +15,12 @@ def homepage(request):
             'user': d,
             'rating':rating_all,
             'status': '1',
-            'contributors': contributors,
         }
         return render(request, 'index.html', context=data)
     all_places = PlacesDetails.objects.all()
     data = {
         'places': all_places,
         'status': '0',
-        'contributors': contributors,
     }
     return render(request, 'index.html', context=data)
 # Create your views here.
