@@ -79,6 +79,8 @@ box-shadow: 1px 10px 30px -10px rgba(0,0,0,0.5);
   height: 700px;
 top:20px;
 left:320px;
+overflow-y: auto;
+overflow-x: hidden;
 -webkit-transition: all 0.5s;
 -moz-transition: all 0.5s;
 -ms-transition: all 0.5s;
