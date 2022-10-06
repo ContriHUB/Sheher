@@ -2,6 +2,7 @@
 
 Add your name in the given format.
 
-* [Cyril_Mishra](https://github.com/CyrilMishra)
-* [Dennis Thomas](https://github.com/DNA5769/)
-* [Ritesh Maurya](https://github.com/MauryaRitesh/)
+- [Cyril_Mishra](https://github.com/CyrilMishra)
+- [Dennis Thomas](https://github.com/DNA5769/)
+- [Ritesh Maurya](https://github.com/MauryaRitesh/)
+- [Utkrisht Singh](https://github.com/utkrisht5/)
