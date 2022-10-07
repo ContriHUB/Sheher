@@ -84,6 +84,8 @@ left:320px;
 -ms-transition: all 0.5s;
 -o-transition: all 0.5s;
 transition: all 0.5s;
+overflow-y: auto;
+overflow-x: hidden;
 }
 
 .cont_img_back_grey {
