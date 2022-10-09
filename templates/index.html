@@ -22,81 +22,35 @@
 
         <!-- SOS button CSS -->
         <style>
-            *{padding:0;margin:0;}
-
-            .float{
-            	position:fixed;
+            .sos {
 	            width:60px;
                 height:60px;
                 bottom:40px;
                 right:40px;
                 background-color:RED;
-                color:#FFF;
-                border-radius:50px;
-                text-align:center;
                 box-shadow: 2px 2px 3px #999;
             }
 
             .contributors__contributor--image {
                 height: 64px;
                 width: 64px;
-                border-radius: 100%;
             }
 
-            .contributors__error-message {
-                display: none;
-            }
-
-            .my-float{
-            	margin-top:22px;
-            }
-
-            .place_image{
-                width:100%;
-                padding: 0 15px;
-            }
-            .place_image img{
-                width:100%;
+            .place_image img {
                 object-fit: cover;
                 object-position: center;
                 height: 200px;
             }
-            .card {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    min-width: 0;
-    padding: 20px;
-    width: 800px;
-    word-wrap: break-word;
-    background-color: #fff;
-    background-clip: border-box;
-    border-radius: 6px;
-    -moz-box-shadow: 0px 0px 5px 0px rgba(212, 182, 212, 1)
-}
 
-.comment-box{
+            .comment-area textarea {
+                resize: none;
+                border: 1px solid #ad9f9f;
+            }
 
-    padding:5px;
-}
-
-
-
-.comment-area textarea{
-   resize: none;
-        border: 1px solid #ad9f9f;
-}
-
-
-.form-control:focus {
-    color: #495057;
-    background-color: #fff;
-    border-color: #ffffff;
-    outline: 0;
-    box-shadow: 0 0 0 1px rgb(255, 0, 0) !important;
-}
-      </style>
-
+            .form-control:focus {
+                box-shadow: 0 0 0 1px rgb(255, 0, 0) !important;
+            }
+        </style>
     </head>
     <body id="page-top">
         <!-- Navigation-->
@@ -131,8 +85,8 @@
         </nav>
 
         <!-- floating button -->
-        <a href="/Visitor/SOS" class="float" style="text-decoration:none;">
-            <i class="fa fa-commenting-lg my-float"></i>
+        <a href="/Visitor/SOS" class="sos position-fixed rounded-circle d-flex justify-content-center align-items-center">
+            <i class="fa fa-commenting-lg"></i>
         </a>
         <!-- Masthead-->
         <header class="masthead">
@@ -189,9 +143,9 @@
                         <!-- Portfolio item 1-->
                         <div class="portfolio-item">
                             <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal{{ p.pk }}">
-                                <div class="place_image">
+                                <div class="place_image w-100 px-3">
                                                         <!--<img src='https://unsplash.com/photos/KMn4VEeEPR8' class="hostel_image" alt="">-->
-                                                        <img src="/media/{{ p.picture }}">
+                                                        <img class="w-100" src="/media/{{ p.picture }}">
                                                     </div></a>
                             <div class="portfolio-caption">
                                 <div class="portfolio-caption-heading">{{ p.name }}</div>
@@ -243,13 +197,13 @@
 {#                                                    {% for r in rating %}#}
 {#                                                        {{ r.pk }}#}
 {#                                                        {% if r.place.pk == p.pk %}#}
-                                                    <div class="card">
+                                                    <div class="card p-4">
                                                       <div class="row">
                                                           <div class="col-2">
                                                               <p>Given By : {{ user }}</p>
                                                           </div>
                                                           <div class="col-10">
-                                                              <div class="comment-box ml-2">
+                                                              <div class="ml-2">
                                                                   <h4>Review</h4>
                                                                   <div class="row">
                                                                       <div class="col">
@@ -344,7 +298,7 @@
                 </div>
                 <div class="row flex mt-5">
                     <div class="col-12 text-center contributors__contributor-list">
-                        <h3 class="section-subheading text-muted contributors__error-message">List of contributors in currently unavailable. Please refresh after some time to view them.</h3>
+                        <h3 class="section-subheading text-muted d-none contributors__error-message">List of contributors in currently unavailable. Please refresh after some time to view them.</h3>
                     </div>
                 </div>
             </div>
@@ -385,7 +339,7 @@
                         if (Object.prototype.toString.call(data) === '[object Array]')
                         {
                             for (let i = 0; i < data.length; ++i)
-                                document.querySelector('.contributors__contributor-list').innerHTML += `<a href="${data[i].html_url}" target="_blank"><img class="contributors__contributor--image" src="${data[i].avatar_url}"></a>`;
+                                document.querySelector('.contributors__contributor-list').innerHTML += `<a href="${data[i].html_url}" target="_blank"><img class="rounded-circle contributors__contributor--image" src="${data[i].avatar_url}"></a>`;
                         }
                         else // Handling API Call Limit Exceeded error
                             document.querySelector('.contributors__error-message').style.display = "block";
