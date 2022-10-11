@@ -1,20 +1,35 @@
 from django.shortcuts import render
 from Places.models import PlacesDetails,RatingReview
 
-
 def homepage(request):
     if request.user.is_authenticated:
         d = request.user
         all_places = PlacesDetails.objects.all()
-        rating_all=[]
+        all_reviews = []
+        all_ratings = []
         for places in all_places:
-            rating = RatingReview.objects.filter(place=places)
-            rating_all.append(rating)
+            reviews = RatingReview.objects.filter(place=places)
+            all_reviews.append(reviews)
+        for reviews_qs in all_reviews:
+            rating = 0
+            count = 0
+            for review in reviews_qs:
+                rating+=int(review.safety)
+                rating+=int(review.sanitization)
+                rating+=int(review.security)
+                rating+=int(review.overall_fun)
+                count+=4
+            if count == 0:
+                all_ratings.append(0)
+            else:
+                all_ratings.append(round(rating/count, 1))
+        # print(all_ratings)
         data = {
             'places' : all_places,
             'user': d,
-            'rating':rating_all,
             'status': '1',
+            'reviews': all_reviews,
+            'ratings': all_ratings,
         }
         return render(request, 'index.html', context=data)
     all_places = PlacesDetails.objects.all()

@@ -1,4 +1,6 @@
 {% load static %}
+{% load index %}
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -173,7 +175,7 @@
                                                     <ul class="list-inline">
                                                         <li>
                                                             <strong>Overall Rating: </strong>
-                                                                4
+                                                                {{ ratings|index:p.pk }}
                                                         </li>
 
                                                         <li>
@@ -194,55 +196,56 @@
                                                         </li>
                                                     </ul>
 
-{#                                                    {% for r in rating %}#}
-{#                                                        {{ r.pk }}#}
-{#                                                        {% if r.place.pk == p.pk %}#}
+                                                <div class="row">
+                                                    <div class="col">
+                                                    <a href="{% url 'rate_review' p.pk %}"><button class="btn btn-success text-right btn-lg text-uppercase" data-bs-dismiss="modal" type="submit">
+                                                    Give Review
+                                                </button>
+                                                        </a>
+                                                        </div>
+                                                    <div class="col">
+                                                <button class="btn btn-primary btn-lg text-uppercase" data-bs-dismiss="modal" type="button">
+                                                    <i class="fas fa-xmark me-1"></i>
+                                                    Close Place
+                                                </button>
+                                                        </div>
+                                                    </div>
+                                                    <h4 class="mt-2 mb-2">All Reviews</h4>
+                                                    {% for review in reviews|index:p.pk %}
                                                     <div class="card p-4">
                                                       <div class="row">
                                                           <div class="col-2">
-                                                              <p>Given By : {{ user }}</p>
+                                                              <p>Given By : {{ review.user }}</p>
                                                           </div>
                                                           <div class="col-10">
                                                               <div class="ml-2">
-                                                                  <h4>Review</h4>
                                                                   <div class="row">
                                                                       <div class="col">
-                                                                          safety : 3
+                                                                          safety : {{ review.safety }}
                                                                       </div>
 
                                                                       <div class="col">
-                                                                          Security : 4
+                                                                          Security : {{ review.security }}
                                                                       </div>
 
                                                                       <div class="col">
-                                                                          Sanitization : 3
+                                                                          Sanitization : {{ review.sanitization }}
+                                                                      </div>
+
+                                                                      <div class="col">
+                                                                          Overall Fun : {{ review.overall_fun }}
                                                                       </div>
 
                                                                   </div>
                                                                   <div class="comment-area">
-                                                                      <textarea class="form-control" placeholder="Description" rows="4" disabled>It was fun and awesome experience.</textarea>
+                                                                      <textarea class="form-control" placeholder="Description" rows="4" disabled>{{ review.review }}</textarea>
                                                                   </div>
                                                               </div>
                                                           </div>
                                                       </div>
                                                   </div>
-{#                                                        {% endif %}#}
-{#                                                    {% endfor %}#}
+                                                  {% endfor %}
                                                     <br>
-                                                    <div class="row">
-                                                        <div class="col">
-                                                        <a href="{% url 'rate_review' p.pk %}"><button class="btn btn-success btn-lg text-uppercase" data-bs-dismiss="modal" type="submit">
-                                                        Give Review
-                                                    </button>
-                                                            </a>
-                                                            </div>
-                                                        <div class="col">
-                                                    <button class="btn btn-primary btn-lg text-uppercase" data-bs-dismiss="modal" type="button">
-                                                        <i class="fas fa-xmark me-1"></i>
-                                                        Close Place
-                                                    </button>
-                                                            </div>
-                                                        </div>
                                                 </div>
                                             </div>
                                         </div>
