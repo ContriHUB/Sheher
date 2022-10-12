@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'crispy_forms'
 ]
 
 MIDDLEWARE = [
@@ -137,3 +138,4 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'alidcnandi@gmail.com'
 EMAIL_HOST_PASSWORD = 'kfus rdlw dybe mybs'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
