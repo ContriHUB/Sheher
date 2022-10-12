@@ -1,9 +1,8 @@
 from django.shortcuts import render
-from Places.models import ComplaintsData,PlacesDetails
+from Places.models import ComplaintsData, PlacesDetails, RatingReview
 from Visitor.models import User, VisitorDetails
 from django.http import HttpResponse,HttpResponseRedirect
 from django.shortcuts import render, redirect
-from Places.models import RatingReview
 
 from Visitor import urls
 def Complaints(request):

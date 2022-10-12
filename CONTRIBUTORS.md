@@ -6,3 +6,4 @@ Add your name in the given format.
 - [Dennis Thomas](https://github.com/DNA5769/)
 - [Ritesh Maurya](https://github.com/MauryaRitesh/)
 - [Utkrisht Singh](https://github.com/utkrisht5/)
+- [Kunal Katiyar](https://github.com/kunal2812/)
