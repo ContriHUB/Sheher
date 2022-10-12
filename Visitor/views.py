@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from Visitor.models import VisitorDetails,User
 from django.http import HttpResponse, HttpResponseRedirect
 from home import urls
-from Places.models import PlacesDetails, ComplaintsData
+from Places.models import PlacesDetails, ComplaintsData, RatingReview
 import pickle
 from django.conf import settings
 from twilio.rest import Client
@@ -41,33 +41,16 @@ def user_signup(request):
 def user_login(request):
     data={}
     if request.user.is_authenticated:
-        d = request.user
-        all_places = PlacesDetails.objects.all()
-        data = {
-            'places': all_places,
-            'user': d,
-            'status': '1',
-        }
-        # print(data)
-        return render(request, 'index.html', context=data)
-
+        return redirect('../../')
     else :
         if request.method=='POST':
-            print(request)
+            # print(request)
             email=request.POST['email']
             password=request.POST['password']
             user=authenticate(request,email=email,password=password)
             if user:
                 login(request,user)
-                d = user
-                all_places = PlacesDetails.objects.all()
-                data = {
-                    'places': all_places,
-                    'user' : d,
-                    'status' : '1',
-                }
-                # print(data)
-                return render(request, 'index.html', context=data)
+                return redirect('../../')
             else:
                 data={
                     'error':'Invalid Credentials',
