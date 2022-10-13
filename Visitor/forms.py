@@ -3,7 +3,8 @@ from django import forms
 class EditProfileForm(forms.Form):
     GENDER = (
         (1,'MALE'),
-        (2,'FEMALE')
+        (2,'FEMALE'),
+        (3,'OTHERS'),
     )
     first_name=forms.CharField(label='First Name',max_length=255)
     last_name = forms.CharField(label='Last Name',max_length=255)

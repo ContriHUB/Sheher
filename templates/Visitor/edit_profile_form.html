@@ -68,9 +68,9 @@
         <div class="container-fluid">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
             <div class="container">
-            <a href="{% url 'home' %}"><button class="btn btn-warning btn-lg text-uppercase" data-bs-dismiss="modal" type="button">
-                                                        Home
-                                                    </button></a>
+<!--            <a href="{% url 'home' %}"><button class="btn btn-warning btn-lg text-uppercase" data-bs-dismiss="modal" type="button">-->
+<!--                                                        Home-->
+<!--                                                    </button></a>-->
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
                         <li class="nav-item"><a class="nav-link" href="{% url 'report' %}">Report</a></li>
@@ -81,6 +81,7 @@
                         {% else %}
                             <li class="nav-item"><a class="nav-link" data-toggle="modal" data-target="#login_signup" href="{% url 'register' %}">Login/Signup</a></li>
                         {% endif %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'profile' %}">Back</a></li>
                     </ul>
                 </div>
             </div>
@@ -95,6 +96,12 @@
             <div class="container" style="margin-top: 100px">
                 <div class="row">
                     <div class="col">
+                        <div class="heading">
+                            {% include 'includes/messages.html' %}
+                            {% block content %}
+
+                            {% endblock %}
+                        </div>
                         <h1 class="heading">Edit Profile</h1>
                         <div class="card mt-lg-5">
                             <form action="/Visitor/edit-profile" method="POST">
