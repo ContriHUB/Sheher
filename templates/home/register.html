@@ -89,22 +89,23 @@
       <button class="btn_login" onclick="cambiar_login()" type="submit">LOGIN</button>
       </div>
     </form>
-    <form action="/Visitor/signup" method="post">
+    <form action="/Visitor/signup/" method="post" enctype='multipart/form-data'>
           {% csrf_token %}
          <div class="cont_form_sign_up">
           <img src="{% static 'images/cls.png' %}" onclick="ocultar_login_sign_up()" height=20px width=20px align=left>
              <h3>SIGN UP</h3>
           <input type="text" placeholder="Email" name="email"/>
             <input type="text" placeholder="First Name" name="firstname"/>
-            <input type="text" placeholder="Last Name" name="lastname"/>
-          <input type="text" placeholder="Address" name="address"/>
-          <input type="text" placeholder="City" name="city"/>
-          <input type="text" placeholder="phone" name="phone"/>
-          <input type="text" placeholder="Emergency Contact Number" name="sos"/>
-          <input type="password" placeholder="Password" name="password"/>
-          <input type="password" placeholder="Confirm Password" />
-          <button class="btn_sign_up" onclick="cambiar_sign_up()" type='submit'>SIGN UP</button>
-
+            <input type="text" placeholder="Last Name" name="lastname"/>            
+            <input type="text" placeholder="Upload Profile Picture" disabled="true" />
+            <input id="dp" type="file" accept="image/*" name="profile_pic"/>
+            <input type="text" placeholder="Address" name="address"/>
+            <input type="text" placeholder="City" name="city"/>
+            <input type="text" placeholder="phone" name="phone"/>
+            <input type="text" placeholder="Emergency Contact Number" name="sos"/>
+            <input type="password" placeholder="Password" name="password"/>
+            <input type="password" placeholder="Confirm Password" />
+            <button class="btn_sign_up" onclick="cambiar_sign_up()" type='submit'>SIGN UP</button>
          </div>
         </form>
       </div>

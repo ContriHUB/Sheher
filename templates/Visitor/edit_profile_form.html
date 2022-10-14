@@ -218,7 +218,7 @@ font-size: 20px;
                         <div class="card mt-lg-5">
                             <br>
                             <table>
-            <form action="/Visitor/edit-profile" method="POST">
+            <form action="/Visitor/edit-profile/" method="POST">
                 {% csrf_token %}
                 {{ form.as_table }}
                 <input type="submit" value="Save">
