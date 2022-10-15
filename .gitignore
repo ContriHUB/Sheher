@@ -4,3 +4,4 @@ home/model3.sav
 home/model4.sav
 home/model5.sav
 home/predict_crimerate.py
+db.sqlite3
