@@ -36,9 +36,9 @@ An utility **Django WebApp** that uses Django packages.
     ```
     cd Sheher
     ```
-* To train crime rate model change Directory to *Visitor*
+* To train crime rate model change Directory to *home*
     ```
-    cd Visitor
+    cd home
     ```
 * Train Crime Rate Model,
     ```

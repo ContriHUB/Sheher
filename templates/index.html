@@ -1,4 +1,6 @@
 {% load static %}
+{% load index %}
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -16,77 +18,41 @@
         <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="{% static "css/styles.css"%}" rel="stylesheet" />
+        <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
         <link href="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/smart_wizard.min.css" rel="stylesheet" type="text/css" />
         <link href="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/smart_wizard_theme_arrows.min.css" rel="stylesheet" type="text/css" />
         <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/jquery.smartWizard.min.js"></script>
-
         <!-- SOS button CSS -->
         <style>
-            *{padding:0;margin:0;}
-
-            .float{
-            	position:fixed;
+            .sos {
 	            width:60px;
                 height:60px;
                 bottom:40px;
                 right:40px;
                 background-color:RED;
-                color:#FFF;
-                border-radius:50px;
-                text-align:center;
                 box-shadow: 2px 2px 3px #999;
             }
 
-            .my-float{
-            	margin-top:22px;
+            .contributors__contributor--image {
+                height: 64px;
+                width: 64px;
             }
 
-            .place_image{
-                width:100%;
-                padding: 0 15px;
-            }
-            .place_image img{
-                width:100%;
+            .place_image img {
                 object-fit: cover;
                 object-position: center;
                 height: 200px;
             }
-            .card {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    min-width: 0;
-    padding: 20px;
-    width: 800px;
-    word-wrap: break-word;
-    background-color: #fff;
-    background-clip: border-box;
-    border-radius: 6px;
-    -moz-box-shadow: 0px 0px 5px 0px rgba(212, 182, 212, 1)
-}
 
-.comment-box{
+            .comment-area textarea {
+                resize: none;
+                border: 1px solid #ad9f9f;
+            }
 
-    padding:5px;
-}
-
-
-
-.comment-area textarea{
-   resize: none;
-        border: 1px solid #ad9f9f;
-}
-
-
-.form-control:focus {
-    color: #495057;
-    background-color: #fff;
-    border-color: #ffffff;
-    outline: 0;
-    box-shadow: 0 0 0 1px rgb(255, 0, 0) !important;
-}
-      </style>
-
+            .form-control:focus {
+                box-shadow: 0 0 0 1px rgb(255, 0, 0) !important;
+            }
+        </style>
     </head>
     <body id="page-top">
         <!-- Navigation-->
@@ -106,9 +72,9 @@
                         <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
                         <li class="nav-item"><a class="nav-link" href="#places">Places</a></li>
                         <li class="nav-item"><a class="nav-link" href="#team">Team</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#contributors">Contributors</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'report' %}">Report</a></li>
                         {% if status == '1' %}
-                            <li class="nav-item"><a class="nav-link" data-toggle="modal" href="{% url 'safety_check' %}">Safety Check</a></li>
                             <li class="nav-item"><a class="nav-link" href="{% url 'profile' %}">{{ user.email }}</a></li>
                             <li class="nav-item"><a class="nav-link" data-toggle="modal" href="{% url 'user_logout' %}">Log out</a></li>
                         {% else %}
@@ -120,8 +86,8 @@
         </nav>
 
         <!-- floating button -->
-        <a href="/Visitor/SOS" class="float" style="text-decoration:none;">
-            <i class="fa fa-commenting-lg my-float"></i>
+        <a href="/Visitor/SOS" class="sos position-fixed rounded-circle d-flex justify-content-center align-items-center">
+            <i class="fa fa-commenting-lg"></i>
         </a>
         <!-- Masthead-->
         <header class="masthead">
@@ -141,7 +107,7 @@
                     <div class="col-md-4">
                         <span class="fa-stack fa-4x">
                             <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                            <i class="fas fa-shopping-cart fa-stack-1x fa-inverse"></i>
+                            <i class="fas fa-exclamation-triangle fa-stack-1x fa-inverse"></i>
                         </span>
                         <h4 class="my-3">Complaint Portal</h4>
                         <p class="text-muted">Want to complaint regarding any incident or about places , you can reach out to us.</p>
@@ -149,7 +115,7 @@
                     <div class="col-md-4">
                         <span class="fa-stack fa-4x">
                             <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                            <i class="fas fa-laptop fa-stack-1x fa-inverse"></i>
+                            <i class="fas fa-map-location-dot fa-stack-1x fa-inverse"></i>
                         </span>
                         <h4 class="my-3">About Places</h4>
                         <p class="text-muted">You could know about places details, just click the place you want to know details of. </p>
@@ -157,7 +123,7 @@
                     <div class="col-md-4">
                         <span class="fa-stack fa-4x">
                             <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                            <i class="fas fa-lock fa-stack-1x fa-inverse"></i>
+                            <i class="fas fa-star fa-stack-1x fa-inverse"></i>
                         </span>
                         <h4 class="my-3">Rating And Review</h4>
                         <p class="text-muted">Your rating and review about places is valuable to us, please provide your review about place.</p>
@@ -178,9 +144,9 @@
                         <!-- Portfolio item 1-->
                         <div class="portfolio-item">
                             <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal{{ p.pk }}">
-                                <div class="place_image">
+                                <div class="place_image w-100 px-3">
                                                         <!--<img src='https://unsplash.com/photos/KMn4VEeEPR8' class="hostel_image" alt="">-->
-                                                        <img src="/media/{{ p.picture }}">
+                                                        <img class="w-100" src="/media/{{ p.picture }}">
                                                     </div></a>
                             <div class="portfolio-caption">
                                 <div class="portfolio-caption-heading">{{ p.name }}</div>
@@ -208,7 +174,9 @@
                                                     <ul class="list-inline">
                                                         <li>
                                                             <strong>Overall Rating: </strong>
-                                                                4
+                                                                {% if ratings %}
+                                                                {{ ratings|index:p.pk }}
+                                                                {% endif %}
                                                         </li>
 
                                                         <li>
@@ -227,57 +195,68 @@
                                                         <li>
                                                             <strong>Best Time to Visit : {{ p.month_to_visit }}</strong>
                                                         </li>
+                                                        <li>
+                                                            <strong>Current Safety Index : <span id="safety-index-{{p.pk}}">???</span> </strong>
+                                                        </li>
                                                     </ul>
 
-{#                                                    {% for r in rating %}#}
-{#                                                        {{ r.pk }}#}
-{#                                                        {% if r.place.pk == p.pk %}#}
-                                                    <div class="card">
+                                                <div class="row">
+                                                    <div class="col">
+                                                    <a href="{% url 'rate_review' p.pk %}">
+                                                        <button class="btn btn-success text-right btn-lg text-uppercase" data-bs-dismiss="modal" type="submit">
+                                                            <i class="fa-brands fa-telegram"></i> Give Review
+                                                        </button>
+                                                    </a>
+                                                        </div>
+                                                    <div class="col">
+                                                    <button class="btn btn-primary btn-lg text-uppercase" data-bs-dismiss="modal" type="button">
+                                                    <i class="fas fa-xmark me-1"></i>
+                                                    Close Place
+                                                    </button>
+                                                    </div>
+                                                    <div class="col">
+                                                            <button id="btn-safety" onclick="updateSafetyIndex({{p.pk}})" class="btn btn-dark btn-lg text-uppercase" type="button"><i class="fa-regular fa-shield-check"></i> Check Safety
+                                                            </button>
+                                                    </div>
+                                                    </div>
+                                                    <h4 class="mt-2 mb-2">All Reviews</h4>
+                                                    {% if reviews %}
+                                                    {% for review in reviews|index:p.pk %}
+                                                    <div class="card p-4">
                                                       <div class="row">
                                                           <div class="col-2">
-                                                              <p>Given By : {{ user }}</p>
+                                                              <p>Given By : {{ review.user }}</p>
                                                           </div>
                                                           <div class="col-10">
-                                                              <div class="comment-box ml-2">
-                                                                  <h4>Review</h4>
+                                                              <div class="ml-2">
                                                                   <div class="row">
                                                                       <div class="col">
-                                                                          safety : 3
+                                                                          safety : {{ review.safety }}
                                                                       </div>
 
                                                                       <div class="col">
-                                                                          Security : 4
+                                                                          Security : {{ review.security }}
                                                                       </div>
 
                                                                       <div class="col">
-                                                                          Sanitization : 3
+                                                                          Sanitization : {{ review.sanitization }}
+                                                                      </div>
+
+                                                                      <div class="col">
+                                                                          Overall Fun : {{ review.overall_fun }}
                                                                       </div>
 
                                                                   </div>
                                                                   <div class="comment-area">
-                                                                      <textarea class="form-control" placeholder="Description" rows="4" disabled>It was fun and awesome experience.</textarea>
+                                                                      <textarea class="form-control" placeholder="Description" rows="4" disabled>{{ review.review }}</textarea>
                                                                   </div>
                                                               </div>
                                                           </div>
                                                       </div>
                                                   </div>
-{#                                                        {% endif %}#}
-{#                                                    {% endfor %}#}
+                                                  {% endfor %}
+                                                    {% endif %}
                                                     <br>
-                                                    <div class="row">
-                                                        <div class="col">
-                                                        <a href="{% url 'rate_review' p.pk %}"><button class="btn btn-success btn-lg text-uppercase" data-bs-dismiss="modal" type="submit">
-                                                        Give Review
-                                                    </button>
-                                                            </a>
-                                                            </div>
-                                                        <div class="col">
-                                                    <button class="btn btn-primary btn-lg text-uppercase" data-bs-dismiss="modal" type="button">
-                                                        <i class="fas fa-xmark me-1"></i>
-                                                        Close Place
-                                                    </button>
-                                                            </div>
-                                                        </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -292,7 +271,7 @@
         </section>
 
 {#        <!-- Team-->#}
-        <section class="page-section bg-light" id="team">
+        <section class="page-section" id="team">
             <div class="container">
                 <div class="text-center">
                     <h2 class="section-heading text-uppercase">Our Amazing Team</h2>
@@ -325,6 +304,19 @@
                 </div>
             </div>
         </section>
+        <!-- Contributors -->
+        <section class="page-section bg-light" id="contributors">
+            <div class="container">
+                <div class="text-center">
+                    <h2 class="section-heading text-uppercase">Contributors</h2>
+                </div>
+                <div class="row flex mt-5">
+                    <div class="col-12 text-center contributors__contributor-list">
+                        <h3 class="section-subheading text-muted d-none contributors__error-message">List of contributors in currently unavailable. Please refresh after some time to view them.</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
         <!-- Footer-->
         <footer class="footer py-4">
             <div class="container">
@@ -352,6 +344,25 @@
         <!-- Core theme JS-->
         <script src="{% static "js/scripts.js" %}"></script>
         <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+        <script>
+            // Code to populate contributors
+            document.addEventListener("DOMContentLoaded", () => {
+                fetch('https://api.github.com/repos/ContriHUB/Sheher/contributors?per_page=100')
+                    .then(res => res.json())
+                    .then(data => {
+                        if (Object.prototype.toString.call(data) === '[object Array]')
+                        {
+                            for (let i = 0; i < data.length; ++i)
+                                document.querySelector('.contributors__contributor-list').innerHTML += `<a href="${data[i].html_url}" target="_blank"><img class="rounded-circle contributors__contributor--image" src="${data[i].avatar_url}"></a>`;
+                        }
+                        else // Handling API Call Limit Exceeded error
+                            document.querySelector('.contributors__error-message').style.display = "block";
+                    })
+                    .catch(err => { // Handling other errors
+                        document.querySelector('.contributors__error-message').style.display = "block";
+                    });
+            });
+        </script>
     </body>
 </html>
 <script>
@@ -367,4 +378,25 @@
             });
 
         });
+    function updateSafetyIndex(URL){
+        pk = URL
+        URL = '/'+URL+"/measure_safety/";
+        console.log(URL);
+        $.ajax({
+            url : URL,
+            type : "POST", // http method
+            data : {
+                name:"name",
+                csrfmiddlewaretoken: '{{ csrf_token }}' ,
+            },
+            success : function(response){
+                element = '#safety-index-'+pk
+                $(element).html(response.safety_index);
+                // console.log(response.safety_index);
+            },
+            error : function() {
+                console.log("Error calculating Safety Index");
+            }
+        });
+    }
 </script>

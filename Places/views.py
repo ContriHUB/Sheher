@@ -1,9 +1,8 @@
 from django.shortcuts import render
-from Places.models import ComplaintsData,PlacesDetails
+from Places.models import ComplaintsData, PlacesDetails, RatingReview
 from Visitor.models import User, VisitorDetails
 from django.http import HttpResponse,HttpResponseRedirect
 from django.shortcuts import render, redirect
-from Places.models import RatingReview
 
 from Visitor import urls
 def Complaints(request):
@@ -32,7 +31,7 @@ def Save_Complaints(request):
             'status' : '0',
             'places' : all_places,
         }
-        render(request, "index.html", data);
+        render(request, "index.html", data)
 # Create your views here.
 def Rate_Review(request,pk):
     if request.user.is_authenticated:
