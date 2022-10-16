@@ -1,7 +1,7 @@
 git rm --cached db.sqlite3
-Visitor/model2.sav
-Visitor/model3.sav
-Visitor/model4.sav
-Visitor/model5.sav
-Visitor/predict_crimerate.py
+home/model2.sav
+home/model3.sav
+home/model4.sav
+home/model5.sav
+home/predict_crimerate.py
 db.sqlite3

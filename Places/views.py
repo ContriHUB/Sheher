@@ -31,7 +31,7 @@ def Save_Complaints(request):
             'status' : '0',
             'places' : all_places,
         }
-        render(request, "index.html", data);
+        render(request, "index.html", data)
 # Create your views here.
 def Rate_Review(request,pk):
     if request.user.is_authenticated:

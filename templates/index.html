@@ -18,10 +18,10 @@
         <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="{% static "css/styles.css"%}" rel="stylesheet" />
+        <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
         <link href="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/smart_wizard.min.css" rel="stylesheet" type="text/css" />
         <link href="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/smart_wizard_theme_arrows.min.css" rel="stylesheet" type="text/css" />
         <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/jquery.smartWizard.min.js"></script>
-
         <!-- SOS button CSS -->
         <style>
             .sos {
@@ -75,7 +75,6 @@
                         <li class="nav-item"><a class="nav-link" href="#contributors">Contributors</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'report' %}">Report</a></li>
                         {% if status == '1' %}
-                            <li class="nav-item"><a class="nav-link" data-toggle="modal" href="{% url 'safety_check' %}">Safety Check</a></li>
                             <li class="nav-item"><a class="nav-link" href="{% url 'profile' %}">{{ user.email }}</a></li>
                             <li class="nav-item"><a class="nav-link" data-toggle="modal" href="{% url 'user_logout' %}">Log out</a></li>
                         {% else %}
@@ -196,21 +195,29 @@
                                                         <li>
                                                             <strong>Best Time to Visit : {{ p.month_to_visit }}</strong>
                                                         </li>
+                                                        <li>
+                                                            <strong>Current Safety Index : <span id="safety-index-{{p.pk}}">???</span> </strong>
+                                                        </li>
                                                     </ul>
 
                                                 <div class="row">
                                                     <div class="col">
-                                                    <a href="{% url 'rate_review' p.pk %}"><button class="btn btn-success text-right btn-lg text-uppercase" data-bs-dismiss="modal" type="submit">
-                                                    Give Review
-                                                </button>
-                                                        </a>
+                                                    <a href="{% url 'rate_review' p.pk %}">
+                                                        <button class="btn btn-success text-right btn-lg text-uppercase" data-bs-dismiss="modal" type="submit">
+                                                            <i class="fa-brands fa-telegram"></i> Give Review
+                                                        </button>
+                                                    </a>
                                                         </div>
                                                     <div class="col">
-                                                <button class="btn btn-primary btn-lg text-uppercase" data-bs-dismiss="modal" type="button">
+                                                    <button class="btn btn-primary btn-lg text-uppercase" data-bs-dismiss="modal" type="button">
                                                     <i class="fas fa-xmark me-1"></i>
                                                     Close Place
-                                                </button>
-                                                        </div>
+                                                    </button>
+                                                    </div>
+                                                    <div class="col">
+                                                            <button id="btn-safety" onclick="updateSafetyIndex({{p.pk}})" class="btn btn-dark btn-lg text-uppercase" type="button"><i class="fa-regular fa-shield-check"></i> Check Safety
+                                                            </button>
+                                                    </div>
                                                     </div>
                                                     <h4 class="mt-2 mb-2">All Reviews</h4>
                                                     {% if reviews %}
@@ -371,4 +378,25 @@
             });
 
         });
+    function updateSafetyIndex(URL){
+        pk = URL
+        URL = '/'+URL+"/measure_safety/";
+        console.log(URL);
+        $.ajax({
+            url : URL,
+            type : "POST", // http method
+            data : {
+                name:"name",
+                csrfmiddlewaretoken: '{{ csrf_token }}' ,
+            },
+            success : function(response){
+                element = '#safety-index-'+pk
+                $(element).html(response.safety_index);
+                // console.log(response.safety_index);
+            },
+            error : function() {
+                console.log("Error calculating Safety Index");
+            }
+        });
+    }
 </script>
