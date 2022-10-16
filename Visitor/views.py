@@ -14,6 +14,7 @@ from django.core.mail import send_mail
 from django.http import HttpResponse
 from Sheher import settings
 from django.core.mail import send_mail
+from django.contrib import messages
 
 
 def user_signup(request):
@@ -240,7 +241,12 @@ def edit_profile(request):
             'sos_contact':myfields.sos_contact,
             'address':myfields.address,
         }
-        form=EditProfileForm(initial=fields)
+        if request.method == 'POST':
+            form = EditProfileForm(request.POST)
+            if form.is_valid():
+                messages.success(request, 'Profile details updated.')
+                return render(request,'Visitor/edit_profile_form.html',{'form':form})
+        form = EditProfileForm(initial=fields)
         return render(request,'Visitor/edit_profile_form.html',{'form':form})
     else:
         return HttpResponseRedirect('/Visitor/login')
