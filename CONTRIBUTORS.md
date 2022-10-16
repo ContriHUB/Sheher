@@ -3,6 +3,7 @@
 Add your name in the given format.
 
 - [Cyril_Mishra](https://github.com/CyrilMishra)
+- [Sejal_Sobhani](https://github.com/sejal-sket)
 - [Mehul Kaushal](https://github.com/Destroyer4114)
 - [Dennis Thomas](https://github.com/DNA5769/)
 - [Ritesh Maurya](https://github.com/MauryaRitesh/)
