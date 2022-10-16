@@ -34,12 +34,7 @@
       <div class="col-lg-4">
         <div class="card mb-4">
           <div class="card-body text-center">
-              {% if profile_pic == '1' %}
-            <img src="{{ user.pic }}" alt="avatar"
-              class="rounded-circle img-fluid" style="width: 150px;">
-              {% else %}
-                  <i class="bi bi-person"f></i>
-              {% endif %}
+            <img src="/media/{{ profile_pic }}" alt="avatar" class="rounded-circle img-fluid" style="width: 100px;height: 100px;">
             <h5 class="my-3">{{ user.email }}</h5>
             <div class="d-flex justify-content-center mb-2">
                 <a href="/Visitor/edit-profile">Edit</a>

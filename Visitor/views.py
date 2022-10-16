@@ -26,6 +26,7 @@ def user_signup(request):
         address=request.POST['address']
         phone=request.POST['phone']
         sos_contact=request.POST['sos']
+        profile_pic=request.FILES['profile_pic']
         user=User.objects.create_user(email=email,first_name=firstname,last_name=lastname,password=password)
         user.save()
         myfields=VisitorDetails()
@@ -33,9 +34,9 @@ def user_signup(request):
         myfields.city=city
         myfields.address=address
         myfields.phone=phone
+        myfields.profile_picture = profile_pic
         myfields.save()
-
-        return HttpResponse('/')
+        return HttpResponse('User account created')
 
 # user login
 def user_login(request):
@@ -87,10 +88,10 @@ def profile(request):
         sos = VisitorDetails.objects.get(user_id=user).sos_contact
         mobile = VisitorDetails.objects.get(user_id=user).phone
         address = VisitorDetails.objects.get(user_id=user).address
+        profile_pic = VisitorDetails.objects.get(user_id=user).profile_picture
         # complaints = ComplaintsData.objects.filter(user_id=user.id).values()
         # # for i in complaints.values():
         # #     print(i.complaint_title)
-        print(gender)
         # print(complaints.get()
         data = {
             'user': user,
@@ -98,7 +99,7 @@ def profile(request):
             'mobile':mobile,
             'sos':sos,
             'address':address,
-            'profile_pic':0,
+            'profile_pic':profile_pic,
             # 'complaints': u_complaints,
         }
         return render(request, 'home/profile.html', context=data)
