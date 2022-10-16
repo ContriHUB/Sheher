@@ -2,7 +2,9 @@ from django.contrib.auth import authenticate,login, logout
 from django.shortcuts import render, redirect
 from Visitor.models import VisitorDetails,User
 from django.http import HttpResponse, HttpResponseRedirect
-from Places.models import PlacesDetails
+from home import urls
+from Places.models import PlacesDetails, ComplaintsData, RatingReview
+import pickle
 from django.conf import settings
 from twilio.rest import Client
 from django import forms
@@ -11,6 +13,7 @@ from django.core.mail import send_mail
 from django.http import HttpResponse
 from Sheher import settings
 from django.core.mail import send_mail
+from django.contrib import messages
 
 
 def user_signup(request):
@@ -38,33 +41,16 @@ def user_signup(request):
 def user_login(request):
     data={}
     if request.user.is_authenticated:
-        d = request.user
-        all_places = PlacesDetails.objects.all()
-        data = {
-            'places': all_places,
-            'user': d,
-            'status': '1',
-        }
-        # print(data)
-        return render(request, 'index.html', context=data)
-
+        return redirect('../../')
     else :
         if request.method=='POST':
-            print(request)
+            # print(request)
             email=request.POST['email']
             password=request.POST['password']
             user=authenticate(request,email=email,password=password)
             if user:
                 login(request,user)
-                d = user
-                all_places = PlacesDetails.objects.all()
-                data = {
-                    'places': all_places,
-                    'user' : d,
-                    'status' : '1',
-                }
-                # print(data)
-                return render(request, 'index.html', context=data)
+                return redirect('../../')
             else:
                 data={
                     'error':'Invalid Credentials',
@@ -155,7 +141,12 @@ def edit_profile(request):
             'sos_contact':myfields.sos_contact,
             'address':myfields.address,
         }
-        form=EditProfileForm(initial=fields)
+        if request.method == 'POST':
+            form = EditProfileForm(request.POST)
+            if form.is_valid():
+                messages.success(request, 'Profile details updated.')
+                return render(request,'Visitor/edit_profile_form.html',{'form':form})
+        form = EditProfileForm(initial=fields)
         return render(request,'Visitor/edit_profile_form.html',{'form':form})
     else:
         return HttpResponseRedirect('/Visitor/login')

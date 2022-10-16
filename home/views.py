@@ -5,9 +5,9 @@ from Visitor.models import VisitorDetails
 import pickle
 
 def homepage(request):
+    all_places = PlacesDetails.objects.all()
     if request.user.is_authenticated:
         d = request.user
-        all_places = PlacesDetails.objects.all()
         all_reviews = []
         all_ratings = []
         for places in all_places:
@@ -36,7 +36,6 @@ def homepage(request):
             'safety_index': '???',
         }
         return render(request, 'index.html', context=data)
-    all_places = PlacesDetails.objects.all()
     data = {
         'places': all_places,
         'status': '0',
