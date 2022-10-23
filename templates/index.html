@@ -52,9 +52,37 @@
             .form-control:focus {
                 box-shadow: 0 0 0 1px rgb(255, 0, 0) !important;
             }
+            .messages{
+                position: relative;
+                float: right;
+                z-index: 1;
+                opacity: 0.75;
+            }
+            .message {
+                position: absolute;
+                top: 0;
+                right: 0;
+                border-radius: 5px;
+                box-shadow: 3px 3px 4px 0px rgba(50, 50, 50, 0.75);
+                color: white;
+                margin-top: 50px;
+                margin-right: 50px;
+                padding: 8px;
+                text-align: center;
+                width: 10%;
+                font-size:small;
+                background-color: rgb(54, 156, 54);
+            }
         </style>
     </head>
-    <body id="page-top">
+    <body id="page-top" style="z-index: -1;">
+        {% if messages %}
+        <div class="container messages">
+            {% for message in messages %}
+            <p class="message">{{ message }}</p>
+            {% endfor %}
+        </div>
+        {% endif %}
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
             <div class="container">
@@ -362,6 +390,9 @@
                         document.querySelector('.contributors__error-message').style.display = "block";
                     });
             });
+        </script>
+        <script>
+            $('.message').hide().fadeIn(500).delay(2000).fadeOut(500);  
         </script>
     </body>
 </html>
