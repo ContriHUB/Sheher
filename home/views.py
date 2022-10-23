@@ -3,6 +3,7 @@ from django.http import JsonResponse
 from Places.models import PlacesDetails,RatingReview
 from Visitor.models import VisitorDetails
 import pickle
+from django.template.loader import render_to_string
 
 def homepage(request):
     all_places = PlacesDetails.objects.all()
@@ -107,12 +108,25 @@ def getPrediction(gender, density, age, income , policestationcount, petrolingva
 def register(request):
     return render(request, 'home/register.html')
 
-def search(request):
-    if request.POST:
-        search_text = request.POST['search_field']
-        records = PlacesDetails.objects.filter(name__contains=search_text)
-        data = {
-            'user' : request.user,
-            'places' : records,
-        }
-        return render(request,'Visitor/search_result.html',context=data)
+def places_view(request):
+    ctx = {}
+    url_parameter = request.GET.get("q")
+
+    if url_parameter:
+        places = PlacesDetails.objects.filter(name__startswith=url_parameter)
+    else:
+        places = PlacesDetails.objects.all()
+
+    ctx["places"] = places
+    does_req_accept_json = request.accepts("application/json")
+    is_ajax_request = request.headers.get("x-requested-with") == "XMLHttpRequest" and does_req_accept_json
+
+    if is_ajax_request:
+
+        html = render_to_string(
+            template_name="search_result_partial.html", context={"search_places": places}
+        )
+        data_dict = {"html_from_view": html}
+        return JsonResponse(data=data_dict, safe=False)
+
+    return render(request, "index.html", context=ctx)
