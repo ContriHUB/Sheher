@@ -51,6 +51,7 @@ def user_login(request):
             user=authenticate(request,email=email,password=password)
             if user:
                 login(request,user)
+                messages.success(request, 'Logged in successfully')
                 return redirect('../../')
             else:
                 data={
@@ -75,6 +76,7 @@ def dashboard(request):
 def user_logout(request):
     if request.user.is_authenticated:
         logout(request)
+        messages.success(request, 'Logged out successfully')
         return redirect('/')
     else:
         return redirect('/')
