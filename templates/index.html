@@ -52,6 +52,96 @@
             .form-control:focus {
                 box-shadow: 0 0 0 1px rgb(255, 0, 0) !important;
             }
+            nav {
+                margin-bottom: 4em;
+            }
+            
+            .float{
+            	position:fixed;
+	            width:60px;
+                height:60px;
+                bottom:40px;
+                right:40px;
+                background-color:RED;
+                color:#FFF;
+                border-radius:50px;
+                text-align:center;
+                box-shadow: 2px 2px 3px #999;
+            }
+
+            .my-float{
+            	margin-top:22px;
+            }
+
+            .place_image{
+                width:100%;
+                padding: 0 15px;
+            }
+            .place_image img{
+                width:100%;
+                object-fit: cover;
+                object-position: center;
+                height: 200px;
+            }
+            .card {
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                min-width: 0;
+                padding: 20px;
+                width: 800px;
+                word-wrap: break-word;
+                background-color: #fff;
+                background-clip: border-box;
+                border-radius: 6px;
+                -moz-box-shadow: 0px 0px 5px 0px rgba(212, 182, 212, 1)
+            }
+
+            .comment-box{
+
+                padding:5px;
+            }
+
+
+
+            .comment-area textarea{
+            resize: none;
+                    border: 1px solid #ad9f9f;
+            }
+
+
+            .form-control:focus {
+                color: #495057;
+                background-color: #fff;
+                border-color: #ffffff;
+                outline: 0;
+                box-shadow: 0 0 0 1px rgb(255, 0, 0) !important;
+            }
+            #wrapper {
+                width:360px;
+                z-index:10;
+            }
+            #replaceable-content{
+                overflow-y:scroll;
+                overflow-x:hidden;
+                display:none;
+                height:400px;
+            }
+            .portfolio-caption{
+                margin-left:15px;
+            }
+            @media screen and (min-width: 1400px) {
+                #navbarResponsive{
+                    position:absolute;
+                    top:25px;
+                    margin-left:430px;
+                }
+              }
+            .navbar-toggler{
+                position:absolute;
+                top:15px;
+                margin-left:380px;
+            }
             .messages{
                 position: relative;
                 float: right;
@@ -86,11 +176,16 @@
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
             <div class="container">
-              <form class="d-flex" action="{% url 'search' %}" method="post">
-                  {% csrf_token %}
-                  <input class="form-control mr-2" type="search" placeholder="Search" name="search_field" aria-label="Search">
-                  <button class="btn btn-outline-success" type="submit">Search</button>
+            <div id="wrapper">
+              <form id="search" class="d-flex">                  
+                <input id="user-input" class="form-control" type="search" placeholder="Search" name="search_field" aria-label="Search">
+                <button class="btn btn-outline-success" disabled>Search</button>
+
               </form>
+              <div id="replaceable-content" class="page-section bg-light">
+                {% include 'search_result_partial.html' %}
+              </div>
+            </div>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     Menu
                     <i class="fas fa-bars ms-1"></i>
@@ -430,4 +525,48 @@
             }
         });
     }
+
+    // Search functionality
+    const user_input = $("#user-input")
+    const places_div = $('#replaceable-content')
+    const endpoint = '/search/'
+    const delay_by_in_ms = 700
+    let scheduled_function = false
+
+    let ajax_call = function (endpoint, request_parameters) {
+        $.getJSON(endpoint, request_parameters)
+            .done(response => {
+                // fade out the places_div, then:
+                places_div.fadeTo('slow', 0).promise().then(() => {
+                    // replace the HTML contents
+                    places_div.html(response['html_from_view'])
+                    // fade-in the div with new contents
+                    places_div.fadeTo('slow', 1)
+                })
+            })
+    }
+
+    user_input.on('keyup', function () {
+        if($(this).val()){
+            const request_parameters = {
+                q: $(this).val() // value of user_input: the HTML element with ID user-input
+            }
+
+            // if scheduled_function is NOT false, cancel the execution of the function
+            if (scheduled_function) {
+                clearTimeout(scheduled_function)
+            }
+
+            // setTimeout returns the ID of the function to be executed
+            scheduled_function = setTimeout(ajax_call, delay_by_in_ms, endpoint, request_parameters)
+        }
+        else{
+            places_div.hide();
+        }
+    })
+    $(document).on("click", !"#wrapper", function () {
+        $(this).parents(".search-box").find('input[type="text"]').val($(this).text());
+        places_div.hide();
+        // console.log("Not in wrapper")
+    });
 </script>
