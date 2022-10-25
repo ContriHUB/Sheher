@@ -10,3 +10,4 @@ Add your name in the given format.
 - [Utkrisht Singh](https://github.com/utkrisht5/)
 - [Kunal Katiyar](https://github.com/kunal2812/)
 - [Prem Kishor](https://github.com/003prem)
+- [Utkarsh Jha](https://github.com/utkarsh1236)
