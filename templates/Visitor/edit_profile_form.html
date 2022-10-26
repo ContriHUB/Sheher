@@ -66,26 +66,7 @@
     <!-- nav bar -->
     <div style="margin-bottom: 10px;">
         <div class="container-fluid">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
-            <div class="container">
-<!--            <a href="{% url 'home' %}"><button class="btn btn-warning btn-lg text-uppercase" data-bs-dismiss="modal" type="button">-->
-<!--                                                        Home-->
-<!--                                                    </button></a>-->
-                <div class="collapse navbar-collapse" id="navbarResponsive">
-                    <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
-                        <li class="nav-item"><a class="nav-link" href="{% url 'report' %}">Report</a></li>
-                        {% if status == '1' %}
-                            <li class="nav-item"><a class="nav-link" data-toggle="modal" href="{% url 'safety_check' %}">Safety Check</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{% url 'profile' %}">{{ user.username }}</a></li>
-                            <li class="nav-item"><a class="nav-link" data-toggle="modal" href="{% url 'user_logout' %}">Log out</a></li>
-                        {% else %}
-                            <li class="nav-item"><a class="nav-link" data-toggle="modal" data-target="#login_signup" href="{% url 'register' %}">Login/Signup</a></li>
-                        {% endif %}
-                        <li class="nav-item"><a class="nav-link" href="{% url 'profile' %}">Back</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+            {% include "../navbar.html" with is_search=0 is_home=0 is_navbar_responsive=0 is_home_nav=1 is_services=0 is_places=0 is_team=0 is_contributors=0 is_report=1 %}
         </div>
     </div>
 

@@ -1,0 +1,108 @@
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+    <div class="container">
+      {% if is_search %}
+      <form class="d-flex" action="{% url 'search' %}" method="post">
+        {% csrf_token %}
+        <input
+          class="form-control mr-2"
+          type="search"
+          placeholder="Search"
+          name="search_field"
+          aria-label="Search"
+        />
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+      {% endif %} 
+  
+      {% if is_home %}
+      <a href="{% url 'home' %}"
+        ><button
+          class="btn btn-warning btn-lg text-uppercase"
+          data-bs-dismiss="modal"
+          type="button"
+        >
+          Home
+        </button></a
+      >
+      {% endif %}
+  
+      {% if is_navbar_responsive %}
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarResponsive"
+        aria-controls="navbarResponsive"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        Menu
+        <i class="fas fa-bars ms-1"></i>
+      </button>
+      {% endif %}
+  
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+  
+          {% if is_home_nav %}
+          <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
+          {% endif %}
+  
+          {% if is_services %}
+          <li class="nav-item">
+            <a class="nav-link" href="#services">Services</a>
+          </li>
+          {% endif %}
+  
+          {% if is_places %}
+          <li class="nav-item"><a class="nav-link" href="#places">Places</a></li>
+          {% endif %}
+  
+          {% if is_team %}
+          <li class="nav-item"><a class="nav-link" href="#team">Team</a></li>
+          {% endif %}
+  
+          {% if is_contributors %}
+          <li class="nav-item">
+            <a class="nav-link" href="#contributors">Contributors</a>
+          </li>
+          {% endif %}
+  
+          {% if is_report %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'report' %}">Report</a>
+          </li>
+          {% endif %}
+  
+          {% if status == '1' %}
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              data-toggle="modal"
+              href="{% url 'safety_check' %}"
+              >Safety Check</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'profile' %}">{{ user.email }}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="modal" href="{% url 'user_logout' %}"
+              >Log out</a
+            >
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              data-toggle="modal"
+              data-target="#login_signup"
+              href="{% url 'register' %}"
+              >Login/Signup</a
+            >
+          </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </nav>
