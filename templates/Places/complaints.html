@@ -23,25 +23,63 @@
      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.12.0/moment.js"></script>
       <!-- Include Bootstrap DateTimePicker CDN -->
+      
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+              <span class="sr-only"> Navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{% url 'home' %}"><button type="button" class="btn btn-warning">Go Home</button></a>
+          </div>
+
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><b>Police Complaint</b> <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="#">If need Police Assisstance, see: </a></li>
+                  <li role="separator" class="divider"></li>
+                  <li><a href="#">Varanasi Police Details</a></li>
+                  <li><a href="https://uppolice.gov.in/frmOfficials.aspx?commvns&cd=NAA1ADIAMgA%3D" target="_blank" ><button type="button" class="btn btn-danger">Click Here</button></a></li>
+                </ul>
+              </li>
+            </ul>
+      
+
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="{% url 'profile' %}">Profile</a></li>
+              <li><a href="{% url 'user_logout' %}">Logout</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      
      <style>
           body{
             background-color: beige;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-          }
+            background-image: url("{% static 'images/taj.jpg' %}");
+            background-position: center center;
+            background-size: auto;
+            }
+  
+        @media only screen and (max-width: 767px) {
+            body {
+            background-image: url("{% static 'images/taj.jpg' %}");
+            }
+        }
       </style>
 
   </head>
   <body>
-    <a href="{% url 'home' %}"><button type="button" class="btn btn-warning">Go Home</button></a>
 
  <div class="container">
 	<div class="row">
-		<h2>Report Complaint</h2>
-        <p class="h4">If need Police Assisstance, see Varanasi Police Details.</p>
-        <a href="https://uppolice.gov.in/frmOfficials.aspx?commvns&cd=NAA1ADIAMgA%3D" target="_blank" ><button type="button" class="btn btn-danger">Click Here</button></a>
-        <br>
-        <h3>Or </h3>
-        <br>
+        <br><br><br><br>
         <div class="col-md-4"></div>
         <div class="col-md-4">
             <div class="panel panel-default">
@@ -57,10 +95,10 @@
                         </div>
                         <form method="post" action="{% url 'report_complaint' %}">
                         {% csrf_token %}
-                            <input type="text" placeholder="Complaint Title" id="title" name="title" size="50">
+                            <input type="text" placeholder="Complaint Title" id="title" name="title" class="form-control">
                             <br>
                             <br>
-                            <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" rows="4" placeholder="Select place" id="place" name="place">
+                            <select class="form-select form-select-lg mb-3 form-control" aria-label=".form-select-lg example" rows="4" placeholder="Select place" id="place" name="place">
                                 <option selected>Select Place</option>
                                 {% for p in places %}
                                     <option value={{ p.id }}>{{ p.name }}, {{ p.city }}</option>
@@ -70,7 +108,7 @@
                             <br>
                             <div class="row" style="padding-left: 15px">
                                 <div class="col">
-                                    <input data-date-format="yyyy-mm-dd" id="datepicker" name="date">
+                                    <input data-date-format="yyyy-mm-dd" id="datepicker" name="date" class="form-control">
                                 </div>
                             </div>
                             <br>
