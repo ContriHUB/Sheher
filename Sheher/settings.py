@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'crispy_forms'
+    'crispy_forms',
+    'geoposition'
 ]
 
 MIDDLEWARE = [
@@ -148,3 +149,4 @@ EMAIL_HOST_USER = 'alidcnandi@gmail.com'
 EMAIL_HOST_PASSWORD = 'kfus rdlw dybe mybs'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+GEOPOSITION_GOOGLE_MAPS_API_KEY = 'YOUR_API_KEY'
