@@ -25,7 +25,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.12.0/moment.js"></script>
       <!-- Include Bootstrap DateTimePicker CDN -->
 
-      {% include "navbar.html" with is_search=0 is_home=0 is_report_page=1 is_navbar_responsive=1 is_home_nav=1 is_services=1 is_places=1 is_team=1 is_contributors=1 is_report=0 %}
+      {% include "navbar_complaints.html" with is_home=1 is_report_page=1 is_navbar_responsive=1 is_home_nav=1 %}
 
      <style>
           body{
@@ -41,6 +41,9 @@
             background-image: url("{% static 'images/taj.jpg' %}");
             }
         }
+          nav {
+                margin-bottom: 4em;
+            }
       </style>
 
   </head>

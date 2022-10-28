@@ -8,9 +8,13 @@ from Visitor import urls
 def Complaints(request):
     places=PlacesDetails.objects.all()
     user = request.user
+    status = '0'
+    if user.is_authenticated:
+        status = '1'
     data={
         "user":user,
         "places":places,
+        "status":status,
     }
     return render(request,"Places/complaints.html",context=data);
 

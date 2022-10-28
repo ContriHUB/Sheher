@@ -2,8 +2,25 @@
   <ol class="breadcrumb mb-0">
     <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
     <li class="breadcrumb-item active" aria-current="page">User Profile</li>
-    <li class="breadcrumb-item active" aria-current="page">
-      <a href="{% url 'user_logout' %}">Logout</a>
-    </li>
+    {% if status == '1' %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'profile' %}">{{ user.email }}</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="modal" href="{% url 'user_logout' %}"
+            >Log out</a
+          >
+        </li>
+        {% else %}
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            data-toggle="modal"
+            data-target="#login_signup"
+            href="{% url 'register' %}"
+            >Login/Signup</a
+          >
+        </li>
+        {% endif %}
   </ol>
 </nav>
