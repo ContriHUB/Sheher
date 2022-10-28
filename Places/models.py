@@ -1,6 +1,7 @@
 from django.db import models
 from django.forms import IntegerField
 from Visitor.models import User
+from geoposition.fields import GeopositionField
 
 class PlacesDetails(models.Model):#post
     name=models.CharField(max_length=255,blank=False)
@@ -11,6 +12,7 @@ class PlacesDetails(models.Model):#post
     day_open=models.CharField(max_length=255,null=True,blank=True)
     fees=models.IntegerField(null=True,blank=True)
     month_to_visit=models.CharField(max_length=20,null=True,blank=True)
+    position = GeopositionField()
     #for ML
     population_density=models.IntegerField(null=True, blank=True)
     avg_age=models.IntegerField(null=True,blank=True)
