@@ -1,5 +1,7 @@
 from django.db import models
 from django.forms import IntegerField
+from geoposition import Geoposition
+
 from Visitor.models import User
 from geoposition.fields import GeopositionField
 
