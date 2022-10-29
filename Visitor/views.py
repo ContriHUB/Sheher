@@ -151,7 +151,9 @@ def edit_profile(request):
                 messages.success(request, 'Profile details updated.')
                 return render(request,'Visitor/edit_profile_form.html',{'form':form,'status':'1'})
         form = EditProfileForm(initial=fields)
-        return render(request,'Visitor/edit_profile_form.html',{'form':form,'status':'1'})
+        user=request.user
+        profile_pic = VisitorDetails.objects.get(user_id=user).profile_picture
+        return render(request,'Visitor/edit_profile_form.html',{'form':form,'status':'1','profile_pic':profile_pic,})
     else:
         return HttpResponseRedirect('/Visitor/login')
 def edit(request):
