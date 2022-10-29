@@ -8,6 +8,7 @@ from Visitor import urls
 def Complaints(request):
     places=PlacesDetails.objects.all()
     user = request.user
+    profile_pic = VisitorDetails.objects.get(user_id=user).profile_picture
     status = '0'
     if user.is_authenticated:
         status = '1'
@@ -15,6 +16,7 @@ def Complaints(request):
         "user":user,
         "places":places,
         "status":status,
+        'profile_pic':profile_pic,
     }
     return render(request,"Places/complaints.html",context=data);
 
@@ -40,9 +42,12 @@ def Save_Complaints(request):
 def Rate_Review(request,pk):
     if request.user.is_authenticated:
         print(request.POST)
+        user = request.user
+        profile_pic = VisitorDetails.objects.get(user_id=user).profile_picture
         place = PlacesDetails.objects.get(pk=pk)
         data ={
             'place':place,
+            'profile_pic':profile_pic,
             'rating': {1,2,3,4,5},
         }
         return render(request, "Places/RatingReview.html", context=data)
