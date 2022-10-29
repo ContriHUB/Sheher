@@ -10,6 +10,7 @@ def homepage(request):
     all_places = PlacesDetails.objects.all()
     if request.user.is_authenticated:
         d = request.user
+        profile_pic = VisitorDetails.objects.get(user_id=d).profile_picture
         all_reviews = []
         all_ratings = []
         for places in all_places:
@@ -42,6 +43,7 @@ def homepage(request):
             'ratings': all_ratings,
             'safety_index': '???',
             'top_places': top_places,
+            'profile_pic':profile_pic,
         }
         return render(request, 'index.html', context=data)
     data = {

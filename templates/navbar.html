@@ -99,7 +99,9 @@
 
         {% if status == '1' %}
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'profile' %}">{{ user.email }}</a>
+          <a class="nav-link" href="{% url 'profile' %}">
+            <img src="/media/{{ profile_pic }}" alt="avatar" class="rounded-circle img-fluid" style="width: 27px;height: 27px;">&nbsp;{{ user.first_name }} {{ user.last_name }}
+          </a>
         </li>
         <li class="nav-item">
           <a class="nav-link" data-toggle="modal" href="{% url 'user_logout' %}"
