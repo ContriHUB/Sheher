@@ -120,6 +120,7 @@ def register(request):
 def places_view(request):
     ctx = {}
     url_parameter = request.GET.get("q")
+    template = request.GET.get("template")
 
     if url_parameter:
         places = PlacesDetails.objects.filter(name__startswith=url_parameter)
@@ -133,7 +134,7 @@ def places_view(request):
     if is_ajax_request:
 
         html = render_to_string(
-            template_name="search_result_partial.html", context={"search_places": places}
+            template_name=template, context={"search_places": places}
         )
         data_dict = {"html_from_view": html}
         return JsonResponse(data=data_dict, safe=False)

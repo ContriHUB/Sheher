@@ -3,10 +3,10 @@
   <div class="container">
     {% if is_search %}
     <div id="wrapper">
-      <form id="search" class="d-flex">                  
+      <div id="search" class="d-flex">                  
         <input id="user-input" class="form-control" type="search" placeholder="Search" name="search_field" aria-label="Search">
-        <button class="btn btn-outline-success" disabled>Search</button>
-      </form>
+        <a id="search-btn" class="btn btn-outline-success" href="#places">Search</a>
+      </div>
       <div id="replaceable-content" class="page-section bg-light">
         {% include 'search_result_partial.html' %}
       </div>
@@ -78,7 +78,7 @@
         {% endif %}
 
         {% if is_places %}
-        <li class="nav-item"><a class="nav-link" href="{% url 'home' %}#places">Places</a></li>
+        <li class="nav-item"><a class="nav-link" onclick="allPlaces()" href="{% url 'home' %}#places">Places</a></li>
         {% endif %}
 
         {% if is_team %}
