@@ -236,10 +236,14 @@
         <!-- Portfolio Grid-->
         <section class="page-section bg-light" id="places">
             <div class="container">
+                <div id="search-content" style="display:none;">
+                    {% include 'search_places_partial.html' %}
+                </div>
+                <div id="all-content">
                 <div class="text-center">
                     <h2 class="section-heading text-uppercase">Places</h2>
-                    <h3 class="section-subheading text-muted">Varanasi a city of Ghosts and Temples !</h3>
-                </div>
+                    <h3 class="section-subheading text-muted">Varanasi a city of Ghosts and Temples !</h3> 
+                </div>  
                 <div class="row">
                     {% for p in places %}
                     <div class="col-lg-4 col-sm-6 mb-4">
@@ -256,7 +260,11 @@
                             </div>
                         </div>
                     </div>
-                    {% if user.is_authenticated %}
+                    {% endfor %}
+                </div>
+            </div>
+                    {% if user.is_authenticated %}                    
+                    {% for p in places %}
                     <!-- Portfolio Modals-->
                     <div class="portfolio-modal modal fade" id="portfolioModal{{ p.pk }}" tabindex="-1" role="dialog" aria-hidden="true">
                         <div class="modal-dialog">
@@ -372,9 +380,8 @@
                                 </div>
                             </div>
                         </div>
+                        {% endfor %}
                         {% endif %}
-                    {% endfor %}
-                </div>
             </div>
         </section>
 
@@ -514,9 +521,12 @@
     // Search functionality
     const user_input = $("#user-input")
     const places_div = $('#replaceable-content')
+    const search_content = $('#search-content')
+    const all_content = $('#all-content')
+    const search_btn = $('#search-btn')
     const endpoint = '/search/'
     const delay_by_in_ms = 700
-    let scheduled_function = false
+    let scheduled_function = false 
 
     let ajax_call = function (endpoint, request_parameters) {
         $.getJSON(endpoint, request_parameters)
@@ -531,10 +541,22 @@
             })
     }
 
+    let ajax_update_places = function (endpoint, request_parameters) {
+        $.getJSON(endpoint, request_parameters)
+            .done(response => {
+                search_content.promise().then(() => {
+                    // replace the HTML contents
+                    search_content.html(response['html_from_view'])
+                    // fade-in the div with new contents
+                    search_content.fadeTo('slow', 1)
+                })
+            })
+    }
     user_input.on('keyup', function () {
         if($(this).val()){
             const request_parameters = {
-                q: $(this).val() // value of user_input: the HTML element with ID user-input
+                q: $(this).val(), // value of user_input: the HTML element with ID user-input
+                template: "search_result_partial.html" // Template to be changed
             }
 
             // if scheduled_function is NOT false, cancel the execution of the function
@@ -548,7 +570,35 @@
         else{
             places_div.hide();
         }
+    })    
+    search_btn.on('click', function () {
+        if($(user_input).val()){
+            const request_parameters = {
+                q: $(user_input).val(),
+                template: "search_places_partial.html"
+            }
+            all_content.hide()
+            search_content.show()
+            ajax_update_places(endpoint, request_parameters)
+        }
+        else{
+            search_content.hide()
+            all_content.show()
+        }
     })
+    function allPlaces(reload){
+        window.location.hash = '#places';
+        window.location.reload(true);
+    }
+    // Pressing enter on textbox will be equivalent to clicking on search button
+    $("#user-input").keyup(function(event) {
+        if (event.keyCode === 13) {
+            $("#search-btn").click();
+            $('html, body').animate({
+                scrollTop: $("#places").offset().top
+            }, 200);
+        }
+    });
     $(document).on("click", !"#wrapper", function () {
         $(this).parents(".search-box").find('input[type="text"]').val($(this).text());
         places_div.hide();

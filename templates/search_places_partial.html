@@ -1,0 +1,40 @@
+<div class="row" style="margin-bottom:20px;">
+    <div>
+        <h3 class="text-center section-heading text-uppercase">Search Results</h3>
+        {% if search_places.count != 0 %}
+            <h4 class="text-center section-subheading text-muted">{{search_places.count}} places found</h4>
+        {% else %}
+            <h4 class="text-center section-subheading text-muted">Your search did not match any place</h4>
+            <h4>Suggestions:</h5>
+            <ul>
+            <li>Make sure that all words are spelled correctly.</li>
+            <li>Try different keywords.</li>
+            <li>Try more general keywords.</li>
+            <li>Try fewer keywords.</li>
+            </ul>
+        {% endif %}
+    </div>
+</div>
+<div class="row">
+    {% for p in search_places %}
+    <div class="col-lg-4 col-sm-6 mb-4">
+    <!-- Portfolio item 1-->
+    <div class="portfolio-item">
+        <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal{{ p.pk }}">
+            <div class="place_image">
+                                    <!--<img src='https://unsplash.com/photos/KMn4VEeEPR8' class="hostel_image" alt="">-->
+                                    <img src="/media/{{ p.picture }}">
+                                </div></a>
+        <div class="portfolio-caption">
+            <div class="portfolio-caption-heading">{{ p.name }}</div>
+            <div class="portfolio-caption-subheading text-muted">{{ p.city }}</div>
+        </div>
+    </div>
+</div>
+    {% endfor %}
+</div>
+<div class="row">
+    <div class="text-center">
+        <a class="btn btn-dark text-uppercase" onclick="allPlaces()" style="float:left; margin:15px;"><i class="fa fa-angle-double-left"></i> All Places</a>
+    </div>
+</div>
