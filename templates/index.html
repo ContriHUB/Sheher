@@ -185,7 +185,7 @@
         </div>
         {% endif %}
         <!-- Navigation-->
-        {% include "./navbar.html" with is_search=1 is_home=0 is_navbar_responsive=1 is_home_nav=0 is_services=1 is_places=1 is_team=1 is_contributors=1 is_report=1 %}
+        {% include "./navbar.html" with is_search=1 is_home=0 is_navbar_responsive=1 is_home_nav=0 is_services=1 is_places=1 is_team=1 is_contributors=1 is_report=1 is_report_page=0 %}
         
         <!-- floating button -->
         <a href="/Visitor/SOS" class="sos position-fixed rounded-circle d-flex justify-content-center align-items-center">
@@ -273,6 +273,11 @@
                                                         <!--<img src='https://unsplash.com/photos/KMn4VEeEPR8' class="hostel_image" alt="">-->
                                                         <img src="/media/{{ p.picture }}">
                                                     </div>
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <iframe src="http://maps.google.com/maps?q={{p.position.latitude}},{{p.position.longitude}}&z=15&output=embed"></iframe>
+                                                        </div>
+                                                        <div class="col">
                                                     <ul class="list-inline">
                                                         <li>
                                                             <strong>Overall Rating: </strong>
@@ -301,7 +306,8 @@
                                                             <strong>Current Safety Index : <span id="safety-index-{{p.pk}}">???</span> </strong>
                                                         </li>
                                                     </ul>
-
+                                                </div>
+                                                    </div>
                                                 <div class="row">
                                                     <div class="col">
                                                     <a href="{% url 'rate_review' p.pk %}">

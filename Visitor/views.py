@@ -103,6 +103,7 @@ def profile(request):
             'address':address,
             'profile_pic':profile_pic,
             # 'complaints': u_complaints,
+            'status':'1',
         }
         return render(request, 'home/profile.html', context=data)
 
@@ -148,9 +149,9 @@ def edit_profile(request):
             form = EditProfileForm(request.POST)
             if form.is_valid():
                 messages.success(request, 'Profile details updated.')
-                return render(request,'Visitor/edit_profile_form.html',{'form':form})
+                return render(request,'Visitor/edit_profile_form.html',{'form':form,'status':'1'})
         form = EditProfileForm(initial=fields)
-        return render(request,'Visitor/edit_profile_form.html',{'form':form})
+        return render(request,'Visitor/edit_profile_form.html',{'form':form,'status':'1'})
     else:
         return HttpResponseRedirect('/Visitor/login')
 def edit(request):
