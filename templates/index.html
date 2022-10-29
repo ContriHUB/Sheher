@@ -586,9 +586,9 @@
             all_content.show()
         }
     })
-    function allPlaces(reload){
-        window.location.hash = '#places';
-        window.location.reload(true);
+    function allPlaces(){
+        search_content.hide()
+        all_content.show()
     }
     // Pressing enter on textbox will be equivalent to clicking on search button
     $("#user-input").keyup(function(event) {
