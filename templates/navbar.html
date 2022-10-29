@@ -1,3 +1,4 @@
+{% load index %}
 <nav class="navbar navbar-expand-lg navbar-default fixed-top" id="mainNav">
   <div class="container">
     {% if is_search %}
@@ -5,10 +6,23 @@
       <form id="search" class="d-flex">                  
         <input id="user-input" class="form-control" type="search" placeholder="Search" name="search_field" aria-label="Search">
         <button class="btn btn-outline-success" disabled>Search</button>
-
       </form>
       <div id="replaceable-content" class="page-section bg-light">
         {% include 'search_result_partial.html' %}
+      </div>
+      <div id="top-places" class="container bg-light">
+        <div class="row text-center" style="padding:15px;background-color:#ffc107;color:white;">
+          <h4 class="card-header"><i class="fa-sharp fa-solid fa-arrow-trend-up"></i> Top places</h4>
+        </div>
+        <ul class="list-inline" style="margin-top:10px;">
+        {% for p, r in top_places.items %}
+          <li>
+          <p style="margin-top:-5px;">{{p.name}} {{r}} <i class="fa-solid fa-star"></i></p>
+          <h5 class="item-intro text-muted" style="margin-top:-15px;margin-bottom:-10px;">{{p.city}}</h5>
+          <hr>
+          </li>
+        {% endfor %}
+      </ul>
       </div>
     </div>
     {% endif %} 

@@ -138,6 +138,10 @@
                 display:none;
                 height:400px;
             }
+            #top-places{
+                height:400px;
+                display:none;
+            }
             .portfolio-caption{
                 margin-left:15px;
             }
@@ -173,6 +177,12 @@
                 width: 10%;
                 font-size:small;
                 background-color: rgb(54, 156, 54);
+            } 
+            hr{
+                margin-top: 1rem;
+                margin-bottom: 1rem;
+                border: 0;
+                border-top: 1px solid rgba(0, 0, 0, 0.1);
             }
         </style>
     </head>
@@ -510,10 +520,10 @@
             }
         });
     }
-
     // Search functionality
     const user_input = $("#user-input")
-    const places_div = $('#replaceable-content')
+    const places_div = $('#replaceable-content')    
+    const top_places = $('#top-places')
     const endpoint = '/search/'
     const delay_by_in_ms = 700
     let scheduled_function = false
@@ -521,6 +531,7 @@
     let ajax_call = function (endpoint, request_parameters) {
         $.getJSON(endpoint, request_parameters)
             .done(response => {
+                top_places.hide();
                 // fade out the places_div, then:
                 places_div.fadeTo('slow', 0).promise().then(() => {
                     // replace the HTML contents
@@ -530,13 +541,17 @@
                 })
             })
     }
-
+    user_input.on('focus', function(){
+        top_places.show();
+    })
+    user_input.focusout(function() {
+        top_places.hide();
+    });
     user_input.on('keyup', function () {
         if($(this).val()){
             const request_parameters = {
                 q: $(this).val() // value of user_input: the HTML element with ID user-input
             }
-
             // if scheduled_function is NOT false, cancel the execution of the function
             if (scheduled_function) {
                 clearTimeout(scheduled_function)
@@ -547,6 +562,7 @@
         }
         else{
             places_div.hide();
+            top_places.show();
         }
     })
     $(document).on("click", !"#wrapper", function () {
