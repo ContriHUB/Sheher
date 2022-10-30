@@ -19,7 +19,7 @@
           {% for i,p in top_places.items %}
             <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal{{ i }}" style="text-decoration:none;">
             <li>
-            <p style="margin-top:-5px;">{{p.name}} {{ratings|index:i}} <i class="fa-solid fa-star"></i></p>
+            <p style="margin-top:-5px;">{{p.name}} {{top_ratings|index:forloop.counter}} <i class="fa-solid fa-star"></i></p>
             <h5 class="item-intro text-muted" style="margin-top:-15px;margin-bottom:-10px;">{{p.city}}</h5>
             <hr>
             </li>

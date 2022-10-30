@@ -36,10 +36,12 @@ def homepage(request):
             temp[all_places[i]] = all_ratings[i]
         temp = dict(Counter(temp).most_common(5))
         top_places = {}
+        top_ratings = []
         for q,r in temp.items():
             for i in range(0,len(all_places)):
                 if all_places[i]==q:
                     top_places[q.pk] = q
+                    top_ratings.append(r)
         # print(top_places)
         data = {
             'places' : all_places,
@@ -49,6 +51,7 @@ def homepage(request):
             'ratings': all_ratings,
             'safety_index': '???',
             'top_places': top_places,
+            'top_ratings': top_ratings,
             'profile_pic':profile_pic,
         }
         return render(request, 'index.html', context=data)
