@@ -8,22 +8,7 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>Home</title>
-        <!-- Favicon-->
-        <link rel="icon" type="image/x-icon" href="{% static "assets/favicon.ico" %}" />
-        <!-- Font Awesome icons (free version)-->
-        <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
-        <!-- Google fonts-->
-        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
-        <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
-        <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="{% static "css/styles.css"%}" rel="stylesheet" />
-        <link href="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/smart_wizard.min.css" rel="stylesheet" type="text/css" />
-        <link href="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/smart_wizard_theme_arrows.min.css" rel="stylesheet" type="text/css" />
-        <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/jquery.smartWizard.min.js"></script>
-
-
-
-
+        {% include "../scripts.html" with is_index=0 is_profile=0 is_register=0 is_complaints=0 is_rating_review=1 is_edit_profile=0 %}
     <meta charset="UTF-8">
     <title>Give Rating</title>
     <style>
