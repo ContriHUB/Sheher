@@ -39,7 +39,7 @@ def homepage(request):
         for q,r in temp.items():
             for i in range(0,len(all_places)):
                 if all_places[i]==q:
-                    top_places[i+1] = q
+                    top_places[q.pk] = q
         # print(top_places)
         data = {
             'places' : all_places,

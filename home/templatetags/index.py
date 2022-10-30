@@ -4,4 +4,7 @@ register = template.Library()
 
 @register.filter
 def index(indexable, i):
-    return indexable[i-1]
+    try:
+        return indexable[i-1]
+    except:
+        print("Index error")
