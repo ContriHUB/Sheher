@@ -146,8 +146,9 @@ def edit_profile(request):
             'address':myfields.address,
         }
         if request.method == 'POST':
-            form = EditProfileForm(request.POST)
+            form = EditProfileForm(request.POST, instance=myfields)
             if form.is_valid():
+                form.save()
                 messages.success(request, 'Profile details updated.')
                 return render(request,'Visitor/edit_profile_form.html',{'form':form,'status':'1'})
         form = EditProfileForm(initial=fields)
