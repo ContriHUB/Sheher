@@ -555,9 +555,8 @@
         top_places.show();
     })
     user_input.focusout(function() {
-        top_places.hide();
+        top_places.fadeOut('slow')
     });
-
     let ajax_update_places = function (endpoint, request_parameters) {
         $.getJSON(endpoint, request_parameters)
             .done(response => {
@@ -587,7 +586,7 @@
             places_div.hide();
             top_places.show();
         }
-    })    
+    }) 
     search_btn.on('click', function () {
         if($(user_input).val()){
             const request_parameters = {
@@ -619,6 +618,5 @@
     $(document).on("click", !"#wrapper", function () {
         $(this).parents(".search-box").find('input[type="text"]').val($(this).text());
         places_div.hide();
-        // console.log("Not in wrapper")
     });
 </script>
