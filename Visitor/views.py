@@ -146,7 +146,7 @@ def edit_profile(request):
             'address':myfields.address,
         }
         if request.method == 'POST':
-            form = EditProfileForm(request.POST, instance=myfields)
+            form = EditProfileForm(request.POST, request.FILES, instance=myfields)
             if form.is_valid():
                 form.save()
                 messages.success(request, 'Profile details updated.')
