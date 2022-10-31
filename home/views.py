@@ -71,8 +71,6 @@ def measure_preference(request,place_id):
 
         reviews=RatingReview.objects.filter(place=place)
         print(reviews)
-
-        CHOICES = {'VERY POOR': 1, 'POOR': 2, 'MEDIOCRE': 3, 'GOOD': 4, 'EXCELLENT': 5,}
         
         rating = 0
         count = 0
@@ -93,8 +91,8 @@ def measure_preference(request,place_id):
         result = getPrediction(gender, density, age, income , policestationcount, petrolingvans, moralitylevel, crime_rate, overall_rating)
         if result < 0: result=0
         print("prediction: ",round(result[0], 1))
-        result[0]*=10
-        result[0]=100-result[0]
+        result[0]*=20
+        #result[0]=100-result[0]
         return JsonResponse({'overall_preferred_index': round(result[0])})
     else:        
         return JsonResponse({'overall_preferred_index': "?!?"})
