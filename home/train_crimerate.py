@@ -8,7 +8,7 @@ from sklearn.svm import SVR
 from sklearn import linear_model
 
 # Reading dataset
-df = pd.read_csv('crime_db.csv')
+df = pd.read_csv('sample_db.csv')
 
 # Label Encoding for Gender column
 mycol = df[["Victim_Gender"]]
@@ -18,13 +18,14 @@ for i in mycol:
 
 # Feeding parameters 
 feed = df[['Victim_Gender', 'Population_Density', 'Average_Age', 'Average_Income', 
-           'Police_Station_Count', 'Petroling_Vans', 'Morality_level', 'Crime_Rate']]
+           'Police_Station_Count', 'Petroling_Vans', 'Morality_level', 'Crime_Rate',
+           'Rating', 'Overall_Preferred_index']]
 
 # # Drop target column
-df_train_x = feed.drop('Crime_Rate',axis = 1)
+df_train_x = feed.drop('Overall_Preferred_index',axis = 1)
 
 # Target variable column
-df_train_y = feed['Crime_Rate']
+df_train_y = feed['Overall_Preferred_index']
 
 # Train-test Splitting
 x_train, x_test, y_train, y_test = train_test_split(df_train_x, df_train_y, test_size=0.20, random_state=42)

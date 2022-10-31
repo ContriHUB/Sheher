@@ -3,6 +3,7 @@ from django.http import JsonResponse
 from Places.models import PlacesDetails,RatingReview
 from Visitor.models import VisitorDetails
 import pickle
+import pandas as pd
 from django.template.loader import render_to_string
 
 def homepage(request):
@@ -35,7 +36,7 @@ def homepage(request):
             'status': '1',
             'reviews': all_reviews,
             'ratings': all_ratings,
-            'safety_index': '???',
+            'overall_preferred_index': '???',
             'profile_pic':profile_pic,
         }
         return render(request, 'index.html', context=data)
@@ -46,7 +47,7 @@ def homepage(request):
     return render(request, 'index.html', context=data)
 # Create your views here.
 
-def measure_safety(request,place_id):
+def meaure_preference(request,place_id):
     if request.is_ajax():
         place= PlacesDetails.objects.get(pk=place_id)
         #gender= VisitorDetails.objects.get(pk=user_id).gender
@@ -65,17 +66,33 @@ def measure_safety(request,place_id):
         petrolingvans=place.petroling_vans
         moralitylevel=place.morality_level
 
-        result = getPrediction(gender, density, age, income , policestationcount, petrolingvans, moralitylevel)
+        df=pd.read_csv('sample_db.csv')
+        crime_rate=df['Crime_Rate'][place_id]
+
+        rating=RatingReview.objects.get(pk=place_id)
+
+        CHOICES = {'VERY POOR': 1, 'POOR': 2, 'MEDIOCRE': 3, 'GOOD': 4, 'EXCELLENT': 5,}
+        
+        safety=CHOICES.get(rating.safety)
+        sanitization=CHOICES.get(rating.sanitization)
+        security=CHOICES.get(rating.security)
+        fun=CHOICES.get(rating.overall_fun)
+        review=rating.review
+        #bonus: add nlp from review
+
+        overall_rating = (safety+sanitization+security+fun)/4
+
+        result = getPrediction(gender, density, age, income , policestationcount, petrolingvans, moralitylevel, crime_rate, overall_rating)
         if result < 0: result=0
         print("prediction: ",result[0])
         result[0]*=10
         result[0]=100-result[0]
-        return JsonResponse({'safety_index': round(result[0])})
+        return JsonResponse({'overall_preferred_index': round(result[0])})
     else:        
-        return JsonResponse({'safety_index': "?!?"})
+        return JsonResponse({'overall_preferred_index': "?!?"})
 
-def getPrediction(gender, density, age, income , policestationcount, petrolingvans, moralitylevel):
-    userdata = [[gender, density, age, income , policestationcount, petrolingvans, moralitylevel]]
+def getPrediction(gender, density, age, income , policestationcount, petrolingvans, moralitylevel, crime_rate, overall_rating):
+    userdata = [[gender, density, age, income , policestationcount, petrolingvans, moralitylevel, crime_rate, overall_rating]]
     import os
     module_dir = os.path.dirname(__file__)  # get current directory
     file_path = os.path.join(module_dir, 'model2.sav')

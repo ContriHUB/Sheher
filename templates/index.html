@@ -486,7 +486,7 @@
         });
     function updateSafetyIndex(URL){
         pk = URL
-        URL = '/'+URL+"/measure_safety/";
+        URL = '/'+URL+"/meaure_preference/";
         console.log(URL);
         $.ajax({
             url : URL,
@@ -497,8 +497,8 @@
             },
             success : function(response){
                 element = '#safety-index-'+pk
-                $(element).html(response.safety_index);
-                // console.log(response.safety_index);
+                $(element).html(response.overall_preferred_index);
+                // console.log(response.overall_preferred_index);
             },
             error : function() {
                 console.log("Error calculating Safety Index");
