@@ -299,7 +299,7 @@
                                                             <strong>Best Time to Visit : {{ p.month_to_visit }}</strong>
                                                         </li>
                                                         <li>
-                                                            <strong>Current Safety Index : <span id="safety-index-{{p.pk}}">???</span> </strong>
+                                                            <strong>Overall Preference Index : <span id="overall-preference-index-{{p.pk}}">???</span> </strong>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -319,7 +319,7 @@
                                                     </button>
                                                     </div>
                                                     <div class="col">
-                                                            <button id="btn-safety" onclick="updateSafetyIndex({{p.pk}})" class="btn btn-dark btn-lg text-uppercase" type="button"><i class="fa-regular fa-shield-check"></i> Check Safety
+                                                            <button id="btn-safety" onclick="updatePreferenceIndex({{p.pk}})" class="btn btn-dark btn-lg text-uppercase" type="button"><i class="fa-regular fa-shield-check"></i> Check Preference
                                                             </button>
                                                     </div>
                                                     </div>
@@ -484,9 +484,9 @@
             });
 
         });
-    function updateSafetyIndex(URL){
+    function updatePreferenceIndex(URL){
         pk = URL
-        URL = '/'+URL+"/meaure_preference/";
+        URL = '/'+URL+"/measure_preference/";
         console.log(URL);
         $.ajax({
             url : URL,
@@ -496,12 +496,12 @@
                 csrfmiddlewaretoken: '{{ csrf_token }}' ,
             },
             success : function(response){
-                element = '#safety-index-'+pk
+                element = '#overall-preference-index-'+pk
                 $(element).html(response.overall_preferred_index);
                 // console.log(response.overall_preferred_index);
             },
             error : function() {
-                console.log("Error calculating Safety Index");
+                console.log("Error calculating Preference Index");
             }
         });
     }

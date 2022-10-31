@@ -47,7 +47,7 @@ def homepage(request):
     return render(request, 'index.html', context=data)
 # Create your views here.
 
-def meaure_preference(request,place_id):
+def measure_preference(request,place_id):
     if request.is_ajax():
         place= PlacesDetails.objects.get(pk=place_id)
         #gender= VisitorDetails.objects.get(pk=user_id).gender
@@ -66,25 +66,33 @@ def meaure_preference(request,place_id):
         petrolingvans=place.petroling_vans
         moralitylevel=place.morality_level
 
-        df=pd.read_csv('sample_db.csv')
+        df=pd.read_csv('https://raw.githubusercontent.com/MauryaRitesh/files/main/sample_db.csv')
         crime_rate=df['Crime_Rate'][place_id]
 
-        rating=RatingReview.objects.get(pk=place_id)
+        reviews=RatingReview.objects.filter(place=place)
+        print(reviews)
 
         CHOICES = {'VERY POOR': 1, 'POOR': 2, 'MEDIOCRE': 3, 'GOOD': 4, 'EXCELLENT': 5,}
         
-        safety=CHOICES.get(rating.safety)
-        sanitization=CHOICES.get(rating.sanitization)
-        security=CHOICES.get(rating.security)
-        fun=CHOICES.get(rating.overall_fun)
-        review=rating.review
+        rating = 0
+        count = 0
+        for review in reviews:
+            rating+=int(review.safety)
+            rating+=int(review.sanitization)
+            rating+=int(review.security)
+            rating+=int(review.overall_fun)
+            count+=4
+        if count == 0:
+            rating = 3 #default
+        else:
+            rating = round(rating/count, 1)
         #bonus: add nlp from review
 
-        overall_rating = (safety+sanitization+security+fun)/4
+        overall_rating = rating
 
         result = getPrediction(gender, density, age, income , policestationcount, petrolingvans, moralitylevel, crime_rate, overall_rating)
         if result < 0: result=0
-        print("prediction: ",result[0])
+        print("prediction: ",round(result[0], 1))
         result[0]*=10
         result[0]=100-result[0]
         return JsonResponse({'overall_preferred_index': round(result[0])})

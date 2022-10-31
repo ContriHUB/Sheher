@@ -8,7 +8,7 @@ from sklearn.svm import SVR
 from sklearn import linear_model
 
 # Reading dataset
-df = pd.read_csv('sample_db.csv')
+df = pd.read_csv('https://raw.githubusercontent.com/MauryaRitesh/files/main/sample_db.csv')
 
 # Label Encoding for Gender column
 mycol = df[["Victim_Gender"]]
