@@ -1,3 +1,5 @@
+import re
+import os
 from django.shortcuts import render
 from django.http import JsonResponse
 from Places.models import PlacesDetails,RatingReview
@@ -71,6 +73,12 @@ def measure_preference(request,place_id):
 
         reviews=RatingReview.objects.filter(place=place)
         print(reviews)
+
+        module_dir = os.path.dirname(__file__)  # get current directory
+        file_path = os.path.join(module_dir, 'nlp.sav')
+        file = open(file_path, 'rb')   
+        nlp = pickle.load(file)
+        file.close()
         
         rating = 0
         count = 0
@@ -79,7 +87,17 @@ def measure_preference(request,place_id):
             rating+=int(review.sanitization)
             rating+=int(review.security)
             rating+=int(review.overall_fun)
-            count+=4
+            desc = review.review
+            res = nlp.predict([desc])
+            reviewPoint = 3 #default
+            if (res==['happy']):
+                reviewPoint = 5
+            else:
+                reviewPoint = 0
+            rating+=reviewPoint
+
+            count+=5
+            
         if count == 0:
             rating = 3 #default
         else:
