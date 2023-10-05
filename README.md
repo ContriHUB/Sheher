@@ -2,8 +2,6 @@
 
 An utility **Django WebApp** that uses Django packages.
 
-**_Disclaimer:_** _This project was made in a very short time specifically for the purposes of [ContriHUB](https://contrihub.github.io/), and is currently under maintenance in the event itself._
-
 ### Features: 
 
 + Rating and Review
@@ -61,20 +59,16 @@ An utility **Django WebApp** that uses Django packages.
 For help getting started with Django, view [online documentation](https://docs.djangoproject.com/en/4.1/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
 
-##### Steps to contribute -
+##### Steps to contribute - 
 1. Fork this repo and clone it to your system.
-2. Get the issue assigned to you on the ContriHUB website. 
+2. Get the issue assigned to you on the [ContriHUB](https://sac.mnnit.ac.in/contrihub/) website. 
 3. Make the required changes. Please keep your changes relevant only to the issue specified.
 4. Add your name to [CONTRIBUTORS.md](CONTRIBUTORS.md).
 5. Create a PR with your changes and a detailed description of the changes you have made. 
 6. Submit the PR link on the ContriHUB website.
 
+[_References_](https://github.com/ContriHUB/ContriHUB-23#reference-links)
+
 ## Contributors
 
 A list of contributors can be found in [CONTRIBUTORS.md](CONTRIBUTORS.md).
-
-# Maintainers
-
-- [Cyril Mishra](https://github.com/CyrilMishra)
-
-### CAUTION: Website is currently under development.
