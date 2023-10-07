@@ -6,3 +6,11 @@ home/model5.sav
 home/predict_crimerate.py
 db.sqlite3
 /venv
+home/__pycache__
+home/migrations/__pycache__
+home/templatetags/__pycache__
+Places/__pycache__
+Places/migrations/__pycache__
+Sheher/__pycache__
+Visitor/__pycache__
+Visitor/migrations/__pycache__
