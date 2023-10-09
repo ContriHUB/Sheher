@@ -126,6 +126,10 @@
                 display:none;
                 height:400px;
             }
+            #top-places{
+                height:400px;
+                display:none;
+            }
             .portfolio-caption{
                 margin-left:15px;
             }
@@ -161,6 +165,12 @@
                 width: 10%;
                 font-size:small;
                 background-color: rgb(54, 156, 54);
+            } 
+            hr{
+                margin-top: 1rem;
+                margin-bottom: 1rem;
+                border: 0;
+                border-top: 1px solid rgba(0, 0, 0, 0.1);
             }
         </style>
     </head>
@@ -278,7 +288,7 @@
                                                         <li>
                                                             <strong>Overall Rating: </strong>
                                                                 {% if ratings %}
-                                                                {{ ratings|index:p.pk }}
+                                                                {{ ratings|index:forloop.counter }}
                                                                 {% endif %}
                                                         </li>
 
@@ -325,7 +335,7 @@
                                                     </div>
                                                     <h4 class="mt-2 mb-2">All Reviews</h4>
                                                     {% if reviews %}
-                                                    {% for review in reviews|index:p.pk %}
+                                                    {% for review in reviews|index:forloop.counter %}
                                                     <div class="card p-4">
                                                       <div class="row">
                                                           <div class="col-2">
@@ -505,10 +515,10 @@
             }
         });
     }
-
     // Search functionality
     const user_input = $("#user-input")
-    const places_div = $('#replaceable-content')
+    const places_div = $('#replaceable-content')    
+    const top_places = $('#top-places')
     const search_content = $('#search-content')
     const all_content = $('#all-content')
     const search_btn = $('#search-btn')
@@ -519,6 +529,7 @@
     let ajax_call = function (endpoint, request_parameters) {
         $.getJSON(endpoint, request_parameters)
             .done(response => {
+                top_places.hide();
                 // fade out the places_div, then:
                 places_div.fadeTo('slow', 0).promise().then(() => {
                     // replace the HTML contents
@@ -528,7 +539,12 @@
                 })
             })
     }
-
+    user_input.on('focus', function(){
+        top_places.show();
+    })
+    user_input.focusout(function() {
+        top_places.fadeOut('slow')
+    });
     let ajax_update_places = function (endpoint, request_parameters) {
         $.getJSON(endpoint, request_parameters)
             .done(response => {
@@ -546,7 +562,6 @@
                 q: $(this).val(), // value of user_input: the HTML element with ID user-input
                 template: "search_result_partial.html" // Template to be changed
             }
-
             // if scheduled_function is NOT false, cancel the execution of the function
             if (scheduled_function) {
                 clearTimeout(scheduled_function)
@@ -557,8 +572,9 @@
         }
         else{
             places_div.hide();
+            top_places.show();
         }
-    })    
+    }) 
     search_btn.on('click', function () {
         if($(user_input).val()){
             const request_parameters = {
@@ -590,6 +606,5 @@
     $(document).on("click", !"#wrapper", function () {
         $(this).parents(".search-box").find('input[type="text"]').val($(this).text());
         places_div.hide();
-        // console.log("Not in wrapper")
     });
 </script>
