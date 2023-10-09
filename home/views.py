@@ -4,6 +4,8 @@ from Places.models import PlacesDetails,RatingReview
 from Visitor.models import VisitorDetails
 import pickle
 from django.template.loader import render_to_string
+import collections
+from collections import Counter
 
 def homepage(request):
     all_places = PlacesDetails.objects.all()
@@ -29,6 +31,18 @@ def homepage(request):
             else:
                 all_ratings.append(round(rating/count, 1))
         # print(all_ratings)
+        temp = {}
+        for i in range(0,len(all_places)):
+            temp[all_places[i]] = all_ratings[i]
+        temp = dict(Counter(temp).most_common(5))
+        top_places = {}
+        top_ratings = []
+        for q,r in temp.items():
+            for i in range(0,len(all_places)):
+                if all_places[i]==q:
+                    top_places[q.pk] = q
+                    top_ratings.append(r)
+        # print(top_places)
         data = {
             'places' : all_places,
             'user': d,
@@ -36,6 +50,8 @@ def homepage(request):
             'reviews': all_reviews,
             'ratings': all_ratings,
             'safety_index': '???',
+            'top_places': top_places,
+            'top_ratings': top_ratings,
             'profile_pic':profile_pic,
         }
         return render(request, 'index.html', context=data)
