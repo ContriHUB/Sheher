@@ -274,7 +274,13 @@
              <h3>SIGN UP</h3>
           <input type="text" placeholder="Email" name="email"/>
             <input type="text" placeholder="First Name" name="firstname"/>
-            <input type="text" placeholder="Last Name" name="lastname"/>            
+            <input type="text" placeholder="Last Name" name="lastname"/>
+            <input list="gender" placeholder="Gender" name="gender">
+            <datalist id="gender">
+                <option value="Male">
+                <option value="Female">
+                <option value="Others">
+            </datalist> 
             <input type="text" placeholder="Upload Profile Picture" disabled="true" />
             <input id="dp" type="file" accept="image/*" name="profile_pic"/>
             <input type="text" placeholder="Address" name="address"/>
