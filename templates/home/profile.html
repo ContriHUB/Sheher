@@ -1,5 +1,5 @@
 {% load static %}
-
+{% load index %}
 <html>
 
   <head>
@@ -20,6 +20,9 @@
       body:before {
         content: "";
         background-image: url("../../static/assets/img/homepage-bg.jpg");
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
         position: absolute;
         left: 50%;
         top: 100%;
@@ -457,6 +460,7 @@
     </style>
   </head>
   <body>
+    {% include "../navbar.html" with is_search=1 is_home=0 is_navbar_responsive=1 is_home_nav=0 is_services=1 is_places=1 is_team=1 is_contributors=1 is_report=1 is_report_page=0 %}
     <div class="container profile-card">
 
       <header>
