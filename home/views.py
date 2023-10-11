@@ -156,7 +156,7 @@ def places_view(request):
 
 #makes api call based on latiyutude and longitude fetched from database
 def get_weather_data(latitude,longitude):
-    url= 'http://api.weatherapi.com/v1/current.json?key=03cb8e565c014b529f5153949231010&q={},{}'
+    url= 'http://api.weatherapi.com/v1/current.json?key=<API_KEY>&q={},{}'
     city_weather = requests.get(url.format(latitude,longitude)).json()
     weather_info={}
     weather_info['wind speed in km']=city_weather['current']['wind_kph']
