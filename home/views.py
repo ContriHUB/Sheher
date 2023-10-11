@@ -6,6 +6,7 @@ import pickle
 from django.template.loader import render_to_string
 import collections
 from collections import Counter
+import requests
 
 def homepage(request):
     all_places = PlacesDetails.objects.all()
@@ -17,6 +18,10 @@ def homepage(request):
         for places in all_places:
             reviews = RatingReview.objects.filter(place=places)
             all_reviews.append(reviews)
+            latitude = places.position.latitude
+            longitude = places.position.longitude
+            weather_info=get_weather_data(latitude,longitude)
+            places.weather_info=weather_info  #adding weather info to place object
         for reviews_qs in all_reviews:
             rating = 0
             count = 0
@@ -135,7 +140,6 @@ def places_view(request):
         places = PlacesDetails.objects.filter(name__startswith=url_parameter)
     else:
         places = PlacesDetails.objects.all()
-
     ctx["places"] = places
     does_req_accept_json = request.accepts("application/json")
     is_ajax_request = request.headers.get("x-requested-with") == "XMLHttpRequest" and does_req_accept_json
@@ -149,3 +153,17 @@ def places_view(request):
         return JsonResponse(data=data_dict, safe=False)
 
     return render(request, "index.html", context=ctx)
+
+#makes api call based on latiyutude and longitude fetched from database
+def get_weather_data(latitude,longitude):
+    url= 'http://api.weatherapi.com/v1/current.json?key=03cb8e565c014b529f5153949231010&q={},{}'
+    city_weather = requests.get(url.format(latitude,longitude)).json()
+    weather_info={}
+    weather_info['wind speed in km']=city_weather['current']['wind_kph']
+    weather_info['humidity']=city_weather['current']['humidity']
+    weather_info['temperature in celsius']=city_weather['current']['temp_c']
+    weather_info['precipitation in mm']=city_weather['current']['precip_mm']
+    weather_info['last updated time']=city_weather['current']['last_updated']
+    return weather_info
+    
+
