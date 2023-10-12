@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import (
     ListView,
@@ -80,7 +80,7 @@ def likes(request, Post_pk):
 
     Post.objects.filter(pk=Post_pk).update(likes=current_likes)
     Post.objects.filter(pk=Post_pk).update(dislikes=current_dislikes)
-    return redirect('../blog-home')
+    return redirect('blog-home')
 
 def dislikes(request, Post_pk):
     user = request.user
@@ -108,7 +108,7 @@ def dislikes(request, Post_pk):
 
     Post.objects.filter(pk=Post_pk).update(likes=current_likes)
     Post.objects.filter(pk=Post_pk).update(dislikes=current_dislikes)
-    return redirect('../blog-home')
+    return redirect('blog-home')
 
 def your_posts(request):
     posts = Post.objects.filter(author_id=request.user.id).order_by('-date_posted')

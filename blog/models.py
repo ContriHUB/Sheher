@@ -10,7 +10,7 @@ class Post(models.Model):
     date_posted = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     picture=models.ImageField(null=True,blank=True,upload_to="images/post")
-    location = GeopositionField()
+    location = models.CharField(max_length=100)
     likes = models.IntegerField(default=0)
     dislikes = models.IntegerField(default=0)
 

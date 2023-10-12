@@ -1,17 +1,29 @@
 {% extends "blog/base.html" %}
 {% block content %}
-            {{ object.author }}
+<div class="media-body">
+    <div class="article-metadata">
+        {{ object.author }}
             {{ object.date_posted }}
-            {{ object.title }}
-            {{ object.location }}
-            {{ object.content }}
-            {% if object.picture %}
-                {{ object.picture }}
-            {% endif %}
-            Likes: {{ object.like }}
-            Dislikes: {{ object.dislike }}
+    </div>
+        <h2>{{ object.title }}</a></h2>
+        <p class="article-content">{{ object.location }}</p>
+        {% if object.picture %}
+        <img class="rounded mx-auto d-block" src="{{ object.picture.url }}" alt="image">
+        {% endif %}
+</div>
+<div>
+            Likes: {{ object.likes }}
+
+            Dislikes: {{ object.dislikes }}
+</div>
         {% if user.is_authenticated %}
         <button><a href = "{% url 'like' object.id %}">Like</a></button>
         <button><a href = "{% url 'dislike' object.id %}">Dislike</a></button>
+        {% endif %}
+        {% if object.author == user %}
+          <div>
+            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' object.id %}">Update</a>
+            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-delete' object.id %}">Delete</a>
+          </div>
         {% endif %}
 {% endblock %}

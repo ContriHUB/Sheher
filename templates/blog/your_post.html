@@ -1,15 +1,20 @@
 {% extends "blog/base.html" %}
 {% block content %}
-<div>
-    <a href="">Create New Post</a>
-</div>
+<h1>My Posts</h1>
 <div>
     {% if posts %}
     {% for post in posts%}
-        <a href = "{% url 'profile' %}">{ post.author }</a>
-        { post.date_posted }
-        <a href = "{% url 'post-detail' object.id %}">{ post.title }</a>
-        { post.location }
+    <div class="media-body">
+        <div class="article-metadata">
+            {{ post.author }}
+            {{ post.date_posted }}
+        </div>
+            <h2><a href = "{% url 'post-detail' post.id %}">{{ post.title }}</a></h2>
+            <p class="article-content">{{ post.location }}</p>
+            {% if post.picture %}
+            <img class="rounded mx-auto d-block" src="{{ post.picture.url }}" alt="image">
+            {% endif %}
+    </div>
     {% endfor %}
     {% endif %}
 </div>
