@@ -333,6 +333,20 @@
                                                             </button>
                                                     </div>
                                                     </div>
+                                                    <br>
+                                                    <h4 class="mt-2 mb-2">Weather Information</h4> 
+                                                    <ul class="list-inline">
+                                                        {% for weather_title,weather_detail in p.weather_info.items %}
+
+                                                        <li>
+                                                            <strong>{{ weather_title }} : {{ weather_detail }}</strong>
+                                                        </li>
+
+
+                                                        {% endfor %}
+                                                    </ul>
+                                                    
+                                                    
                                                     <h4 class="mt-2 mb-2">All Reviews</h4>
                                                     {% if reviews %}
                                                     {% for review in reviews|index:forloop.counter %}
