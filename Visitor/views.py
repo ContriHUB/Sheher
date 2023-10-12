@@ -106,7 +106,7 @@ def profile(request):
             'address':address,
             'profile_pic':profile_pic,
             # 'complaints': u_complaints,
-            'status':'1',
+            'status':'3',
         }
         return render(request, 'home/profile.html', context=data)
 
