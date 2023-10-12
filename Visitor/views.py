@@ -26,7 +26,7 @@ def user_signup(request):
         address=request.POST['address']
         phone=request.POST['phone']
         sos_contact=request.POST['sos']
-        profile_pic=request.FILES['profile_pic']
+        profile_pic=request.FILES.get('profile_pic')
         user=User.objects.create_user(email=email,first_name=firstname,last_name=lastname,password=password)
         user.save()
         myfields=VisitorDetails()
@@ -34,7 +34,8 @@ def user_signup(request):
         myfields.city=city
         myfields.address=address
         myfields.phone=phone
-        myfields.profile_picture = profile_pic
+        if profile_pic is not None:  #if no picture is provided then the database will save a default picture
+            myfields.profile_picture = profile_pic
         myfields.save()
         return HttpResponse('User account created')
 
