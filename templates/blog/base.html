@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog</title>
+</head>
+<body>
+    <nav>
+        {% include "../navbar.html" with is_search=0 is_home=0 is_navbar_responsive=0 is_home_nav=1 is_services=0 is_places=0 is_team=0 is_contributors=0 is_report=0 %}
+    </nav>
+    <!-- Sidebar -->
+    <div>
+        {% if user.is_authenticated %}
+            <a href = "{% url 'your_posts' %}">Your posts</a>
+            <a href = "{% url 'post-create' %}">Create New Post</a>
+            <a href = "{% url 'profile' %}">Profile</a>
+        {% else %}
+        Login/Signup to create posts
+        {% endif %}
+    </div>
+    <div>
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

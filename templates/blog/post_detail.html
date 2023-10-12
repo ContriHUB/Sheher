@@ -1,0 +1,17 @@
+{% extends "blog/base.html" %}
+{% block content %}
+            {{ object.author }}
+            {{ object.date_posted }}
+            {{ object.title }}
+            {{ object.location }}
+            {{ object.content }}
+            {% if object.picture %}
+                {{ object.picture }}
+            {% endif %}
+            Likes: {{ object.like }}
+            Dislikes: {{ object.dislike }}
+        {% if user.is_authenticated %}
+        <button><a href = "{% url 'like' object.id %}">Like</a></button>
+        <button><a href = "{% url 'dislike' object.id %}">Dislike</a></button>
+        {% endif %}
+{% endblock %}

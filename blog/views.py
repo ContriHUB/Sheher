@@ -9,7 +9,6 @@ from django.views.generic import (
 )
 from .models import Post, Like, Dislike
 
-
 class PostListView(ListView):
     model = Post
     template_name = 'blog/home.html'  
@@ -55,8 +54,8 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
             return True
         return False
 
-def likes(request, post_pk):
-    user = request.user.userprofile
+def likes(request, Post_pk):
+    user = request.user
     post = Post.objects.get(pk=Post_pk)
     current_likes = Post.objects.get(pk=Post_pk).likes
     current_dislikes = Post.objects.get(pk=Post_pk).dislikes
@@ -84,7 +83,7 @@ def likes(request, post_pk):
     return redirect('../blog-home')
 
 def dislikes(request, Post_pk):
-    user = request.user.userprofile
+    user = request.user
     post = Post.objects.get(pk=Post_pk)
     current_likes = Post.objects.get(pk=Post_pk).likes
     current_dislikes = Post.objects.get(pk=Post_pk).dislikes
@@ -110,3 +109,11 @@ def dislikes(request, Post_pk):
     Post.objects.filter(pk=Post_pk).update(likes=current_likes)
     Post.objects.filter(pk=Post_pk).update(dislikes=current_dislikes)
     return redirect('../blog-home')
+
+def your_posts(request):
+    posts = Post.objects.filter(author_id=request.user.id).order_by('-date_posted')
+    context = {
+        "posts": posts
+    }
+    return render(request, 'blog/your_post.html', context)
+    
