@@ -24,7 +24,7 @@
     {% endif %}
     {% if is_button_elememts %}
     
-    <a href="href="{% url 'profile' %}" target="_blank">
+    <a href="{% url 'profile' %}" target="_blank">
       <button
       style="color: #ffffff;"
       class="btn btn-lg text-uppercase btn-margin"
@@ -39,6 +39,22 @@
       data-bs-dismiss="modal"
       type="button">
       Log out
+    </button></a>
+    <a href="{% url 'home' %}" target="_blank">
+      <button
+      style="color: #ffffff;"
+      class="btn btn-lg text-uppercase btn-margin"
+      data-bs-dismiss="modal"
+      type="button">
+      Home
+    </button></a>
+    <a href="{% url 'report' %}" target="_blank">
+      <button
+      style="color: #ffffff;"
+      class="btn btn-lg text-uppercase btn-margin"
+      data-bs-dismiss="modal"
+      type="button">
+      Complaint
     </button></a>
     {% endif %}
     {% if is_navbar_responsive %}
