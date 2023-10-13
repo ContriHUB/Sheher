@@ -58,21 +58,21 @@ def user_login(request):
                 messages.success(request, 'Logged in successfully')
                 return redirect('../../')
             else:
-                data={
-                    'error':'Invalid Credentials',
-                    'status':'0',
-                      }
-                return render(request, 'home/register.html', data)
-        else:
-            all_places = PlacesDetails.objects.all()
-            messages.error(request, 'Invalid Credentials')
-            return redirect('../login')
+                messages.error(request, 'Invalid Credentials')
+                #return redirect('../../Visitor/login/')
                 # data={
                 #     'error':'Invalid Credentials',
                 #     'status':'0',
                 #       }
-                # return render(request, 'home/register.html', data)
-            # return render(request, 'home/register.html', data)
+                return render(request, 'home/register.html')
+        else:
+            all_places = PlacesDetails.objects.all()
+            data = {
+                'places' : all_places,
+                'status':'0',
+            }
+            return render(request, 'home/register.html', data)
+    
 
 
 #user dashboard
