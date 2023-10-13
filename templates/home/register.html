@@ -330,8 +330,11 @@
     <!-- Core theme JS-->
     <script src="{% static 'js/scripts.js' %}"></script>
     <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        $('.message').hide().fadeIn(500).delay(2000).fadeOut(500);  
+        $(document).ready(function() {
+            $('.message').fadeIn(500).delay(2000).fadeOut(500);  
+        });
     </script>
   </body>
 </html>
