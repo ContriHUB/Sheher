@@ -7,6 +7,7 @@
     </div>
         <h2>{{ object.title }}</a></h2>
         <p class="article-content">{{ object.location }}</p>
+        <h5>{{ object.content }}</h5>
         {% if object.picture %}
         <img class="rounded mx-auto d-block" src="{{ object.picture.url }}" alt="image">
         {% endif %}
