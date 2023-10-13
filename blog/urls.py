@@ -7,6 +7,7 @@ from .views import (
     PostDeleteView, 
     likes,
     dislikes,
+    comment,
     your_posts
 )
 
@@ -18,5 +19,6 @@ urlpatterns = [
     path('post/<int:pk>/delete/', PostDeleteView.as_view(), name='post-delete'),
     path('like/<int:Post_pk>', likes, name='like'),
     path('dislike/<int:Post_pk>', dislikes, name='dislike'),
+    path('comment/<int:post_pk>', comment, name='comment'),
     path('your_post', your_posts, name='your_posts')
 ]

@@ -7,7 +7,7 @@ from django.views.generic import (
     UpdateView,
     DeleteView
 )
-from .models import Post, Like, Dislike
+from .models import Post, Like, Dislike, Comment
 
 class PostListView(ListView):
     model = Post
@@ -117,3 +117,15 @@ def your_posts(request):
     }
     return render(request, 'blog/your_post.html', context)
     
+def comment(request, post_pk):
+    user = request.user
+    post = Post.objects.get(pk=post_pk)
+    all_comments = Comment.objects.filter(post=post)
+    if request.method == 'POST':
+        content = request.POST.get('comment')
+        new_commment = Comment.objects.create(user=user, post=post,content=content)
+        new_commment.save()
+    context = {
+        "comments" : all_comments
+    }
+    return render(request, "blog/comment.html", context)

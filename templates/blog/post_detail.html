@@ -15,15 +15,23 @@
             Likes: {{ object.likes }}
 
             Dislikes: {{ object.dislikes }}
+  <br>
+            Comments:
+            <br>
+            {% %}
 </div>
         {% if user.is_authenticated %}
+        <br>
         <button><a href = "{% url 'like' object.id %}">Like</a></button>
         <button><a href = "{% url 'dislike' object.id %}">Dislike</a></button>
+        <button><a href = "{% url 'comment' object.id %}">Comment</a></button>
         {% endif %}
         {% if object.author == user %}
           <div>
+            <br>
             <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' object.id %}">Update</a>
             <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-delete' object.id %}">Delete</a>
           </div>
         {% endif %}
+
 {% endblock %}
