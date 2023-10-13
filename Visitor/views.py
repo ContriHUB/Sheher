@@ -25,6 +25,7 @@ def user_signup(request):
         city=request.POST['city']
         address=request.POST['address']
         phone=request.POST['phone']
+        gender=request.POST['gender']
         sos_contact=request.POST['sos']
         profile_pic=request.FILES.get('profile_pic')
         user=User.objects.create_user(email=email,first_name=firstname,last_name=lastname,password=password)
@@ -32,6 +33,7 @@ def user_signup(request):
         myfields=VisitorDetails()
         myfields.user=User.objects.get(email=email)
         myfields.city=city
+        myfields.gender=gender
         myfields.address=address
         myfields.phone=phone
         if profile_pic is not None:  #if no picture is provided then the database will save a default picture
@@ -104,7 +106,7 @@ def profile(request):
             'address':address,
             'profile_pic':profile_pic,
             # 'complaints': u_complaints,
-            'status':'1',
+            'status':'3',
         }
         return render(request, 'home/profile.html', context=data)
 

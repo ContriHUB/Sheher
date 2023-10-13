@@ -22,7 +22,41 @@
           Police Complaint
         </button></a>
     {% endif %}
-
+    {% if is_button_elememts %}
+    
+    <a href="{% url 'profile' %}" >
+      <button
+      style="color: #ffffff;"
+      class="btn btn-lg text-uppercase btn-margin"
+      data-bs-dismiss="modal"
+      type="button">
+      Profile
+    </button></a>
+    <a href="{% url 'user_logout' %}" >
+      <button
+      style="color: #ffffff;"
+      class="btn btn-lg text-uppercase btn-margin"
+      data-bs-dismiss="modal"
+      type="button">
+      Log out
+    </button></a>
+    <a href="{% url 'home' %}" >
+      <button
+      style="color: #ffffff;"
+      class="btn btn-lg text-uppercase btn-margin"
+      data-bs-dismiss="modal"
+      type="button">
+      Home
+    </button></a>
+    <a href="{% url 'report' %}" >
+      <button
+      style="color: #ffffff;"
+      class="btn btn-lg text-uppercase btn-margin"
+      data-bs-dismiss="modal"
+      type="button">
+      Complaint
+    </button></a>
+    {% endif %}
     {% if is_navbar_responsive %}
     <button
       class="navbar-toggler"
@@ -56,6 +90,7 @@
             >Log out</a
           >
         </li>
+        {% elif status == '3' %}
         {% else %}
         <li class="nav-item">
           <a
