@@ -59,6 +59,25 @@ An utility **Django WebApp** that uses Django packages.
 For help getting started with Django, view [online documentation](https://docs.djangoproject.com/en/4.1/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
 
+## Getting the API Key
+
+To access weather data, this project uses the WeatherAPI service. To get an API key, follow these steps:
+
+1. Visit the WeatherAPI website at [https://www.weatherapi.com/](https://www.weatherapi.com/).
+
+2. Sign up for an account or log in if you already have one.
+
+3. Once you are logged in, navigate to your account settings or dashboard.
+
+4. Look for an option to create a new API key or access your existing API keys.
+
+5. Generate a new API key. Some services may require you to subscribe to a specific plan or verify your email address to get access.
+
+6. After generating the key, make sure to copy it to your clipboard or save it in a secure location.Now open view.py file in home folder,then in the function get_weather_data in place of<API_KEY> paste your api key
+
+**Important**: Keep your API key secure. Do not share it publicly or expose it in your codebase. You can use environment variables or configuration files to store and access your API key securely.
+
+
 ##### Steps to contribute - 
 1. Fork this repo and clone it to your system.
 2. Get the issue assigned to you on the [ContriHUB](https://sac.mnnit.ac.in/contrihub/) website. 
