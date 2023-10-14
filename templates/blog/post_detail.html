@@ -2,33 +2,45 @@
 {% block content %}
 <div class="media-body">
     <div class="article-metadata">
-        {{ object.author }}
-            {{ object.date_posted }}
+        {{ post.author }}
+            {{ post.date_posted }}
     </div>
-        <h2>{{ object.title }}</a></h2>
-        <p class="article-content">{{ object.location }}</p>
-        <h5>{{ object.content }}</h5>
-        {% if object.picture %}
-        <img class="rounded mx-auto d-block" src="{{ object.picture.url }}" alt="image">
+        <h2>{{ post.title }}</a></h2>
+        <p class="article-content">{{ post.location }}</p>
+        <h5>{{ post.content }}</h5>
+        {% if post.picture %}
+        <img class="rounded mx-auto d-block" src="{{ post.picture.url }}" alt="image">
         {% endif %}
 </div>
 <div>
-            Likes: {{ object.likes }}
+            <h6>Likes: {{ post.likes }}</h6>
 
-            Dislikes: {{ object.dislikes }}
+            <h6>Dislikes: {{ post.dislikes }}</h6>
+            
+            <h6>Comments</h6>
+            {% for comment in comments %}
+            <ul>
+                <li><strong>{{ comment.user.username}}</strong>: {{ comment.content }}</li>
+                <br>
+            </ul>
+            {% endfor %}
 </div>
         {% if user.is_authenticated %}
+        <button><a href = "{% url 'like' post.id %}">Like</a></button>
+        <button><a href = "{% url 'dislike' post.id %}">Dislike</a></button>
         <br>
-        <button><a href = "{% url 'like' object.id %}">Like</a></button>
-        <button><a href = "{% url 'dislike' object.id %}">Dislike</a></button>
-        <button><a href = "{% url 'comment' object.id %}">Comment</a></button>
+        <form method="POST">
+          {% csrf_token %}
+          <input type="text", name = "comment", placeholder="comment-here"/>
+          <input type ="submit", name = "post comment"/>
+        </form>
         {% endif %}
-        {% if object.author == user %}
+        {% if post.author == user %}
           <div>
             <br>
-            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' object.id %}">Update</a>
-            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-delete' object.id %}">Delete</a>
+            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' post.id %}">Update</a>
+            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-delete' post.id %}">Delete</a>
           </div>
         {% endif %}
-
+<br>
 {% endblock %}

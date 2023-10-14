@@ -9,7 +9,7 @@ class Post(models.Model):
     content = models.TextField()
     date_posted = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    picture=models.ImageField(null=True,blank=True,upload_to="images/post")
+    picture=models.ImageField(null=True,blank=True,upload_to="images/post/")
     location = models.CharField(max_length=100)
     likes = models.IntegerField(default=0)
     dislikes = models.IntegerField(default=0)
@@ -18,7 +18,7 @@ class Post(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('post-detail', kwargs={'pk': self.pk})
+        return reverse('post-detail', kwargs={'post_pk': self.pk})
     
 class Like(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
