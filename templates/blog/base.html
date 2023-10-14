@@ -28,7 +28,7 @@
         <div class="content-section">
           <ul class="list-group">
             {% if user.is_authenticated %}
-            <li class="list-group-item list-group-item-light"><a href="{% url 'your_posts' %}">Your posts</a></li>
+            <li class="list-group-item list-group-item-light" ><a href="{% url 'your_posts' %}">Your posts</a></li>
             <li class="list-group-item list-group-item-light"><a href="{% url 'post-create' %}">Create New Post</a></li>
             <li class="list-group-item list-group-item-light"><a href="{% url 'profile' %}">Profile</a></li>
             {% else %}
