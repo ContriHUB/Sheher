@@ -2,16 +2,20 @@
 {% load static %}
 {% block content %}
     {% for post in posts %}
-    <div class="media-body">
-        <div class="article-metadata">
+    <div class="media-body card">
+        <div class="article-metadata card-header">
             {{ post.author }}
             {{ post.date_posted }}
         </div>
-            <h2><a href = "{% url 'post-detail' post.id %}">{{ post.title }}</a></h2>
+            <h2 class="card-title"><a href = "{% url 'post-detail' post.id %}">{{ post.title }}</a></h2>
+            <div class="card-text">
             <p class="article-content">{{ post.location }}</p>
             {% if post.picture %}
             <img class="rounded mx-auto d-block" src="{{ post.picture.url }}" alt="image">
             {% endif %}
+            </div>
     </div>
+    <br>
+    <br>
     {% endfor %}
 {% endblock content %}

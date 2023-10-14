@@ -1,6 +1,7 @@
 {% extends "blog/base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
+    <div style="font-family:Montserrat;">
         <form method="POST" enctype='multipart/form-data'>
             {% csrf_token %}
                 {{ form|crispy }}

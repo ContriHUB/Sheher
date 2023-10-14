@@ -1,7 +1,7 @@
 {% extends "blog/base.html" %}
 {% block content %}
-<div class="media-body">
-    <div class="article-metadata">
+<div class="media-body card">
+    <div class="article-metadata card-header">
         {{ post.author }}
             {{ post.date_posted }}
     </div>
@@ -20,14 +20,14 @@
             <h6>Comments</h6>
             {% for comment in comments %}
             <ul>
-                <li><strong>{{ comment.user.username}}</strong>: {{ comment.content }}</li>
-                <br>
+                <li><strong>{{ comment.user.email}}</strong>: {{ comment.content }}</li>
             </ul>
             {% endfor %}
 </div>
-        {% if user.is_authenticated %}
-        <button><a href = "{% url 'like' post.id %}">Like</a></button>
-        <button><a href = "{% url 'dislike' post.id %}">Dislike</a></button>
+<div>
+      {% if user.is_authenticated %}
+        <button  class="btn btn-warning"><a href = "{% url 'like' post.id %}" style="color:black;">Like</a></button>
+        <button  class="btn btn-warning"><a href = "{% url 'dislike' post.id %}" style="color:black;">Dislike</a></button>
         <br>
         <form method="POST">
           {% csrf_token %}
@@ -43,4 +43,5 @@
           </div>
         {% endif %}
 <br>
+</div>
 {% endblock %}

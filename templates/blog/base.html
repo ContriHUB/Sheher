@@ -13,10 +13,11 @@
   <link rel="stylesheet" type="text/css" href="{% static 'blog/main.css' %}">
 
   <title>Blog</title>
+
 </head>
 
 <body>
-  {% include "../navbar.html" with is_search=0 is_home=0 is_navbar_responsive=0 is_home_nav=1 is_services=0 is_places=0 is_team=0 is_contributors=0 is_report=1 %}
+  {% include "../navbar.html" with is_search=0 is_home=0 is_navbar_responsive=1 is_home_nav=1 is_services=0 is_places=0 is_team=0 is_contributors=0 is_report=1 %}
 
   <main role="main" class="container d-flex flex-row justify-content-center gap-3">
     <div class="row w-100">
