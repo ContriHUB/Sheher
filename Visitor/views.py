@@ -39,7 +39,8 @@ def user_signup(request):
         if profile_pic is not None:  #if no picture is provided then the database will save a default picture
             myfields.profile_picture = profile_pic
         myfields.save()
-        return HttpResponse('User account created')
+        messages.success(request, f'Your account has been created successfully! You are now able to log in')
+        return redirect('/')
 
 # user login
 def user_login(request):
@@ -57,11 +58,13 @@ def user_login(request):
                 messages.success(request, 'Logged in successfully')
                 return redirect('../../')
             else:
-                data={
-                    'error':'Invalid Credentials',
-                    'status':'0',
-                      }
-                return render(request, 'home/register.html', data)
+                messages.error(request, 'Invalid Credentials')
+                #return redirect('../../Visitor/login/')
+                # data={
+                #     'error':'Invalid Credentials',
+                #     'status':'0',
+                #       }
+                return render(request, 'home/register.html')
         else:
             all_places = PlacesDetails.objects.all()
             data = {
@@ -69,6 +72,7 @@ def user_login(request):
                 'status':'0',
             }
             return render(request, 'home/register.html', data)
+    
 
 
 #user dashboard
