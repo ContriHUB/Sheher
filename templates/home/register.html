@@ -4,6 +4,9 @@
   <head>
     <title>HomePage</title>
         {% include "../scripts.html" with is_index=0 is_profile=0 is_register=1 is_complaints=0 is_rating_review=0 is_edit_profile=0 %}
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
       <style>
             .messages{
                 position: relative;
@@ -11,7 +14,7 @@
                 z-index: 1;
                 opacity: 0.75;
             }
-            .message {
+            .message {             
                 position: absolute;
                 top: 0;
                 right: 0;
@@ -23,6 +26,7 @@
                 padding: 8px;
                 text-align: center;
                 width: 10%;
+                font-family: "Roboto Slab", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
                 font-size:small;
                 background-color: rgb(54, 156, 54);
             } 
