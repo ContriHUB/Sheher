@@ -9,6 +9,7 @@ An utility **Django WebApp** that uses Django packages.
 + About Places
 + Username Generator
 + Safety Index Of Place
++ Blog functionality
 
 
 ## Getting Started

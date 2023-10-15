@@ -14,3 +14,5 @@ Places/migrations/__pycache__
 Sheher/__pycache__
 Visitor/__pycache__
 Visitor/migrations/__pycache__
+blog/__pycache__
+blog/migrations/__pycache__
