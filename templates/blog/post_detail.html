@@ -3,10 +3,10 @@
 <div class="media-body card">
     <div class="article-metadata card-header">
         {{ post.author }}
-            {{ post.date_posted }}
+        <div style="text-align:right; width: 43rem; font-style: italic;">{{ post.date_posted }}</div>
     </div>
         <h2>{{ post.title }}</a></h2>
-        <p class="article-content">{{ post.location }}</p>
+        <p class="article-content" style="text-align:right; width: 43rem; font-style: italic;">{{ post.location }}</p>
         <h5>{{ post.content }}</h5>
         {% if post.picture %}
         <img class="rounded mx-auto d-block" src="{{ post.picture.url }}" alt="image" style="height: 258px; width:668px; object-fit: scale-down;">
