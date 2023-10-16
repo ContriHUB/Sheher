@@ -112,6 +112,7 @@ animation-direction: alternate;
   width: 950px;
 top:-80px;
   left: -116px;
+  opacity: 0;
 }
 
 .cont_img_back_ > img {
@@ -126,6 +127,7 @@ animation-direction: alternate;
 
 .cont_forms_active_login > .cont_img_back_ {
 top:0px;
+opacity: 0;
   -webkit-transition: all 0.5s;
 -moz-transition: all 0.5s;
 -ms-transition: all 0.5s;
@@ -135,6 +137,7 @@ transition: all 0.5s;
 
 .cont_forms_active_sign_up > .cont_img_back_ {
 top:200px;
+opacity: 0;
 left: -435px;
   -webkit-transition: all 0.5s;
 -moz-transition: all 0.5s;
@@ -186,6 +189,7 @@ cursor: pointer;
 .col_md_sign_up {
   position: relative;
   float: left;
+  /* background-color: red; */
   width: 50%;
 }
 
