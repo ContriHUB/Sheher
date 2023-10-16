@@ -16,3 +16,4 @@ Visitor/__pycache__
 Visitor/migrations/__pycache__
 blog/__pycache__
 blog/migrations/__pycache__
+blog/migrations/0001_initial.py
