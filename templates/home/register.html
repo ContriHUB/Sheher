@@ -266,32 +266,32 @@
     </div>
     </div>
     <div class="col_md_sign_up">
-    <div class="cont_ba_opcitiy">
+    <!-- <div class="cont_ba_opcitiy"> -->
     <h2>SIGN UP</h2>
 
 
     <p>Join Sheher within a minute ;) </p>
 
     <button class="btn_sign_up" onclick="cambiar_sign_up()">SIGN UP</button>
-    </div>
+    <!-- </div> -->
     </div>
          </div>
 
 
       <div class="cont_back_info">
          <div class="cont_img_back_grey">
-         <img src="{% static 'images/register-bg.jpg' %}" alt="" />
+         <!-- <img src="{% static 'images/register-bg.jpg' %}" alt="" /> -->
          </div>
 
       </div>
     <div class="cont_forms" >
       <div class="cont_img_back_">
-         <img src="{% static 'images/register-bg.jpg' %}" alt="" />
+         <!-- <img src="{% static 'images/register-bg.jpg' %}" alt="" /> -->
          </div>
     <form action="{% url "user_login" %}" method="post">
       {% csrf_token%}
       <div class="cont_form_login">
-      <img src="{% static 'images/cls.png' %}" onclick="ocultar_login_sign_up()"  height=20px width=20px align=left>
+      <!-- <img src="{% static 'images/cls.png' %}" onclick="ocultar_login_sign_up()"  height=20px width=20px align=left> -->
        <h2>LOGIN</h2>
 
       <input type="text" placeholder="Email" name="email"/>
@@ -302,7 +302,7 @@
     <form action="/Visitor/signup/" method="post" enctype='multipart/form-data'>
           {% csrf_token %}
          <div class="cont_form_sign_up">
-          <img src="{% static 'images/cls.png' %}" onclick="ocultar_login_sign_up()" height=20px width=20px align=left>
+          <!-- <img src="{% static 'images/cls.png' %}" onclick="ocultar_login_sign_up()" height=20px width=20px align=left> -->
              <h3>SIGN UP</h3>
           <input type="text" placeholder="Email" name="email"/>
             <input type="text" placeholder="First Name" name="firstname"/>
