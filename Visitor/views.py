@@ -15,7 +15,7 @@ from Sheher import settings
 from django.core.mail import send_mail
 from django.contrib import messages
 
-
+# user signup
 def user_signup(request):
     if request.method=='POST':
         firstname=request.POST["firstname"]
@@ -81,14 +81,14 @@ def dashboard(request):
 # Create your views here.
 
 def user_logout(request):
-    if request.user.is_authenticated:
+     if request.user.is_authenticated:
         logout(request)
         messages.success(request, 'Logged out successfully')
         return redirect('/')
-    else:
+     else:
         return redirect('/')
 
-
+# user profile  
 def profile(request):
     if request.user.is_authenticated:
         print(request.POST)
@@ -166,4 +166,3 @@ def edit_profile(request):
         return HttpResponseRedirect('/Visitor/login')
 def edit(request):
     pass
-
