@@ -7,9 +7,11 @@ from django.template.loader import render_to_string
 import collections
 from collections import Counter
 import requests
+from blog.models import Post
 
 def homepage(request):
     all_places = PlacesDetails.objects.all()
+    top_posts = get_top_posts()
     if request.user.is_authenticated:
         d = request.user
         profile_pic = VisitorDetails.objects.get(user_id=d).profile_picture
@@ -50,6 +52,7 @@ def homepage(request):
         # print(top_places)
         data = {
             'places' : all_places,
+            'posts' : top_posts,
             'user': d,
             'status': '1',
             'reviews': all_reviews,
@@ -62,6 +65,7 @@ def homepage(request):
         return render(request, 'index.html', context=data)
     data = {
         'places': all_places,
+        'posts' : top_posts,
         'status': '0',
     }
     return render(request, 'index.html', context=data)
@@ -166,4 +170,15 @@ def get_weather_data(latitude,longitude):
     weather_info['last updated time']=city_weather['current']['last_updated']
     return weather_info
     
-
+def get_top_posts():
+    top_posts = []
+    all_posts = Post.objects.all() 
+    for post in all_posts:
+        if post.likes > 0 or post.dislikes > 0:
+            top_posts.append(post)
+    try:
+        top_posts.sort(key=lambda x: x.likes/x.dislikes, reverse=True)
+    except:
+        top_posts.sort(key=lambda x: x.likes, reverse=True)
+    top_posts = top_posts[:6]
+    return top_posts

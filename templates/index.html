@@ -396,6 +396,30 @@
                         {% endif %}
             </div>
         </section>
+{#         <!-- Top Blogs -->#}
+        <section class="page-section" id="topblogs">
+            <div class="container">
+                <div class="text-center">
+                    <h2 class="section-heading text-uppercase">Top Blogs</h2>
+                </div>
+                <div class="row">
+                    {% for post in posts %}
+                    <div class="col-md-4">
+                        <div class="team-member">
+                            <div class="card" style="width: 17rem;">
+                                <img src="{{ post.picture.url }}" class="card-img-top">
+                                <div class="card-body">
+                                  <h5 class="card-title">{{ post.title }}</h5>
+                                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                  <a href="{% url 'post-detail' post.id %}" class="btn btn-primary">View Post</a>
+                                </div>
+                              </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
 
 {#        <!-- Team-->#}
         <section class="page-section" id="team">
@@ -427,7 +451,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-8 mx-auto text-center"><p class="large text-muted">Hactoberfest Project</p></div>
+                    <div class="col-lg-8 mx-auto text-center"><p class="large text-muted">Hacktoberfest Project</p></div>
                 </div>
             </div>
         </section>
