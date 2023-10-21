@@ -406,11 +406,13 @@
                     {% for post in posts %}
                     <div class="col-md-4">
                         <div class="team-member">
-                            <div class="card" style="width: 17rem;">
-                                <img src="{{ post.picture.url }}" class="card-img-top">
+                            <div class="card" style="width: 18rem;">
+                                <img src="{{ post.picture.url }}" class="card-img-top" style="height: 224px; width:224px; object-fit: scale-down;">
                                 <div class="card-body">
                                   <h5 class="card-title">{{ post.title }}</h5>
-                                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                  <p class="card-text">Author: {{ post.author }}
+                                  <div>Likes: {{ post.likes }} Dislikes: {{ post.dislikes }}</div>
+                                  </p>
                                   <a href="{% url 'post-detail' post.id %}" class="btn btn-primary">View Post</a>
                                 </div>
                               </div>
