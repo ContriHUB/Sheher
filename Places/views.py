@@ -66,3 +66,10 @@ def Review(request,pk):
             rating_review = RatingReview.objects.create(safety=safety,sanitization=sanitization,security=security,overall_fun=overallfun,place=place,user=user,review=desc)
             rating_review.save()
             return redirect('/')
+
+def all_places(request):
+    places = PlacesDetails.objects.all()
+    context = {
+        "places" : places
+    }
+    return render(request, "Places/all_places.html", context)
