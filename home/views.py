@@ -7,9 +7,11 @@ from django.template.loader import render_to_string
 import collections
 from collections import Counter
 import requests
+from blog.models import Post
 
 def homepage(request):
     all_places = PlacesDetails.objects.all()
+    top_posts = get_top_posts()
     if request.user.is_authenticated:
         d = request.user
         profile_pic = VisitorDetails.objects.get(user_id=d).profile_picture
@@ -29,7 +31,7 @@ def homepage(request):
                 rating+=int(review.safety)
                 rating+=int(review.sanitization)
                 rating+=int(review.security)
-                rating+=int(review.overall_fun)
+                # rating+=int(review.overall_fun)
                 count+=4
             if count == 0:
                 all_ratings.append(0)
@@ -50,6 +52,7 @@ def homepage(request):
         # print(top_places)
         data = {
             'places' : all_places,
+            'posts' : top_posts,
             'user': d,
             'status': '1',
             'reviews': all_reviews,
@@ -62,6 +65,7 @@ def homepage(request):
         return render(request, 'index.html', context=data)
     data = {
         'places': all_places,
+        'posts' : top_posts,
         'status': '0',
     }
     return render(request, 'index.html', context=data)
@@ -165,5 +169,17 @@ def get_weather_data(latitude,longitude):
     weather_info['precipitation in mm']=city_weather['current']['precip_mm']
     weather_info['last updated time']=city_weather['current']['last_updated']
     return weather_info
-    
 
+def get_ratio(x):
+    if x.dislikes == 0:
+        return x.likes
+    return (x.likes - x.dislikes)/x.dislikes
+
+def get_top_posts():
+    top_posts = []
+    all_posts = Post.objects.all() 
+    for post in all_posts:
+        top_posts.append(post)
+    top_posts.sort(key=lambda x: get_ratio(x), reverse=True)
+    top_posts = top_posts[:6]
+    return top_posts

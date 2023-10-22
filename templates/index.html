@@ -267,7 +267,7 @@
                     <div class="portfolio-modal modal fade" id="portfolioModal{{ p.pk }}" tabindex="-1" role="dialog" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
-                                <div class="close-modal" data-bs-dismiss="modal"><img src="{% static "assets/img/close-icon.svg" %}" alt="Close modal" /></div>
+                                <div class="close-modal" data-bs-dismiss="modal"><img src="{% static 'assets/img/close-icon.svg' %}" alt="Close modal" /></div>
                                     <div class="container">
                                         <div class="row justify-content-center">
                                             <div class="col-lg-8">
@@ -396,6 +396,34 @@
                         {% endif %}
             </div>
         </section>
+{#         <!-- Top Blogs -->#}
+        <section class="page-section" id="topblogs">
+            <div class="container">
+                <div class="text-center">
+                    <h2 class="section-heading text-uppercase">Top Blogs</h2>
+                </div>
+                <div class="row">
+                    {% for post in posts %}
+                    <div class="col-md-4">
+                        <div class="team-member">
+                            <div class="card" style="width: 18rem;">
+                                {% if post.picture %}
+                                    <img src="{{ post.picture.url }}" class="card-img-top" style="height: 224px; width:224px; object-fit: scale-down;" alt="image">
+                                {% endif %}
+                                <div class="card-body">
+                                  <h5 class="card-title">{{ post.title }}</h5>
+                                  <p class="card-text">Author: {{ post.author }}
+                                  <div>Likes: {{ post.likes }} Dislikes: {{ post.dislikes }}</div>
+                                  </p>
+                                  <a href="{% url 'post-detail' post.id %}" class="btn btn-primary">View Post</a>
+                                </div>
+                              </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
 
 {#        <!-- Team-->#}
         <section class="page-section" id="team">
@@ -427,7 +455,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-8 mx-auto text-center"><p class="large text-muted">Hactoberfest Project</p></div>
+                    <div class="col-lg-8 mx-auto text-center"><p class="large text-muted">Hacktoberfest Project</p></div>
                 </div>
             </div>
         </section>
