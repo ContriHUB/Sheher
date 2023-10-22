@@ -407,7 +407,9 @@
                     <div class="col-md-4">
                         <div class="team-member">
                             <div class="card" style="width: 18rem;">
-                                <img src="{{ post.picture.url }}" class="card-img-top" style="height: 224px; width:224px; object-fit: scale-down;">
+                                {% if post.picture %}
+                                    <img src="{{ post.picture.url }}" class="card-img-top" style="height: 224px; width:224px; object-fit: scale-down;" alt="image">
+                                {% endif %}
                                 <div class="card-body">
                                   <h5 class="card-title">{{ post.title }}</h5>
                                   <p class="card-text">Author: {{ post.author }}

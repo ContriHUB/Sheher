@@ -174,10 +174,9 @@ def get_top_posts():
     top_posts = []
     all_posts = Post.objects.all() 
     for post in all_posts:
-        if post.likes > 0 or post.dislikes > 0:
-            top_posts.append(post)
+        top_posts.append(post)
     try:
-        top_posts.sort(key=lambda x: x.likes/x.dislikes, reverse=True)
+        top_posts.sort(key=lambda x: (x.likes - x.dislikes)/x.dislikes, reverse=True)
     except:
         top_posts.sort(key=lambda x: x.likes, reverse=True)
     top_posts = top_posts[:6]
