@@ -9,7 +9,7 @@ from collections import Counter
 import requests
 
 def homepage(request):
-    all_places = PlacesDetails.objects.all()
+    all_places = get_top_places()
     if request.user.is_authenticated:
         d = request.user
         profile_pic = VisitorDetails.objects.get(user_id=d).profile_picture
@@ -166,4 +166,21 @@ def get_weather_data(latitude,longitude):
     weather_info['last updated time']=city_weather['current']['last_updated']
     return weather_info
     
-
+def get_top_places():
+    top_places = []
+    places = []
+    ratings = RatingReview.objects.all()
+    for r in ratings:
+        places.append(r)
+    choices = {
+        "VERY POOR": 1,
+        "POOR": 2,
+        "MEDIOCRE": 3,
+        "GOOD": 4,
+        "EXCELLENT": 5
+    }
+    places.sort(key=lambda x: (choices[x.safety]+choices[x.sanitization]+choices[x.security]+choices[x.overall_fun]), reverse=True)
+    places = places[:6]
+    for p in places:
+        top_places.append(p.place)
+    return top_places
