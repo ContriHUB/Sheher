@@ -13,7 +13,7 @@
       <div id="top-places" class="container bg-light">        
         {% if top_places %}
         <div class="row text-center" style="padding:15px;background-color:#ffc107;color:white;">
-          <h4 class="card-header"><i class="fa-sharp fa-solid fa-arrow-trend-up"></i> Top places</h4>
+          <h4 class="card-header"><i class="fa-sharp fa-solid fa-arrow-trend-up"></i> <a href="{% url 'all_places' %}"> Top places </a></h4>
         </div>
         <ul class="list-inline" style="margin-top:10px;">
           {% for i,p in top_places.items %}

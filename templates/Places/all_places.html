@@ -1,0 +1,47 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+  <link rel="stylesheet" type="text/css" href="{% static 'blog/main.css' %}">
+
+  <title>All Places</title>
+
+</head>
+<body>
+    {% include "../navbar.html" with is_search=0 is_home=0 is_navbar_responsive=1 is_home_nav=1 is_services=0 is_places=0 is_team=0 is_contributors=0 is_report=1 %}
+
+    <main role="main" class="container d-flex flex-row justify-content-center gap-3">
+      <div class="row w-100">
+        <div class="col-md-8">
+            {% for p in places %}
+            <div class="media-body card" style="background-image: linear-gradient(rgba(255,255,255), rgba(255,200,0,0.2));">
+                <div class="article-metadata card-header">
+                    <div style="font-family:sans-serif; font-weight:bold;">
+                    {{ p.name }}
+                    </div>
+                    
+                </div>
+                    <h2 class="card-title"><a href = "">{{ post.address }}</a></h2>
+                    <div class="card-text">
+                    <div class="article-content" style="text-align:right; width: 43rem; font-style: italic;">{{ post.city }}</div>
+                    {% if post.picture %}
+                    <img class="rounded mx-auto d-block" src="{{ post.picture.url }}" alt="image" style="height: 258px; width:668px; object-fit: scale-down;">
+                    {% endif %}
+                    </div>
+            </div>
+            <br>
+            <br>
+            {% endfor %}
+        </div>
+        </div>
+        </main>
+</body>
+</html>
