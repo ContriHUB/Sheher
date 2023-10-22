@@ -31,7 +31,7 @@ def homepage(request):
                 rating+=int(review.safety)
                 rating+=int(review.sanitization)
                 rating+=int(review.security)
-                rating+=int(review.overall_fun)
+                # rating+=int(review.overall_fun)
                 count+=4
             if count == 0:
                 all_ratings.append(0)
@@ -169,15 +169,17 @@ def get_weather_data(latitude,longitude):
     weather_info['precipitation in mm']=city_weather['current']['precip_mm']
     weather_info['last updated time']=city_weather['current']['last_updated']
     return weather_info
-    
+
+def get_ratio(x):
+    if x.dislikes == 0:
+        return x.likes
+    return (x.likes - x.dislikes)/x.dislikes
+
 def get_top_posts():
     top_posts = []
     all_posts = Post.objects.all() 
     for post in all_posts:
         top_posts.append(post)
-    try:
-        top_posts.sort(key=lambda x: (x.likes - x.dislikes)/x.dislikes, reverse=True)
-    except:
-        top_posts.sort(key=lambda x: x.likes, reverse=True)
+    top_posts.sort(key=lambda x: get_ratio(x), reverse=True)
     top_posts = top_posts[:6]
     return top_posts
