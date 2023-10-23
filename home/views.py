@@ -181,7 +181,11 @@ def get_top_places():
     places = places[:6]
     for p in places:
         top_places.append(p.place)
-    return top_places
+    all_places = PlacesDetails.objects.all()
+    for p in all_places:
+        top_places.append(p)
+    res = [i for n, i in enumerate(top_places) if i not in top_places[:n]]
+    return res
 
 def get_ratio(x):
     if x.dislikes == 0:
