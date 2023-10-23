@@ -26,16 +26,15 @@
                 <div class="article-metadata card-header">
                     <div style="font-family:sans-serif; font-weight:bold;">
                     {{ p.name }}
-                    </div>
-                    
+                    </div>    
                 </div>
-                    <h2 class="card-title"><a href = "">{{ post.address }}</a></h2>
+                    <h2 class="card-title">{{ p.address }}</h2>
                     <div class="card-text">
-                    <div class="article-content" style="text-align:right; width: 43rem; font-style: italic;">{{ post.city }}</div>
-                    {% if post.picture %}
-                    <img class="rounded mx-auto d-block" src="{{ post.picture.url }}" alt="image" style="height: 258px; width:668px; object-fit: scale-down;">
+                    <div class="article-content" style="text-align:right; width: 43rem; font-style: italic;">{{ p.city }}</div>
+                    {% if p.picture %}
+                    <img class="rounded mx-auto d-block" src="{{ p.picture.url }}" alt="image" style="height: 258px; width:668px; object-fit: scale-down;">
                     {% endif %}
-                    </div>
+                </div>
             </div>
             <br>
             <br>

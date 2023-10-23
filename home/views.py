@@ -172,14 +172,8 @@ def get_top_places():
     ratings = RatingReview.objects.all()
     for r in ratings:
         places.append(r)
-    choices = {
-        "VERY POOR": 1,
-        "POOR": 2,
-        "MEDIOCRE": 3,
-        "GOOD": 4,
-        "EXCELLENT": 5
-    }
-    places.sort(key=lambda x: (choices[x.safety]+choices[x.sanitization]+choices[x.security]+choices[x.overall_fun]), reverse=True)
+    
+    places.sort(key=lambda x: (int(x.safety) + int(x.sanitization) + int(x.security)), reverse=True)
     places = places[:6]
     for p in places:
         top_places.append(p.place)
