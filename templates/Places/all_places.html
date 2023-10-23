@@ -1,4 +1,5 @@
 {% load static %}
+{% load index %}
 <!doctype html>
 <html lang="en">
 
@@ -24,8 +25,141 @@
             {% for p in places %}
             <div class="media-body card" style="background-image: linear-gradient(rgba(255,255,255), rgba(255,200,0,0.2));">
                 <div class="article-metadata card-header">
-                    <div style="font-family:sans-serif; font-weight:bold;">
+                    <div data-bs-toggle="modal" href="#portfolioModal{{ p.pk }}" style="font-family:sans-serif; font-weight:bold;">
                     {{ p.name }}
+                    {% if user.is_authenticated %}                    
+                    {% for p in places %}
+                    <!-- Portfolio Modals-->
+                    <div class="portfolio-modal modal fade" id="portfolioModal{{ p.pk }}" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="close-modal" data-bs-dismiss="modal"><img src="{% static 'assets/img/close-icon.svg' %}" alt="Close modal" /></div>
+                                    <div class="container">
+                                        <div class="row justify-content-center">
+                                            <div class="col-lg-8">
+                                                <div class="modal-body">
+                                                    <!-- Place details-->
+                                                    <h2 class="text-uppercase">Place Name : {{ p.name }}</h2>
+                                                    <p class="item-intro text-muted">{{ p.address }}</p>
+                                                    <div class="place_image">
+                                                        <!--<img src='https://unsplash.com/photos/KMn4VEeEPR8' class="hostel_image" alt="">-->
+                                                        <img src="/media/{{ p.picture }}">
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <iframe src="http://maps.google.com/maps?q={{p.position.latitude}},{{p.position.longitude}}&z=15&output=embed"></iframe>
+                                                        </div>
+                                                        <div class="col">
+                                                    <ul class="list-inline">
+                                                        <li>
+                                                            <strong>Overall Rating: </strong>
+                                                                {% if ratings %}
+                                                                {{ ratings|index:forloop.counter }}
+                                                                {% endif %}
+                                                        </li>
+
+                                                        <li>
+                                                            <strong>Open Days : {{ p.day_open }}</strong>
+                                                        </li>
+
+
+                                                        <li>
+                                                            <strong>Timings : {{ p.visiting_time }}</strong>
+                                                        </li>
+
+                                                        <li>
+                                                            <strong>Charges : {{ p.fees }}</strong>
+                                                        </li>
+
+                                                        <li>
+                                                            <strong>Best Time to Visit : {{ p.month_to_visit }}</strong>
+                                                        </li>
+                                                        <li>
+                                                            <strong>Current Safety Index : <span id="safety-index-{{p.pk}}">???</span> </strong>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                    </div>
+                                                <div class="row">
+                                                    <div class="col">
+                                                    <a href="{% url 'rate_review' p.pk %}">
+                                                        <button class="btn btn-success text-right btn-lg text-uppercase" data-bs-dismiss="modal" type="submit">
+                                                            <i class="fa-brands fa-telegram"></i> Give Review
+                                                        </button>
+                                                    </a>
+                                                        </div>
+                                                    <div class="col">
+                                                    <button class="btn btn-primary btn-lg text-uppercase" data-bs-dismiss="modal" type="button">
+                                                    <i class="fas fa-xmark me-1"></i>
+                                                    Close Place
+                                                    </button>
+                                                    </div>
+                                                    <div class="col">
+                                                            <button id="btn-safety" onclick="updateSafetyIndex({{p.pk}})" class="btn btn-dark btn-lg text-uppercase" type="button"><i class="fa-regular fa-shield-check"></i> Check Safety
+                                                            </button>
+                                                    </div>
+                                                    </div>
+                                                    <br>
+                                                    <h4 class="mt-2 mb-2">Weather Information</h4> 
+                                                    <ul class="list-inline">
+                                                        {% for weather_title,weather_detail in p.weather_info.items %}
+
+                                                        <li>
+                                                            <strong>{{ weather_title }} : {{ weather_detail }}</strong>
+                                                        </li>
+
+
+                                                        {% endfor %}
+                                                    </ul>
+                                                    
+                                                    
+                                                    <h4 class="mt-2 mb-2">All Reviews</h4>
+                                                    {% if reviews %}
+                                                    {% for review in reviews|index:forloop.counter %}
+                                                    <div class="card p-4">
+                                                      <div class="row">
+                                                          <div class="col-2">
+                                                              <p>Given By : {{ review.user }}</p>
+                                                          </div>
+                                                          <div class="col-10">
+                                                              <div class="ml-2">
+                                                                  <div class="row">
+                                                                      <div class="col">
+                                                                          safety : {{ review.safety }}
+                                                                      </div>
+
+                                                                      <div class="col">
+                                                                          Security : {{ review.security }}
+                                                                      </div>
+
+                                                                      <div class="col">
+                                                                          Sanitization : {{ review.sanitization }}
+                                                                      </div>
+
+                                                                      <div class="col">
+                                                                          Overall Fun : {{ review.overall_fun }}
+                                                                      </div>
+
+                                                                  </div>
+                                                                  <div class="comment-area">
+                                                                      <textarea class="form-control" placeholder="Description" rows="4" disabled>{{ review.review }}</textarea>
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                                  {% endfor %}
+                                                    {% endif %}
+                                                    <br>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        {% endif %}
                     </div>    
                 </div>
                     <h2 class="card-title">{{ p.address }}</h2>
@@ -42,5 +176,159 @@
         </div>
         </div>
         </main>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="{% static "js/scripts.js" %}"></script>
+        <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+        <script>
+            // Code to populate contributors
+            document.addEventListener("DOMContentLoaded", () => {
+                fetch('https://api.github.com/repos/ContriHUB/Sheher/contributors?per_page=100')
+                    .then(res => res.json())
+                    .then(data => {
+                        if (Object.prototype.toString.call(data) === '[object Array]')
+                        {
+                            for (let i = 0; i < data.length; ++i)
+                                document.querySelector('.contributors_contributor-list').innerHTML += `<a href="${data[i].html_url}" target="_blank"><img class="rounded-circle contributors_contributor--image" src="${data[i].avatar_url}"></a>`;
+                        }
+                        else // Handling API Call Limit Exceeded error
+                            document.querySelector('.contributors__error-message').style.display = "block";
+                    })
+                    .catch(err => { // Handling other errors
+                        document.querySelector('.contributors__error-message').style.display = "block";
+                    });
+            });
+        </script>
+        <script>
+            $('.message').hide().fadeIn(500).delay(2000).fadeOut(500);  
+        </script>
 </body>
 </html>
+<script>
+  $(document).ready(function(){
+
+          $('#smartwizard').smartWizard({
+                  selected: 0,
+                  theme: 'arrows',
+                  autoAdjustHeight:true,
+                  transitionEffect:'fade',
+                  showStepURLhash: false,
+
+          });
+
+      });
+  function updateSafetyIndex(URL){
+      pk = URL
+      URL = '/'+URL+"/measure_safety/";
+      console.log(URL);
+      $.ajax({
+          url : URL,
+          type : "POST", // http method
+          data : {
+              name:"name",
+              csrfmiddlewaretoken: '{{ csrf_token }}' ,
+          },
+          success : function(response){
+              element = '#safety-index-'+pk
+              $(element).html(response.safety_index);
+              // console.log(response.safety_index);
+          },
+          error : function() {
+              console.log("Error calculating Safety Index");
+          }
+      });
+  }
+  // Search functionality
+  const user_input = $("#user-input")
+  const places_div = $('#replaceable-content')    
+  const top_places = $('#top-places')
+  const search_content = $('#search-content')
+  const all_content = $('#all-content')
+  const search_btn = $('#search-btn')
+  const endpoint = '/search/'
+  const delay_by_in_ms = 700
+  let scheduled_function = false 
+
+  let ajax_call = function (endpoint, request_parameters) {
+      $.getJSON(endpoint, request_parameters)
+          .done(response => {
+              top_places.hide();
+              // fade out the places_div, then:
+              places_div.fadeTo('slow', 0).promise().then(() => {
+                  // replace the HTML contents
+                  places_div.html(response['html_from_view'])
+                  // fade-in the div with new contents
+                  places_div.fadeTo('slow', 1)
+              })
+          })
+  }
+  user_input.on('focus', function(){
+      top_places.show();
+  })
+  user_input.focusout(function() {
+      top_places.fadeOut('slow')
+  });
+  let ajax_update_places = function (endpoint, request_parameters) {
+      $.getJSON(endpoint, request_parameters)
+          .done(response => {
+              search_content.promise().then(() => {
+                  // replace the HTML contents
+                  search_content.html(response['html_from_view'])
+                  // fade-in the div with new contents
+                  search_content.fadeTo('slow', 1)
+              })
+          })
+  }
+  user_input.on('keyup', function () {
+      if($(this).val()){
+          const request_parameters = {
+              q: $(this).val(), // value of user_input: the HTML element with ID user-input
+              template: "search_result_partial.html" // Template to be changed
+          }
+          // if scheduled_function is NOT false, cancel the execution of the function
+          if (scheduled_function) {
+              clearTimeout(scheduled_function)
+          }
+
+          // setTimeout returns the ID of the function to be executed
+          scheduled_function = setTimeout(ajax_call, delay_by_in_ms, endpoint, request_parameters)
+      }
+      else{
+          places_div.hide();
+          top_places.show();
+      }
+  }) 
+  search_btn.on('click', function () {
+      if($(user_input).val()){
+          const request_parameters = {
+              q: $(user_input).val(),
+              template: "search_places_partial.html"
+          }
+          all_content.hide()
+          search_content.show()
+          ajax_update_places(endpoint, request_parameters)
+      }
+      else{
+          search_content.hide()
+          all_content.show()
+      }
+  })
+  function allPlaces(){
+      search_content.hide()
+      all_content.show()
+  }
+  // Pressing enter on textbox will be equivalent to clicking on search button
+  $("#user-input").keyup(function(event) {
+      if (event.keyCode === 13) {
+          $("#search-btn").click();
+          $('html, body').animate({
+              scrollTop: $("#places").offset().top
+          }, 200);
+      }
+  });
+  $(document).on("click", !"#wrapper", function () {
+      $(this).parents(".search-box").find('input[type="text"]').val($(this).text());
+      places_div.hide();
+  });
+</script>
