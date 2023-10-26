@@ -10,7 +10,7 @@ import requests
 from blog.models import Post
 
 def homepage(request):
-    all_places = PlacesDetails.objects.all()
+    all_places = get_top_places()
     top_posts = get_top_posts()
     if request.user.is_authenticated:
         d = request.user
@@ -22,8 +22,8 @@ def homepage(request):
             all_reviews.append(reviews)
             latitude = places.position.latitude
             longitude = places.position.longitude
-            #weather_info=get_weather_data(latitude,longitude)
-            #places.weather_info=weather_info  #adding weather info to place object
+            weather_info=get_weather_data(latitude,longitude)
+            places.weather_info=weather_info  #adding weather info to place object
         for reviews_qs in all_reviews:
             rating = 0
             count = 0
@@ -169,6 +169,23 @@ def get_weather_data(latitude,longitude):
     weather_info['precipitation in mm']=city_weather['current']['precip_mm']
     weather_info['last updated time']=city_weather['current']['last_updated']
     return weather_info
+    
+def get_top_places():
+    top_places = []
+    places = []
+    ratings = RatingReview.objects.all()
+    for r in ratings:
+        places.append(r)
+    
+    places.sort(key=lambda x: (int(x.safety) + int(x.sanitization) + int(x.security)), reverse=True)
+    places = places[:6]
+    for p in places:
+        top_places.append(p.place)
+    all_places = PlacesDetails.objects.all()
+    for p in all_places:
+        top_places.append(p)
+    res = [i for n, i in enumerate(top_places) if i not in top_places[:n]]
+    return res
 
 def get_ratio(x):
     if x.dislikes == 0:

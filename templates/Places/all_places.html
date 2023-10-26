@@ -9,7 +9,7 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>Home</title>
-        {% include "./scripts.html" with is_index=1 is_profile=0 is_register=0 is_complaints=0 is_rating_review=0 is_edit_profile=0 %}
+        {% include "../scripts.html" with is_index=1 is_profile=0 is_register=0 is_complaints=0 is_rating_review=0 is_edit_profile=0 %}
         <!-- SOS button CSS -->
         <style>
             .sos {
@@ -175,62 +175,10 @@
         </style>
     </head>
     <body id="page-top" style="z-index: -1;">
-        {% if messages %}
-        <div class="container messages">
-            {% for message in messages %}
-            <p class="message">{{ message }}</p>
-            {% endfor %}
-        </div>
-        {% endif %}
         <!-- Navigation-->
-        {% include "./navbar.html" with is_search=1 is_home=0 is_navbar_responsive=1 is_home_nav=0 is_services=1 is_places=1 is_team=1 is_contributors=1 is_report=1 is_report_page=0 %}
+        {% include "../navbar.html" with is_search=0 is_home=1 is_navbar_responsive=1 is_home_nav=1 is_services=1 is_places=1 is_team=0 is_contributors=0 is_report=1 is_report_page=0 %}
         
-        <!-- floating button -->
-        <a href="/Visitor/SOS" class="sos position-fixed rounded-circle d-flex justify-content-center align-items-center">
-            <i class="fa-solid fa-phone-volume"></i>
-        </a>
-        <!-- Masthead-->
-        <header class="masthead">
-            <div class="container">
-                <div class="masthead-subheading">Welcome To Sheher!</div>
-                <div class="masthead-heading text-uppercase">It's Nice To Meet You</div>
-                <a class="btn btn-primary btn-xl text-uppercase" href="#places">Explore</a>
-            </div>
-        </header>
-        <!-- Services-->
-        <section class="page-section" id="services">
-            <div class="container">
-                <div class="text-center">
-                    <h2 class="section-heading text-uppercase">Services</h2>
-                </div>
-                <div class="row text-center">
-                    <div class="col-md-4">
-                        <span class="fa-stack fa-4x">
-                            <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                            <i class="fas fa-exclamation-triangle fa-stack-1x fa-inverse"></i>
-                        </span>
-                        <h4 class="my-3">Complaint Portal</h4>
-                        <p class="text-muted">Want to complaint regarding any incident or about places , you can reach out to us.</p>
-                    </div>
-                    <div class="col-md-4">
-                        <span class="fa-stack fa-4x">
-                            <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                            <i class="fas fa-map-location-dot fa-stack-1x fa-inverse"></i>
-                        </span>
-                        <h4 class="my-3">About Places</h4>
-                        <p class="text-muted">You could know about places details, just click the place you want to know details of. </p>
-                    </div>
-                    <div class="col-md-4">
-                        <span class="fa-stack fa-4x">
-                            <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                            <i class="fas fa-star fa-stack-1x fa-inverse"></i>
-                        </span>
-                        <h4 class="my-3">Rating And Review</h4>
-                        <p class="text-muted">Your rating and review about places is valuable to us, please provide your review about place.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+        
         <!-- Portfolio Grid-->
         <section class="page-section bg-light" id="places">
             <div class="container">
@@ -239,8 +187,8 @@
                 </div>
                 <div id="all-content">
                 <div class="text-center">
-                    <h2 class="section-heading text-uppercase">Top Places</h2>
-                    <h3 class="section-subheading text-muted">Varanasi a city of Ghosts and Temples !</h3> 
+                    <h2 class="section-heading text-uppercase">All Places</h2>
+                     
                 </div>  
                 <div class="row">
                     {% for p in places %}
@@ -396,103 +344,6 @@
                         {% endif %}
             </div>
         </section>
-{#         <!-- Top Blogs -->#}
-        <section class="page-section" id="topblogs">
-            <div class="container">
-                <div class="text-center">
-                    <h2 class="section-heading text-uppercase">Top Blogs</h2>
-                </div>
-                <div class="row">
-                    {% for post in posts %}
-                    <div class="col-md-4">
-                        <div class="team-member">
-                            <div class="card" style="width: 18rem;">
-                                {% if post.picture %}
-                                    <img src="{{ post.picture.url }}" class="card-img-top" style="height: 224px; width:224px; object-fit: scale-down;" alt="image">
-                                {% endif %}
-                                <div class="card-body">
-                                  <h5 class="card-title">{{ post.title }}</h5>
-                                  <p class="card-text">Author: {{ post.author }}
-                                  <div>Likes: {{ post.likes }} Dislikes: {{ post.dislikes }}</div>
-                                  </p>
-                                  <a href="{% url 'post-detail' post.id %}" class="btn btn-primary">View Post</a>
-                                </div>
-                              </div>
-                        </div>
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
-        </section>
-
-{#        <!-- Team-->#}
-        <section class="page-section" id="team">
-            <div class="container">
-                <div class="text-center">
-                    <h2 class="section-heading text-uppercase">Our Amazing Team</h2>
-                </div>
-                <div class="row">
-                    <div class="col-lg-3">
-                        <div class="team-member">
-{#                            <img class="mx-auto rounded-circle" src="#" alt="..." />#}
-                            <h4>Cyril Mishra</h4>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="team-member">
-                            <h4>Asif Jamal</h4>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="team-member">
-                            <h4>Saurajit Nandi</h4>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="team-member">
-                            <h4>Ojasvi Gupta</h4>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-8 mx-auto text-center"><p class="large text-muted">Hacktoberfest Project</p></div>
-                </div>
-            </div>
-        </section>
-        <!-- Contributors -->
-        <section class="page-section bg-light" id="contributors">
-            <div class="container">
-                <div class="text-center">
-                    <h2 class="section-heading text-uppercase">Contributors</h2>
-                </div>
-                <div class="row flex mt-5">
-                    <div class="col-12 text-center contributors__contributor-list">
-                        <h3 class="section-subheading text-muted d-none contributors__error-message">List of contributors in currently unavailable. Please refresh after some time to view them.</h3>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- Footer-->
-        <footer class="footer py-4">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-lg-4 text-lg-start">Copyright &copy; Your Website 2022</div>
-                    <div class="col-lg-4 my-3 my-lg-0">
-                        <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                        <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                        <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-                    <div class="col-lg-4 text-lg-end">
-                        <a class="link-dark text-decoration-none me-3" href="#!">Privacy Policy</a>
-                        <a class="link-dark text-decoration-none" href="#!">Terms of Use</a>
-                    </div>
-                </div>
-            </div>
-        </footer>
-
-
-
-
 
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -508,7 +359,7 @@
                         if (Object.prototype.toString.call(data) === '[object Array]')
                         {
                             for (let i = 0; i < data.length; ++i)
-                                document.querySelector('.contributors__contributor-list').innerHTML += `<a href="${data[i].html_url}" target="_blank"><img class="rounded-circle contributors__contributor--image" src="${data[i].avatar_url}"></a>`;
+                                document.querySelector('.contributors_contributor-list').innerHTML += `<a href="${data[i].html_url}" target="_blank"><img class="rounded-circle contributors_contributor--image" src="${data[i].avatar_url}"></a>`;
                         }
                         else // Handling API Call Limit Exceeded error
                             document.querySelector('.contributors__error-message').style.display = "block";
