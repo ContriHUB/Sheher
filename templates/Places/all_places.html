@@ -1,126 +1,214 @@
 {% load static %}
 {% load index %}
-<!doctype html>
+
+<!DOCTYPE html>
 <html lang="en">
-
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
-  <link rel="stylesheet" type="text/css" href="{% static 'blog/main.css' %}">
-    <style>
-        .modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 1055;
-            display: none;
-            width: 100%;
-            height: 100%;
-            overflow-x: hidden;
-            overflow-y: auto;
-            outline: 0;
-          }
-          
-          .modal-dialog {
-            position: relative;
-            width: auto;
-            margin: 0.5rem;
-            pointer-events: none;
-          }
-          .modal.fade .modal-dialog {
-            transition: transform 0.3s ease-out;
-            transform: translate(0, -50px);
-          }
-          @media (prefers-reduced-motion: reduce) {
-            .modal.fade .modal-dialog {
-              transition: none;
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Home</title>
+        {% include "../scripts.html" with is_index=1 is_profile=0 is_register=0 is_complaints=0 is_rating_review=0 is_edit_profile=0 %}
+        <!-- SOS button CSS -->
+        <style>
+            .sos {
+	            width:60px;
+                height:60px;
+                bottom:40px;
+                right:40px;
+                background-color:RED;
+                color: BLACK; 
+                box-shadow: 2px 2px 3px #999;
+                transition: 0.2s;
             }
-          }
-          
-          .modal-content {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-            pointer-events: auto;
-            background-color: #fff;
-            background-clip: padding-box;
-            border: 1px solid rgba(0, 0, 0, 0.2);
-            border-radius: 0.3rem;
-            outline: 0;
-          }
-          
-          .modal-body {
-            position: relative;
-            flex: 1 1 auto;
-            padding: 1rem;
-          }
-          
-          @media (min-width: 576px) {
-            .modal-dialog {
-              max-width: 500px;
-              margin: 1.75rem auto;
+
+            .sos:hover {
+                width:70px;
+                height:70px; 
+                background-color: BLACK;
+                color:RED;
+                box-shadow: 4px 4px 5px #999;
+                transition: 0.2s;
             }
-          }
-          .portfolio-modal .modal-dialog {
-            margin: 1rem;
-            max-width: 100vw;
-          }
-          .portfolio-modal .modal-content {
-            padding-top: 6rem;
-            padding-bottom: 6rem;
-            text-align: center;
-          }
-          .portfolio-modal .modal-content h2, .portfolio-modal .modal-content .h2 {
-            font-size: 3rem;
-            line-height: 3rem;
-          }
-          .portfolio-modal .modal-content p.item-intro {
-            font-style: italic;
-            margin-bottom: 2rem;
-            font-family: "Roboto Slab", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-          }
-          .portfolio-modal .modal-content p {
-            margin-bottom: 2rem;
-          }
-          .portfolio-modal .modal-content ul.list-inline {
-            margin-bottom: 2rem;
-          }
-          .portfolio-modal .modal-content img {
-            margin-bottom: 2rem;
-          }
-          .portfolio-modal .close-modal {
-            position: absolute;
-            top: 1.5rem;
-            right: 1.5rem;
-            width: 3rem;
-            height: 3rem;
-            cursor: pointer;
-            background-color: transparent;
-          }
-          .portfolio-modal .close-modal:hover {
-            opacity: 0.3;
-          }
-    </style>
 
-  <title>All Places</title>
-</head>
-<body>
-    {% include "../navbar.html" with is_search=0 is_home=0 is_navbar_responsive=1 is_home_nav=1 is_services=0 is_places=0 is_team=0 is_contributors=0 is_report=1 %}
+            .contributors__contributor--image {
+                height: 64px;
+                width: 64px;
+            }
 
-    <main role="main" class="container d-flex flex-row justify-content-center gap-3">
-      <div class="row w-100">
-        <div class="col-md-8">
-            {% for p in places %}
-            <div class="media-body card" style="background-image: linear-gradient(rgba(255,255,255), rgba(255,200,0,0.2));">
-                <div class="article-metadata card-header">
-                    <div data-bs-toggle="modal" href="#portfolioModal{{ p.pk }}" style="font-family:sans-serif; font-weight:bold;">
-                    {{ p.name }}
+            .place_image img {
+                object-fit: cover;
+                object-position: center;
+                height: 200px;
+            }
+
+            .comment-area textarea {
+                resize: none;
+                border: 1px solid #ad9f9f;
+            }
+
+            .form-control:focus {
+                box-shadow: 0 0 0 1px rgb(255, 0, 0) !important;
+            }
+            nav {
+                margin-bottom: 4em;
+            }
+            
+            .float{
+            	position:fixed;
+	            width:60px;
+                height:60px;
+                bottom:40px;
+                right:40px;
+                background-color:RED;
+                color:#FFF;
+                border-radius:50px;
+                text-align:center;
+                box-shadow: 2px 2px 3px #999;
+            }
+
+            .my-float{
+            	margin-top:22px;
+            }
+
+            .place_image{
+                width:100%;
+                padding: 0 15px;
+            }
+            .place_image img{
+                width:100%;
+                object-fit: cover;
+                object-position: center;
+                height: 200px;
+            }
+            .card {
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                min-width: 0;
+                padding: 20px;
+                width: 800px;
+                word-wrap: break-word;
+                background-color: #fff;
+                background-clip: border-box;
+                border-radius: 6px;
+                -moz-box-shadow: 0px 0px 5px 0px rgba(212, 182, 212, 1)
+            }
+
+            .comment-box{
+
+                padding:5px;
+            }
+
+
+
+            .comment-area textarea{
+            resize: none;
+                    border: 1px solid #ad9f9f;
+            }
+
+
+            .form-control:focus {
+                color: #495057;
+                background-color: #fff;
+                border-color: #ffffff;
+                outline: 0;
+                box-shadow: 0 0 0 1px rgb(255, 0, 0) !important;
+            }
+            #wrapper {
+                width:360px;
+                z-index:10;
+            }
+            #replaceable-content{
+                overflow-y:scroll;
+                overflow-x:hidden;
+                display:none;
+                height:400px;
+            }
+            #top-places{
+                height:400px;
+                display:none;
+            }
+            .portfolio-caption{
+                margin-left:15px;
+            }
+            @media screen and (min-width: 1400px) {
+                #navbarResponsive{
+                    position:absolute;
+                    top:25px;
+                    margin-left:430px;
+                }
+              }
+            .navbar-toggler{
+                position:absolute;
+                top:15px;
+                margin-left:380px;
+            }
+            .messages{
+                position: relative;
+                float: right;
+                z-index: 1;
+                opacity: 0.75;
+            }
+            .message {
+                position: absolute;
+                top: 0;
+                right: 0;
+                border-radius: 5px;
+                box-shadow: 3px 3px 4px 0px rgba(50, 50, 50, 0.75);
+                color: white;
+                margin-top: 50px;
+                margin-right: 50px;
+                padding: 8px;
+                text-align: center;
+                width: 10%;
+                font-size:small;
+                background-color: rgb(54, 156, 54);
+            } 
+            hr{
+                margin-top: 1rem;
+                margin-bottom: 1rem;
+                border: 0;
+                border-top: 1px solid rgba(0, 0, 0, 0.1);
+            }
+        </style>
+    </head>
+    <body id="page-top" style="z-index: -1;">
+        <!-- Navigation-->
+        {% include "../navbar.html" with is_search=0 is_home=1 is_navbar_responsive=1 is_home_nav=1 is_services=1 is_places=1 is_team=0 is_contributors=0 is_report=1 is_report_page=0 %}
+        
+        
+        <!-- Portfolio Grid-->
+        <section class="page-section bg-light" id="places">
+            <div class="container">
+                <div id="search-content" style="display:none;">
+                    {% include 'search_places_partial.html' %}
+                </div>
+                <div id="all-content">
+                <div class="text-center">
+                    <h2 class="section-heading text-uppercase">All Places</h2>
+                     
+                </div>  
+                <div class="row">
+                    {% for p in places %}
+                    <div class="col-lg-4 col-sm-6 mb-4">
+                        <!-- Portfolio item 1-->
+                        <div class="portfolio-item">
+                            <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal{{ p.pk }}">
+                                <div class="place_image w-100 px-3">
+                                                        <!--<img src='https://unsplash.com/photos/KMn4VEeEPR8' class="hostel_image" alt="">-->
+                                                        <img class="w-100" src="/media/{{ p.picture }}">
+                                                    </div></a>
+                            <div class="portfolio-caption">
+                                <div class="portfolio-caption-heading">{{ p.name }}</div>
+                                <div class="portfolio-caption-subheading text-muted">{{ p.city }}</div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
                     {% if user.is_authenticated %}                    
                     {% for p in places %}
                     <!-- Portfolio Modals-->
@@ -254,22 +342,9 @@
                         </div>
                         {% endfor %}
                         {% endif %}
-                    </div>    
-                </div>
-                    <h2 class="card-title">{{ p.address }}</h2>
-                    <div class="card-text">
-                    <div class="article-content" style="text-align:right; width: 43rem; font-style: italic;">{{ p.city }}</div>
-                    {% if p.picture %}
-                    <img class="rounded mx-auto d-block" src="{{ p.picture.url }}" alt="image" style="height: 258px; width:668px; object-fit: scale-down;">
-                    {% endif %}
-                </div>
             </div>
-            <br>
-            <br>
-            {% endfor %}
-        </div>
-        </div>
-        </main>
+        </section>
+
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
@@ -297,132 +372,132 @@
         <script>
             $('.message').hide().fadeIn(500).delay(2000).fadeOut(500);  
         </script>
-</body>
+    </body>
 </html>
 <script>
-  $(document).ready(function(){
+    $(document).ready(function(){
 
-          $('#smartwizard').smartWizard({
-                  selected: 0,
-                  theme: 'arrows',
-                  autoAdjustHeight:true,
-                  transitionEffect:'fade',
-                  showStepURLhash: false,
+            $('#smartwizard').smartWizard({
+                    selected: 0,
+                    theme: 'arrows',
+                    autoAdjustHeight:true,
+                    transitionEffect:'fade',
+                    showStepURLhash: false,
 
-          });
+            });
 
-      });
-  function updateSafetyIndex(URL){
-      pk = URL
-      URL = '/'+URL+"/measure_safety/";
-      console.log(URL);
-      $.ajax({
-          url : URL,
-          type : "POST", // http method
-          data : {
-              name:"name",
-              csrfmiddlewaretoken: '{{ csrf_token }}' ,
-          },
-          success : function(response){
-              element = '#safety-index-'+pk
-              $(element).html(response.safety_index);
-              // console.log(response.safety_index);
-          },
-          error : function() {
-              console.log("Error calculating Safety Index");
-          }
-      });
-  }
-  // Search functionality
-  const user_input = $("#user-input")
-  const places_div = $('#replaceable-content')    
-  const top_places = $('#top-places')
-  const search_content = $('#search-content')
-  const all_content = $('#all-content')
-  const search_btn = $('#search-btn')
-  const endpoint = '/search/'
-  const delay_by_in_ms = 700
-  let scheduled_function = false 
+        });
+    function updateSafetyIndex(URL){
+        pk = URL
+        URL = '/'+URL+"/measure_safety/";
+        console.log(URL);
+        $.ajax({
+            url : URL,
+            type : "POST", // http method
+            data : {
+                name:"name",
+                csrfmiddlewaretoken: '{{ csrf_token }}' ,
+            },
+            success : function(response){
+                element = '#safety-index-'+pk
+                $(element).html(response.safety_index);
+                // console.log(response.safety_index);
+            },
+            error : function() {
+                console.log("Error calculating Safety Index");
+            }
+        });
+    }
+    // Search functionality
+    const user_input = $("#user-input")
+    const places_div = $('#replaceable-content')    
+    const top_places = $('#top-places')
+    const search_content = $('#search-content')
+    const all_content = $('#all-content')
+    const search_btn = $('#search-btn')
+    const endpoint = '/search/'
+    const delay_by_in_ms = 700
+    let scheduled_function = false 
 
-  let ajax_call = function (endpoint, request_parameters) {
-      $.getJSON(endpoint, request_parameters)
-          .done(response => {
-              top_places.hide();
-              // fade out the places_div, then:
-              places_div.fadeTo('slow', 0).promise().then(() => {
-                  // replace the HTML contents
-                  places_div.html(response['html_from_view'])
-                  // fade-in the div with new contents
-                  places_div.fadeTo('slow', 1)
-              })
-          })
-  }
-  user_input.on('focus', function(){
-      top_places.show();
-  })
-  user_input.focusout(function() {
-      top_places.fadeOut('slow')
-  });
-  let ajax_update_places = function (endpoint, request_parameters) {
-      $.getJSON(endpoint, request_parameters)
-          .done(response => {
-              search_content.promise().then(() => {
-                  // replace the HTML contents
-                  search_content.html(response['html_from_view'])
-                  // fade-in the div with new contents
-                  search_content.fadeTo('slow', 1)
-              })
-          })
-  }
-  user_input.on('keyup', function () {
-      if($(this).val()){
-          const request_parameters = {
-              q: $(this).val(), // value of user_input: the HTML element with ID user-input
-              template: "search_result_partial.html" // Template to be changed
-          }
-          // if scheduled_function is NOT false, cancel the execution of the function
-          if (scheduled_function) {
-              clearTimeout(scheduled_function)
-          }
+    let ajax_call = function (endpoint, request_parameters) {
+        $.getJSON(endpoint, request_parameters)
+            .done(response => {
+                top_places.hide();
+                // fade out the places_div, then:
+                places_div.fadeTo('slow', 0).promise().then(() => {
+                    // replace the HTML contents
+                    places_div.html(response['html_from_view'])
+                    // fade-in the div with new contents
+                    places_div.fadeTo('slow', 1)
+                })
+            })
+    }
+    user_input.on('focus', function(){
+        top_places.show();
+    })
+    user_input.focusout(function() {
+        top_places.fadeOut('slow')
+    });
+    let ajax_update_places = function (endpoint, request_parameters) {
+        $.getJSON(endpoint, request_parameters)
+            .done(response => {
+                search_content.promise().then(() => {
+                    // replace the HTML contents
+                    search_content.html(response['html_from_view'])
+                    // fade-in the div with new contents
+                    search_content.fadeTo('slow', 1)
+                })
+            })
+    }
+    user_input.on('keyup', function () {
+        if($(this).val()){
+            const request_parameters = {
+                q: $(this).val(), // value of user_input: the HTML element with ID user-input
+                template: "search_result_partial.html" // Template to be changed
+            }
+            // if scheduled_function is NOT false, cancel the execution of the function
+            if (scheduled_function) {
+                clearTimeout(scheduled_function)
+            }
 
-          // setTimeout returns the ID of the function to be executed
-          scheduled_function = setTimeout(ajax_call, delay_by_in_ms, endpoint, request_parameters)
-      }
-      else{
-          places_div.hide();
-          top_places.show();
-      }
-  }) 
-  search_btn.on('click', function () {
-      if($(user_input).val()){
-          const request_parameters = {
-              q: $(user_input).val(),
-              template: "search_places_partial.html"
-          }
-          all_content.hide()
-          search_content.show()
-          ajax_update_places(endpoint, request_parameters)
-      }
-      else{
-          search_content.hide()
-          all_content.show()
-      }
-  })
-  function allPlaces(){
-      search_content.hide()
-      all_content.show()
-  }
-  // Pressing enter on textbox will be equivalent to clicking on search button
-  $("#user-input").keyup(function(event) {
-      if (event.keyCode === 13) {
-          $("#search-btn").click();
-          $('html, body').animate({
-              scrollTop: $("#places").offset().top
-          }, 200);
-      }
-  });
-  $(document).on("click", !"#wrapper", function () {
-      $(this).parents(".search-box").find('input[type="text"]').val($(this).text());
-      places_div.hide();
-  });
+            // setTimeout returns the ID of the function to be executed
+            scheduled_function = setTimeout(ajax_call, delay_by_in_ms, endpoint, request_parameters)
+        }
+        else{
+            places_div.hide();
+            top_places.show();
+        }
+    }) 
+    search_btn.on('click', function () {
+        if($(user_input).val()){
+            const request_parameters = {
+                q: $(user_input).val(),
+                template: "search_places_partial.html"
+            }
+            all_content.hide()
+            search_content.show()
+            ajax_update_places(endpoint, request_parameters)
+        }
+        else{
+            search_content.hide()
+            all_content.show()
+        }
+    })
+    function allPlaces(){
+        search_content.hide()
+        all_content.show()
+    }
+    // Pressing enter on textbox will be equivalent to clicking on search button
+    $("#user-input").keyup(function(event) {
+        if (event.keyCode === 13) {
+            $("#search-btn").click();
+            $('html, body').animate({
+                scrollTop: $("#places").offset().top
+            }, 200);
+        }
+    });
+    $(document).on("click", !"#wrapper", function () {
+        $(this).parents(".search-box").find('input[type="text"]').val($(this).text());
+        places_div.hide();
+    });
 </script>
